@@ -5,20 +5,23 @@
 
 import type { Landmark3D, SignFrame } from '../lib/clipTypes';
 
-/** Lerp a single 3D landmark with robust fallback if a point is missing. */
 export function lerpLandmark(
   a: Landmark3D | undefined | null,
   b: Landmark3D | undefined | null,
   t: number
 ): Landmark3D {
-  const pA = a || [0, 0, 0];
-  const pB = b || pA;
-  const zA = pA[2] ?? 0;
-  const zB = pB[2] ?? 0;
+  const ax = a && typeof a[0] === 'number' ? a[0] : 0;
+  const ay = a && typeof a[1] === 'number' ? a[1] : 0;
+  const az = a && typeof a[2] === 'number' ? a[2] : 0;
+
+  const bx = b && typeof b[0] === 'number' ? b[0] : ax;
+  const by = b && typeof b[1] === 'number' ? b[1] : ay;
+  const bz = b && typeof b[2] === 'number' ? b[2] : az;
+
   return [
-    pA[0] + (pB[0] - pA[0]) * t,
-    pA[1] + (pB[1] - pA[1]) * t,
-    zA + (zB - zA) * t,
+    ax + (bx - ax) * t,
+    ay + (by - ay) * t,
+    az + (bz - az) * t,
   ];
 }
 

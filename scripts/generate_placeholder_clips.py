@@ -133,37 +133,88 @@ def build_hand(
 
     sign_side = 1.0 if not is_left else -1.0
 
-    # Base finger origins at palm knuckles (MCPs)
-    # Thumb: 1-4, Index: 5-8, Middle: 9-12, Ring: 13-16, Pinky: 17-20
+    # Knuckle base anchors relative to wrist:
+    # Thumb CMC (1), Index MCP (5), Middle MCP (9), Ring MCP (13), Pinky MCP (17)
     mcp_offsets = [
-        (0.02 * sign_side, -0.04, 0.0),   # Thumb CMC
-        (0.04 * sign_side, -0.12, 0.0),   # Index MCP
-        (0.01 * sign_side, -0.13, 0.0),   # Middle MCP
-        (-0.02 * sign_side, -0.12, 0.0),  # Ring MCP
-        (-0.05 * sign_side, -0.10, 0.0),  # Pinky MCP
+        (0.038 * sign_side, -0.032, 0.015),   # 1: Thumb CMC
+        (0.026 * sign_side, -0.088, 0.008),   # 5: Index MCP
+        (0.006 * sign_side, -0.092, 0.002),   # 9: Middle MCP
+        (-0.014 * sign_side, -0.086, -0.004), # 13: Ring MCP
+        (-0.032 * sign_side, -0.076, -0.010), # 17: Pinky MCP
     ]
 
-    for f_idx in range(5):
+    # 1. Thumb (1: CMC, 2: MCP, 3: IP, 4: TIP)
+    t_cmc_off = mcp_offsets[0]
+    cmc = [wx + t_cmc_off[0], wy + t_cmc_off[1], wz + t_cmc_off[2]]
+    hand.append([round(cmc[0], 4), round(cmc[1], 4), round(cmc[2], 4)])
+
+    t_e = ext[0]
+    t_c = curls[0]
+    t_s = spreads[0] * sign_side
+    t_ang = (1.0 - t_c) * (math.pi * 0.45)
+    t_seg = scale * 0.22 * t_e
+
+    mcp_t = [
+        cmc[0] + t_s * 0.03,
+        cmc[1] - t_seg * math.cos(t_ang),
+        cmc[2] + t_seg * math.sin(t_ang),
+    ]
+    ip_t = [
+        mcp_t[0] + t_s * 0.025,
+        mcp_t[1] - t_seg * math.cos(t_ang),
+        mcp_t[2] + t_seg * math.sin(t_ang),
+    ]
+    tip_t = [
+        ip_t[0] + t_s * 0.02,
+        ip_t[1] - (t_seg * 0.85) * math.cos(t_ang),
+        ip_t[2] + (t_seg * 0.85) * math.sin(t_ang),
+    ]
+    hand.extend([
+        [round(mcp_t[0], 4), round(mcp_t[1], 4), round(mcp_t[2], 4)],
+        [round(ip_t[0], 4), round(ip_t[1], 4), round(ip_t[2], 4)],
+        [round(tip_t[0], 4), round(tip_t[1], 4), round(tip_t[2], 4)],
+    ])
+
+    # 2. Four Fingers (Index: 5-8, Middle: 9-12, Ring: 13-16, Pinky: 17-20)
+    for f_idx in range(1, 5):
         mcp_x, mcp_y, mcp_z = mcp_offsets[f_idx]
         e = ext[f_idx]
         c = curls[f_idx]
         s = spreads[f_idx] * sign_side
 
-        # 4 segments per finger (CMC/MCP -> PIP -> DIP -> TIP)
-        seg_len = scale * (0.28 if f_idx == 2 else 0.24 if f_idx in (1, 3) else 0.20)
-        
-        # Calculate joints
-        curr_x, curr_y, curr_z = wx + mcp_x, wy + mcp_y, wz + mcp_z
-        for seg in range(1, 5):
-            # Direction vector combining pitch, spread and curl
-            dx = math.sin(s + yaw) * seg_len * e
-            dy = -math.cos(pitch) * seg_len * c
-            dz = math.sin(roll) * seg_len + (0.02 * (1.0 - c) * seg)
-            
-            curr_x += dx
-            curr_y += dy
-            curr_z += dz
-            hand.append([round(curr_x, 4), round(curr_y, 4), round(curr_z, 4)])
+        # 5, 9, 13, 17: MCP Knuckle
+        mcp = [wx + mcp_x, wy + mcp_y, wz + mcp_z]
+        hand.append([round(mcp[0], 4), round(mcp[1], 4), round(mcp[2], 4)])
+
+        # Segment length
+        seg_len = scale * (0.28 if f_idx == 2 else 0.24 if f_idx in (1, 3) else 0.20) * e
+
+        # Curl angular progression
+        curl_ang_pip = (1.0 - c) * (math.pi * 0.55) + pitch
+        curl_ang_dip = (1.0 - c) * (math.pi * 0.75) + pitch
+        curl_ang_tip = (1.0 - c) * (math.pi * 0.95) + pitch
+
+        pip = [
+            mcp[0] + math.sin(s + yaw) * seg_len,
+            mcp[1] - seg_len * math.cos(curl_ang_pip),
+            mcp[2] + seg_len * math.sin(curl_ang_pip) + math.sin(roll) * 0.01,
+        ]
+        dip = [
+            pip[0] + math.sin(s + yaw) * seg_len * 0.85,
+            pip[1] - seg_len * 0.85 * math.cos(curl_ang_dip),
+            pip[2] + seg_len * 0.85 * math.sin(curl_ang_dip) + math.sin(roll) * 0.01,
+        ]
+        tip = [
+            dip[0] + math.sin(s + yaw) * seg_len * 0.70,
+            dip[1] - seg_len * 0.70 * math.cos(curl_ang_tip),
+            dip[2] + seg_len * 0.70 * math.sin(curl_ang_tip) + math.sin(roll) * 0.01,
+        ]
+
+        hand.extend([
+            [round(pip[0], 4), round(pip[1], 4), round(pip[2], 4)],
+            [round(dip[0], 4), round(dip[1], 4), round(dip[2], 4)],
+            [round(tip[0], 4), round(tip_t[1] if False else tip[1], 4), round(tip[2], 4)],
+        ])
 
     return hand
 
