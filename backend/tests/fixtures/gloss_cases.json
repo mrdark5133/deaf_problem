@@ -1,0 +1,258 @@
+{
+  "description": "Golden test cases for SignBridge ASL Gloss translation engine",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "input": "Where is the doctor?",
+      "expected_glosses": ["DOCTOR", "WHERE"],
+      "is_question": true,
+      "question_type": "wh"
+    },
+    {
+      "input": "What is your name?",
+      "expected_glosses": ["YOUR", "NAME", "WHAT"],
+      "is_question": true,
+      "question_type": "wh"
+    },
+    {
+      "input": "Who is the teacher?",
+      "expected_glosses": ["TEACHER", "WHO"],
+      "is_question": true,
+      "question_type": "wh"
+    },
+    {
+      "input": "When will you come?",
+      "expected_glosses": ["YOU", "COME", "WILL", "WHEN"],
+      "is_question": true,
+      "question_type": "wh"
+    },
+    {
+      "input": "Why do you need help?",
+      "expected_glosses": ["YOU", "NEED", "HELP", "WHY"],
+      "is_question": true,
+      "question_type": "wh"
+    },
+    {
+      "input": "How are you?",
+      "expected_glosses": ["HOW-ARE-YOU"],
+      "is_question": true,
+      "question_type": "wh"
+    },
+    {
+      "input": "Do you understand?",
+      "expected_glosses": ["YOU", "UNDERSTAND"],
+      "is_question": true,
+      "question_type": "yes_no"
+    },
+    {
+      "input": "Are you hungry?",
+      "expected_glosses": ["YOU", "FS:HUNGRY"],
+      "is_question": true,
+      "question_type": "yes_no"
+    },
+    {
+      "input": "Can you wait please?",
+      "expected_glosses": ["YOU", "WAIT", "PLEASE"],
+      "is_question": true,
+      "question_type": "yes_no"
+    },
+    {
+      "input": "Is the nurse coming?",
+      "expected_glosses": ["NURSE", "COME"],
+      "is_question": true,
+      "question_type": "yes_no"
+    },
+    {
+      "input": "Hello",
+      "expected_glosses": ["HELLO"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "Hi friend",
+      "expected_glosses": ["HELLO", "FRIEND"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "Good morning",
+      "expected_glosses": ["GOOD", "MORNING"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "Thank you very much",
+      "expected_glosses": ["THANK-YOU", "FS:VERY", "FS:MUCH"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "Nice to meet you",
+      "expected_glosses": ["NICE-TO-MEET-YOU"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "Goodbye see you tomorrow",
+      "expected_glosses": ["TOMORROW", "GOODBYE", "GOODBYE"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "I need medicine now",
+      "expected_glosses": ["NOW", "ME", "NEED", "MEDICINE"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "Tomorrow I will go home",
+      "expected_glosses": ["TOMORROW", "ME", "GO", "HOME"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "Yesterday I ate food",
+      "expected_glosses": ["YESTERDAY", "ME", "EAT", "FOOD"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "Today we learn at school",
+      "expected_glosses": ["TODAY", "WE", "LEARN", "SCHOOL"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "I ate the medicine",
+      "expected_glosses": ["ME", "EAT", "MEDICINE", "FINISH"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "We worked at hospital",
+      "expected_glosses": ["WE", "WORK", "HOSPITAL", "FINISH"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "I will drink water",
+      "expected_glosses": ["ME", "DRINK", "WATER", "WILL"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "I do not understand",
+      "expected_glosses": ["ME", "NOT", "UNDERSTAND"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "I can not come",
+      "expected_glosses": ["ME", "NOT", "COME"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "Doctor did not arrive",
+      "expected_glosses": ["DOCTOR", "NOT", "COME", "FINISH"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "Please repeat slowly",
+      "expected_glosses": ["PLEASE", "REPEAT", "SLOW"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "I feel pain in my head",
+      "expected_glosses": ["ME", "FEEL", "PAIN", "MY", "FS:HEAD"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "This is an emergency",
+      "expected_glosses": ["FS:THIS", "EMERGENCY"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "My name is John",
+      "expected_glosses": ["MY", "NAME", "FS:JOHN"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "Room 402",
+      "expected_glosses": ["FS:ROOM", "FS:402"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "Dr Smith",
+      "expected_glosses": ["DOCTOR", "FS:SMITH"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "I want more water please",
+      "expected_glosses": ["ME", "WANT", "MORE", "WATER", "PLEASE"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "My family is at home",
+      "expected_glosses": ["MY", "FAMILY", "HOME"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "Sorry I am late",
+      "expected_glosses": ["SORRY", "ME", "FS:LATE"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "Yes I know the doctor",
+      "expected_glosses": ["YES", "ME", "KNOW", "DOCTOR"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "No I do not want food",
+      "expected_glosses": ["NO", "ME", "NOT", "WANT", "FOOD"],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "WHERE IS THE HOSPITAL?",
+      "expected_glosses": ["HOSPITAL", "WHERE"],
+      "is_question": true,
+      "question_type": "wh"
+    },
+    {
+      "input": "   ",
+      "expected_glosses": [],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "???!!!...",
+      "expected_glosses": [],
+      "is_question": false,
+      "question_type": null
+    },
+    {
+      "input": "Hello! 😊 👋 How are you?",
+      "expected_glosses": ["HELLO", "HOW-ARE-YOU"],
+      "is_question": true,
+      "question_type": "wh"
+    },
+    {
+      "input": "I need help with my homework and medicine today",
+      "expected_glosses": ["TODAY", "ME", "NEED", "HELP", "MY", "FS:HOMEWORK", "MEDICINE"],
+      "is_question": false,
+      "question_type": null
+    }
+  ]
+}
