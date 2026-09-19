@@ -53,16 +53,24 @@
 ## ✨ Key Features
 
 1. **Deterministic ASL Grammar Engine:** Converts English syntax to ASL gloss grammar in **under 4 ms (p50: 3.57 ms)** with 100% test accuracy across 42 golden benchmark fixtures.
-2. **Smooth 60 FPS Canvas Avatar:** Real-time upper-body and detailed 21-landmark hand rendering with 150 ms linear frame blending (`lerpFrames`) between sign clips.
-3. **Computer Vision Sign Capture Studio (`/recorder`):** Web-based MediaPipe Pose and Hand landmark tracker that normalizes scale and origin to record reusable sign clips.
-4. **Alphanumeric Fingerspelling Fallback:** Automatically spells out unknown medical words, proper nouns, and numbers (A–Z, 0–9).
-5. **Backpressure Rate Adaptation:** Prevents latency buildup during continuous speech by dynamically adapting playback speed (up to 1.5×) when audio queues exceed 2 seconds.
-6. **WCAG 2.2 AA & AAA Accessibility:**
+2. **High-Precision 2D Canvas Avatar:**
+   - **Dynamic Mid-Shoulder Anchoring:** Auto-centers and scales across all sign datasets without jitter.
+   - **3D Palm Normal Shading:** Distinguishes anterior palm (with crease lines), posterior dorsum (with knuckle bar), and blade views.
+   - **Z-Depth Sorted Finger Bones:** Tapered capsules with contrasting borders prevent finger blurring in complex handshapes.
+   - **Motion Trajectory Ghost Trails:** Fading bezier ribbon tracks active signing hand dynamics.
+   - **Dominant vs Base Hand Distinction:** Sun Amber (Right) and Electric Cyan (Left) with bottom-right HUD legend.
+   - **Non-Manual Markers:** Head gradient contour and question-lifting eyebrows.
+3. **Procedural 3D Mannequin View:** Direction-only retargeting with invariant bone lengths and 2D/3D switcher (<kbd>3</kbd> key).
+4. **Real ASL Dataset Integration:** 39 real sign clips from ASL Citizen & ASL-MNIST with 100% vocabulary coverage (96 total clips).
+5. **Computer Vision Sign Capture Studio (`/recorder`):** Web-based MediaPipe Pose and Hand landmark tracker to inspect, record, and validate sign clips.
+6. **Alphanumeric Fingerspelling Fallback:** Automatically spells out unknown medical words, proper nouns, and numbers (A–Z, 0–9).
+7. **Backpressure Rate Adaptation:** Prevents latency buildup during continuous speech by dynamically adapting playback speed (up to 1.5×).
+8. **WCAG 2.2 AA & AAA Accessibility:**
    - **Themes:** Dark (default), Light, and High-Contrast (pure black with bright yellow & cyan landmarks, $\ge 19:1$ contrast).
    - **Avatar Mirror View:** Instant horizontal perspective flip (<kbd>M</kbd>).
    - **Customizable Caption Sizing:** Small, Medium, Large, and Extra Large typography.
    - **Full Keyboard Navigation:** Operate the entire application without a mouse.
-7. **Offline Scripted Demo Mode:** 3 pre-built scenarios (*Doctor Visit*, *Classroom*, *Help Desk*) that run completely offline without microphone or backend network dependencies.
+9. **Offline Scripted Demo Mode:** 3 pre-built scenarios (*Doctor Visit*, *Classroom*, *Help Desk*) that run completely offline.
 
 ---
 
@@ -76,7 +84,7 @@
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/hackspora/signbridge.git && cd signbridge
+git clone https://github.com/mrdark5133/deaf_problem.git && cd deaf_problem
 
 # 2. Install backend dependencies & spaCy language model
 pip install -r backend/requirements.txt
