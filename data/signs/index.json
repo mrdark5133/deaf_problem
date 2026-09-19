@@ -17,7 +17,9 @@
       "source": "synthetic",
       "file": "signs/again.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 96,
+      "quality_verdict": "GREEN"
     },
     "come": {
       "id": "come",
@@ -27,7 +29,9 @@
       "source": "synthetic",
       "file": "signs/come.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "doctor": {
       "id": "doctor",
@@ -37,7 +41,9 @@
       "source": "synthetic",
       "file": "signs/doctor.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 97,
+      "quality_verdict": "GREEN"
     },
     "drink": {
       "id": "drink",
@@ -47,7 +53,9 @@
       "source": "synthetic",
       "file": "signs/drink.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 98,
+      "quality_verdict": "GREEN"
     },
     "eat": {
       "id": "eat",
@@ -57,7 +65,9 @@
       "source": "asl-citizen-processed-200",
       "file": "signs/eat.json",
       "fps": 30,
-      "duration_ms": 1533
+      "duration_ms": 1533,
+      "quality_score": 65,
+      "quality_verdict": "AMBER"
     },
     "emergency": {
       "id": "emergency",
@@ -67,7 +77,9 @@
       "source": "synthetic",
       "file": "signs/emergency.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 80,
+      "quality_verdict": "GREEN"
     },
     "family": {
       "id": "family",
@@ -77,7 +89,9 @@
       "source": "synthetic",
       "file": "signs/family.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "feel": {
       "id": "feel",
@@ -87,7 +101,9 @@
       "source": "synthetic",
       "file": "signs/feel.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 96,
+      "quality_verdict": "GREEN"
     },
     "finish": {
       "id": "finish",
@@ -97,7 +113,9 @@
       "source": "asl-citizen-processed-200",
       "file": "signs/finish.json",
       "fps": 30,
-      "duration_ms": 1533
+      "duration_ms": 1533,
+      "quality_score": 50,
+      "quality_verdict": "RED"
     },
     "food": {
       "id": "food",
@@ -107,7 +125,9 @@
       "source": "synthetic",
       "file": "signs/food.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 97,
+      "quality_verdict": "GREEN"
     },
     "friend": {
       "id": "friend",
@@ -117,7 +137,9 @@
       "source": "synthetic",
       "file": "signs/friend.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "fs_0": {
       "id": "fs_0",
@@ -127,7 +149,9 @@
       "source": "synthetic",
       "file": "signs/fs_0.json",
       "fps": 30,
-      "duration_ms": 600
+      "duration_ms": 600,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_1": {
       "id": "fs_1",
@@ -137,7 +161,9 @@
       "source": "synthetic",
       "file": "signs/fs_1.json",
       "fps": 30,
-      "duration_ms": 600
+      "duration_ms": 600,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_2": {
       "id": "fs_2",
@@ -147,7 +173,9 @@
       "source": "synthetic",
       "file": "signs/fs_2.json",
       "fps": 30,
-      "duration_ms": 600
+      "duration_ms": 600,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_3": {
       "id": "fs_3",
@@ -157,7 +185,9 @@
       "source": "synthetic",
       "file": "signs/fs_3.json",
       "fps": 30,
-      "duration_ms": 600
+      "duration_ms": 600,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_4": {
       "id": "fs_4",
@@ -167,7 +197,9 @@
       "source": "synthetic",
       "file": "signs/fs_4.json",
       "fps": 30,
-      "duration_ms": 600
+      "duration_ms": 600,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_5": {
       "id": "fs_5",
@@ -177,7 +209,9 @@
       "source": "synthetic",
       "file": "signs/fs_5.json",
       "fps": 30,
-      "duration_ms": 600
+      "duration_ms": 600,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_6": {
       "id": "fs_6",
@@ -187,7 +221,9 @@
       "source": "synthetic",
       "file": "signs/fs_6.json",
       "fps": 30,
-      "duration_ms": 600
+      "duration_ms": 600,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_7": {
       "id": "fs_7",
@@ -197,7 +233,9 @@
       "source": "synthetic",
       "file": "signs/fs_7.json",
       "fps": 30,
-      "duration_ms": 600
+      "duration_ms": 600,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_8": {
       "id": "fs_8",
@@ -207,7 +245,9 @@
       "source": "synthetic",
       "file": "signs/fs_8.json",
       "fps": 30,
-      "duration_ms": 600
+      "duration_ms": 600,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_9": {
       "id": "fs_9",
@@ -217,7 +257,9 @@
       "source": "synthetic",
       "file": "signs/fs_9.json",
       "fps": 30,
-      "duration_ms": 600
+      "duration_ms": 600,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_a": {
       "id": "fs_a",
@@ -227,7 +269,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_a.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_b": {
       "id": "fs_b",
@@ -237,7 +281,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_b.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_c": {
       "id": "fs_c",
@@ -247,7 +293,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_c.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_d": {
       "id": "fs_d",
@@ -257,7 +305,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_d.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_e": {
       "id": "fs_e",
@@ -267,7 +317,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_e.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_f": {
       "id": "fs_f",
@@ -277,7 +329,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_f.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_g": {
       "id": "fs_g",
@@ -287,7 +341,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_g.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_h": {
       "id": "fs_h",
@@ -297,7 +353,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_h.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_i": {
       "id": "fs_i",
@@ -307,7 +365,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_i.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_j": {
       "id": "fs_j",
@@ -317,7 +377,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_j.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_k": {
       "id": "fs_k",
@@ -327,7 +389,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_k.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_l": {
       "id": "fs_l",
@@ -337,7 +401,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_l.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_m": {
       "id": "fs_m",
@@ -347,7 +413,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_m.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_n": {
       "id": "fs_n",
@@ -357,7 +425,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_n.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_o": {
       "id": "fs_o",
@@ -367,7 +437,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_o.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_p": {
       "id": "fs_p",
@@ -377,7 +449,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_p.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_q": {
       "id": "fs_q",
@@ -387,7 +461,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_q.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_r": {
       "id": "fs_r",
@@ -397,7 +473,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_r.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_s": {
       "id": "fs_s",
@@ -407,7 +485,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_s.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_t": {
       "id": "fs_t",
@@ -417,7 +497,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_t.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_u": {
       "id": "fs_u",
@@ -427,7 +509,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_u.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_v": {
       "id": "fs_v",
@@ -437,7 +521,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_v.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_w": {
       "id": "fs_w",
@@ -447,7 +533,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_w.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_x": {
       "id": "fs_x",
@@ -457,7 +545,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_x.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_y": {
       "id": "fs_y",
@@ -467,7 +557,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_y.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "fs_z": {
       "id": "fs_z",
@@ -477,7 +569,9 @@
       "source": "asl-mnist-voxel51",
       "file": "signs/fs_z.json",
       "fps": 30,
-      "duration_ms": 500
+      "duration_ms": 500,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "go": {
       "id": "go",
@@ -487,7 +581,9 @@
       "source": "synthetic",
       "file": "signs/go.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "good": {
       "id": "good",
@@ -497,7 +593,9 @@
       "source": "synthetic",
       "file": "signs/good.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 96,
+      "quality_verdict": "GREEN"
     },
     "goodbye": {
       "id": "goodbye",
@@ -507,7 +605,9 @@
       "source": "synthetic",
       "file": "signs/goodbye.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "hello": {
       "id": "hello",
@@ -517,7 +617,9 @@
       "source": "asl-citizen-processed-200",
       "file": "signs/hello.json",
       "fps": 30,
-      "duration_ms": 1500
+      "duration_ms": 1500,
+      "quality_score": 56,
+      "quality_verdict": "RED"
     },
     "help": {
       "id": "help",
@@ -527,7 +629,9 @@
       "source": "synthetic",
       "file": "signs/help.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 97,
+      "quality_verdict": "GREEN"
     },
     "home": {
       "id": "home",
@@ -537,7 +641,9 @@
       "source": "synthetic",
       "file": "signs/home.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "hospital": {
       "id": "hospital",
@@ -547,7 +653,9 @@
       "source": "asl-citizen-processed-200",
       "file": "signs/hospital.json",
       "fps": 30,
-      "duration_ms": 1533
+      "duration_ms": 1533,
+      "quality_score": 75,
+      "quality_verdict": "AMBER"
     },
     "how": {
       "id": "how",
@@ -557,7 +665,9 @@
       "source": "synthetic",
       "file": "signs/how.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 95,
+      "quality_verdict": "GREEN"
     },
     "know": {
       "id": "know",
@@ -567,7 +677,9 @@
       "source": "synthetic",
       "file": "signs/know.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 97,
+      "quality_verdict": "GREEN"
     },
     "learn": {
       "id": "learn",
@@ -577,7 +689,9 @@
       "source": "synthetic",
       "file": "signs/learn.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 95,
+      "quality_verdict": "GREEN"
     },
     "love": {
       "id": "love",
@@ -587,7 +701,9 @@
       "source": "synthetic",
       "file": "signs/love.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "me": {
       "id": "me",
@@ -597,7 +713,9 @@
       "source": "synthetic",
       "file": "signs/me.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 98,
+      "quality_verdict": "GREEN"
     },
     "medicine": {
       "id": "medicine",
@@ -607,7 +725,9 @@
       "source": "synthetic",
       "file": "signs/medicine.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 96,
+      "quality_verdict": "GREEN"
     },
     "more": {
       "id": "more",
@@ -617,7 +737,9 @@
       "source": "synthetic",
       "file": "signs/more.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 94,
+      "quality_verdict": "GREEN"
     },
     "morning": {
       "id": "morning",
@@ -627,7 +749,9 @@
       "source": "asl-citizen-processed-200",
       "file": "signs/morning.json",
       "fps": 30,
-      "duration_ms": 1533
+      "duration_ms": 1533,
+      "quality_score": 59,
+      "quality_verdict": "RED"
     },
     "my": {
       "id": "my",
@@ -637,7 +761,9 @@
       "source": "synthetic",
       "file": "signs/my.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 100,
+      "quality_verdict": "GREEN"
     },
     "name": {
       "id": "name",
@@ -647,7 +773,9 @@
       "source": "asl-citizen-processed-200",
       "file": "signs/name.json",
       "fps": 30,
-      "duration_ms": 1500
+      "duration_ms": 1500,
+      "quality_score": 50,
+      "quality_verdict": "RED"
     },
     "need": {
       "id": "need",
@@ -657,7 +785,9 @@
       "source": "synthetic",
       "file": "signs/need.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 92,
+      "quality_verdict": "GREEN"
     },
     "nice-to-meet-you": {
       "id": "nice-to-meet-you",
@@ -667,7 +797,9 @@
       "source": "synthetic",
       "file": "signs/nice-to-meet-you.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "no": {
       "id": "no",
@@ -677,7 +809,9 @@
       "source": "synthetic",
       "file": "signs/no.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 98,
+      "quality_verdict": "GREEN"
     },
     "not": {
       "id": "not",
@@ -687,7 +821,9 @@
       "source": "synthetic",
       "file": "signs/not.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 96,
+      "quality_verdict": "GREEN"
     },
     "now": {
       "id": "now",
@@ -697,7 +833,9 @@
       "source": "synthetic",
       "file": "signs/now.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "nurse": {
       "id": "nurse",
@@ -707,7 +845,9 @@
       "source": "synthetic",
       "file": "signs/nurse.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 98,
+      "quality_verdict": "GREEN"
     },
     "pain": {
       "id": "pain",
@@ -717,7 +857,9 @@
       "source": "asl-citizen-processed-200",
       "file": "signs/pain.json",
       "fps": 30,
-      "duration_ms": 1500
+      "duration_ms": 1500,
+      "quality_score": 50,
+      "quality_verdict": "RED"
     },
     "please": {
       "id": "please",
@@ -727,7 +869,9 @@
       "source": "synthetic",
       "file": "signs/please.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 83,
+      "quality_verdict": "GREEN"
     },
     "repeat": {
       "id": "repeat",
@@ -737,7 +881,9 @@
       "source": "synthetic",
       "file": "signs/repeat.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 96,
+      "quality_verdict": "GREEN"
     },
     "school": {
       "id": "school",
@@ -747,7 +893,9 @@
       "source": "synthetic",
       "file": "signs/school.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "slow": {
       "id": "slow",
@@ -757,7 +905,9 @@
       "source": "asl-citizen-processed-200",
       "file": "signs/slow.json",
       "fps": 30,
-      "duration_ms": 1467
+      "duration_ms": 1467,
+      "quality_score": 50,
+      "quality_verdict": "RED"
     },
     "sorry": {
       "id": "sorry",
@@ -767,7 +917,9 @@
       "source": "synthetic",
       "file": "signs/sorry.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 85,
+      "quality_verdict": "GREEN"
     },
     "teacher": {
       "id": "teacher",
@@ -777,7 +929,9 @@
       "source": "synthetic",
       "file": "signs/teacher.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 90,
+      "quality_verdict": "GREEN"
     },
     "thank-you": {
       "id": "thank-you",
@@ -787,7 +941,9 @@
       "source": "synthetic",
       "file": "signs/thank-you.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "today": {
       "id": "today",
@@ -797,7 +953,9 @@
       "source": "synthetic",
       "file": "signs/today.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "tomorrow": {
       "id": "tomorrow",
@@ -807,7 +965,9 @@
       "source": "synthetic",
       "file": "signs/tomorrow.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "understand": {
       "id": "understand",
@@ -817,7 +977,9 @@
       "source": "asl-citizen-processed-200",
       "file": "signs/understand.json",
       "fps": 30,
-      "duration_ms": 1500
+      "duration_ms": 1500,
+      "quality_score": 59,
+      "quality_verdict": "RED"
     },
     "wait": {
       "id": "wait",
@@ -827,7 +989,9 @@
       "source": "synthetic",
       "file": "signs/wait.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "want": {
       "id": "want",
@@ -837,7 +1001,9 @@
       "source": "asl-citizen-processed-200",
       "file": "signs/want.json",
       "fps": 30,
-      "duration_ms": 1533
+      "duration_ms": 1533,
+      "quality_score": 50,
+      "quality_verdict": "RED"
     },
     "water": {
       "id": "water",
@@ -847,7 +1013,9 @@
       "source": "synthetic",
       "file": "signs/water.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 96,
+      "quality_verdict": "GREEN"
     },
     "we": {
       "id": "we",
@@ -857,7 +1025,9 @@
       "source": "synthetic",
       "file": "signs/we.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "what": {
       "id": "what",
@@ -867,7 +1037,9 @@
       "source": "asl-citizen-processed-200",
       "file": "signs/what.json",
       "fps": 30,
-      "duration_ms": 1533
+      "duration_ms": 1533,
+      "quality_score": 57,
+      "quality_verdict": "RED"
     },
     "when": {
       "id": "when",
@@ -877,7 +1049,9 @@
       "source": "synthetic",
       "file": "signs/when.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 94,
+      "quality_verdict": "GREEN"
     },
     "where": {
       "id": "where",
@@ -887,7 +1061,9 @@
       "source": "synthetic",
       "file": "signs/where.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 80,
+      "quality_verdict": "GREEN"
     },
     "who": {
       "id": "who",
@@ -897,7 +1073,9 @@
       "source": "synthetic",
       "file": "signs/who.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "why": {
       "id": "why",
@@ -907,7 +1085,9 @@
       "source": "asl-citizen-processed-200",
       "file": "signs/why.json",
       "fps": 30,
-      "duration_ms": 1500
+      "duration_ms": 1500,
+      "quality_score": 63,
+      "quality_verdict": "AMBER"
     },
     "will": {
       "id": "will",
@@ -917,7 +1097,9 @@
       "source": "synthetic",
       "file": "signs/will.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 95,
+      "quality_verdict": "GREEN"
     },
     "work": {
       "id": "work",
@@ -927,7 +1109,9 @@
       "source": "asl-citizen-processed-200",
       "file": "signs/work.json",
       "fps": 30,
-      "duration_ms": 1567
+      "duration_ms": 1567,
+      "quality_score": 50,
+      "quality_verdict": "RED"
     },
     "yes": {
       "id": "yes",
@@ -937,7 +1121,9 @@
       "source": "synthetic",
       "file": "signs/yes.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 94,
+      "quality_verdict": "GREEN"
     },
     "yesterday": {
       "id": "yesterday",
@@ -947,7 +1133,9 @@
       "source": "synthetic",
       "file": "signs/yesterday.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "you": {
       "id": "you",
@@ -957,7 +1145,9 @@
       "source": "synthetic",
       "file": "signs/you.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     },
     "your": {
       "id": "your",
@@ -967,7 +1157,9 @@
       "source": "synthetic",
       "file": "signs/your.json",
       "fps": 30,
-      "duration_ms": 866
+      "duration_ms": 866,
+      "quality_score": 93,
+      "quality_verdict": "GREEN"
     }
   }
 }

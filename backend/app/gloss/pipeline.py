@@ -19,9 +19,16 @@ MULTI_WORD_EXPRESSIONS = [
     ),
     (re.compile(r"\bthank\s+you\b", re.IGNORECASE), ["THANK-YOU"]),
     (re.compile(r"\bthank\s+u\b", re.IGNORECASE), ["THANK-YOU"]),
+    (re.compile(r"\bsee\s+you\s+later\b", re.IGNORECASE), ["GOODBYE"]),
     (re.compile(r"\bsee\s+you\b", re.IGNORECASE), ["GOODBYE"]),
     (re.compile(r"\bhow\s+are\s+you\b", re.IGNORECASE), ["HOW-ARE-YOU"]),
     (re.compile(r"\bgood\s+morning\b", re.IGNORECASE), ["GOOD", "MORNING"]),
+    (re.compile(r"\bgood\s+afternoon\b", re.IGNORECASE), ["GOOD", "AFTERNOON"]),
+    (re.compile(r"\bgood\s+night\b", re.IGNORECASE), ["GOOD", "NIGHT"]),
+    (re.compile(r"\bexcuse\s+me\b", re.IGNORECASE), ["PLEASE"]),
+    (re.compile(r"\btake\s+care\b", re.IGNORECASE), ["GOODBYE"]),
+    (re.compile(r"\bfeel\s+better\b", re.IGNORECASE), ["FEEL", "GOOD"]),
+    (re.compile(r"\bwhat\s+happened\b", re.IGNORECASE), ["HAPPEN", "WHAT"]),
 ]
 
 

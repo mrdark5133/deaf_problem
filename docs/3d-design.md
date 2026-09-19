@@ -141,3 +141,20 @@ The procedural 3D mannequin consists of:
 | Three.js bundle size increases initial load | High | Dynamic `React.lazy()` import: Three.js chunk is loaded only when user clicks 3D |
 | Flat `z = 0` in synthetic clips causes 2D-looking rotations | Medium | Depth-enhancement heuristic: add anatomical depth bias based on arm flexion angle |
 | Rapid switching between 2D and 3D causes WebGL context loss | Medium | Clean canvas mount lifecycle; retain single WebGL context per component lifecycle |
+
+---
+
+## 9. 3D World-Space Upgrade & MediaPipe Perspective Recommendation (Phase H3)
+
+### Perspective Limitation of 2D Landmarks
+In 2D camera-space landmark capture, when a signer's fingers point directly toward the camera lens (common in signs like `YOU`, `WHERE`, `PAIN`, `LOOK`), perspective projection collapses the finger phalanges along the optical axis ($z$-axis). In a 2D canvas view, this appears as severely shortened or missing fingers ("foreshortening distortion").
+
+### Schema v2 World-Space Landmark Recommendation
+To fully resolve perspective ambiguity in complex 3D ASL handshapes:
+1. **Capture MediaPipe World Coordinates:**
+   MediaPipe provides `pose_world_landmarks` and `hand_world_landmarks`, which estimate physical $X, Y, Z$ positions in **real-world metric meters** centered at the signer's geometric root, independent of camera projection angle.
+2. **Timing Protocol:**
+   World-space landmark capture (Schema v2) **must be enabled in the recording pipeline prior to final clip ingestion**.
+3. **Kinematic Bone Alignment:**
+   Feeding physical metric coordinates into `retargeting.ts` guarantees invariant bone lengths and enables full $360^\circ$ rotation of the 3D mannequin avatar without finger flattening.
+

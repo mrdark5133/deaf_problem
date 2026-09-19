@@ -19,10 +19,10 @@
 > *"Watch what happens when a doctor speaks:  
 > **'Where is the medicine? I need help today.'**  
 >
-> 1. **Speech to Text:** Web Speech API captures speech in real time with continuous interim debounce.
+> 1. **Speech to Text:** Web Speech API captures speech in real time with continuous interim debounce (with 100% local typed input also available).
 > 2. **ASL Grammar Transformation:** Rather than signing English word-for-word, our FastAPI pipeline rearranges English syntax into natural ASL Topic-Comment order: `'MEDICINE WHERE'` and moves temporal markers first: `'TODAY ME NEED HELP'`.
 > 3. **Live Canvas Avatar:** Our custom 60 FPS HTML5 Canvas avatar immediately signs the sentence with smooth landmark blending and hand articulation.
-> 4. **Fingerspelling Fallback:** If a doctor mentions an unknown drug name like `'ASPIRIN'`, SignBridge automatically decomposes it into character-by-character fingerspelling.*
+> 4. **Fingerspelling Fallback:** If a doctor mentions an unknown drug name like `'ASPIRIN'`, SignBridge automatically decomposes it into character-by-character fingerspelling.
 >
 > *Notice the question eyebrow indicator at the top — ASL uses non-manual facial cues for questions, and SignBridge displays raised or furrowed brow indicators accordingly."*
 
@@ -31,18 +31,18 @@
 ### 3. Technical Architecture & Innovation (1:30 – 2:20)
 > *"Under the hood, SignBridge combines three distinct engineering innovations:*
 >
-> 1. **Deterministic NLP Grammar Engine:** Powered by spaCy and custom linguistic rule transforms that drop articles, invert WH-questions, apply aspectual tense markers (`FINISH`, `WILL`), and resolve synonyms in **under 4 milliseconds (p50: 3.57 ms)**.
-> 2. **Computer Vision Sign Capture Studio:** An integrated MediaPipe Pose and Hand landmark studio that normalizes coordinates (shoulder-width scale, shoulder-midpoint origin) to record reusable sign clips.
-> 3. **Backpressure & Ordering Engine:** Monotonic sequence guards prevent out-of-order execution, while dynamic rate adaptation raises playback speed when audio queues exceed 2 seconds to ensure latency never exceeds 4 seconds."*
+> 1. **Deterministic NLP Grammar Engine:** Powered by spaCy and custom linguistic rule transforms that drop articles, invert WH-questions, apply aspectual tense markers (`FINISH`, `WILL`), and resolve synonyms in **under 4 milliseconds (p50: 3.57 ms, p95: 45.56 ms on CPU for the gloss step)**.
+> 2. **Computer Vision Sign Capture Studio:** An integrated MediaPipe Pose and Hand landmark studio that normalizes coordinates (shoulder-width scale, shoulder-midpoint origin) to record and audit sign clips (39 real human clips + 57 procedural clips).
+> 3. **Backpressure & Ordering Engine:** Monotonic sequence guards prevent out-of-order execution, while dynamic rate adaptation raises playback speed when audio queues grow to ensure rendering stays synchronized."*
 
 ---
 
 ### 4. Accessibility, Impact & Conclusion (2:20 – 3:00)
-> *"SignBridge is built from the ground up for WCAG 2.2 AA accessibility:
-> - High-Contrast AAA mode for low-vision signers
+> *"SignBridge is built from the ground up for WCAG 2.2 AA & AAA contrast accessibility:
+> - High-Contrast AAA mode for low-vision signers ($\ge 19:1$ contrast ratio)
 > - Full keyboard-only navigation
 > - Avatar mirror view and variable caption scaling
-> - 100% offline scripted demo modes
+> - Offline scripted demo scenarios and local typed input mode
 >
 > SignBridge does not replace human interpreters; it empowers immediate, dignifying communication where none previously existed. Thank you!"*
 
@@ -52,9 +52,9 @@
 
 ### Q1: *"Why did you use deterministic NLP rules instead of relying entirely on an LLM like GPT-4?"*
 **Answer:**
-> *"In emergency medical intake and public help desks, latency, predictability, and offline resilience are paramount. An LLM call introduces 800–2000 ms of unpredictable network latency, requires internet access, and risks hallucinating non-existent words.
+> *"In emergency medical intake and public help desks, latency, predictability, and offline resilience are paramount. An LLM API call introduces variable network roundtrip latency, requires constant cloud connectivity, and risks hallucinating non-existent glosses.
 >
-> Our rule-based spaCy pipeline executes in **under 5 milliseconds**, is 100% deterministic (verified by our 42 golden test fixtures with a 100% pass rate), and functions fully offline. We also include an optional LLM flag for open-domain expansion where latency permits."*
+> Our rule-based spaCy pipeline executes in **3.57 ms (p50 for the gloss step on CPU)**, is 100% deterministic (verified by our 42 golden regression fixtures with a 100% pass rate), and operates locally without cloud GPU infrastructure. We also include an optional LLM flag for open-domain expansion where latency permits."*
 
 ---
 
@@ -78,7 +78,7 @@
 
 ### Q4: *"How do you maintain a smooth 60 FPS animation without visual jumping between signs?"*
 **Answer:**
-> *"We implemented a linear interpolation (`lerpFrames`) transition engine. When the player finishes one sign clip and starts another, it generates a 150 ms ease transition connecting the signer's ending pose directly to the next clip's first frame. When the queue is empty, the avatar smoothly returns to a natural rest pose."*
+> *"We implemented a linear interpolation (`lerpFrames`) transition engine. When the player finishes one sign clip and starts another, it generates an ease transition connecting the signer's ending pose directly to the next clip's first frame. When the queue is empty, the avatar smoothly returns to a natural rest pose."*
 
 ---
 
@@ -87,3 +87,10 @@
 > *"We documented our linguistic boundaries transparently in `docs/limitations.md`. While our 2D skeleton avatar renders hands and poses accurately, natural ASL utilizes rich 3D facial expressions and spatial classifiers.
 >
 > Our next step is conducting collaborative user studies with Deaf native signers and certified RID interpreters to expand vocabulary recordings and validate signing clarity in real hospital settings."*
+
+---
+
+## 📚 Deep-Dive References
+- Claims & Fact-Checking Audit: [`docs/claims-audit.md`](file:///d:/hackspora/docs/claims-audit.md)
+- Detailed competitive analysis vs. `sign.mt`, `ZurichNLP`, `AWS GenAI`, and `SignWave`: [`docs/related-work.md`](file:///d:/hackspora/docs/related-work.md)
+- Complete Judge Q&A and technical defenses: [`docs/pitch/judge-qa.md`](file:///d:/hackspora/docs/pitch/judge-qa.md)

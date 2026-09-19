@@ -5,6 +5,7 @@ import {
   assignHandsByWristProximity,
   interpolateMissingHandFrames,
   smoothSignFrames,
+  normalizeHandScale,
 } from './cvUtils';
 import type { Landmark3D, SignFrame } from '../lib/clipTypes';
 
@@ -69,7 +70,7 @@ describe('cvUtils', () => {
     expect(interpolated[1].left_hand![0][2]).toBeCloseTo(5);
   });
 
-  it('smooths sign frames with 3-frame window', () => {
+  it('smooths sign frames with adaptive per-part smoothing', () => {
     const f1: SignFrame = {
       pose: [[0, 0, 0]],
       left_hand: [[0, 0, 0]],
@@ -86,10 +87,43 @@ describe('cvUtils', () => {
       right_hand: null,
     };
 
+    // Default: alphaPose = 0.50 (center weight 0.5, neighbors 0.25), alphaHand = 0.80 (center weight 0.8, neighbors 0.1)
     const smoothed = smoothSignFrames([f1, f2, f3]);
     expect(smoothed.length).toBe(3);
-    // Middle frame smoothed: 0*0.25 + 10*0.5 + 0*0.25 = 5.0
+    // Middle frame pose smoothed: 0*0.25 + 10*0.5 + 0*0.25 = 5.0
     expect(smoothed[1].pose[0][0]).toBeCloseTo(5.0);
-    expect(smoothed[1].left_hand![0][0]).toBeCloseTo(5.0);
+    // Middle frame left_hand smoothed: 0*0.10 + 10*0.8 + 0*0.10 = 8.0
+    expect(smoothed[1].left_hand![0][0]).toBeCloseTo(8.0);
+
+    // Custom options: uniform 0.5
+    const uniformSmoothed = smoothSignFrames([f1, f2, f3], { bodyCenterWeight: 0.5, handCenterWeight: 0.5 });
+    expect(uniformSmoothed[1].left_hand![0][0]).toBeCloseTo(5.0);
+  });
+
+  it('normalizes hand scale to target palm length', () => {
+    // Wrist at (0,0,0), Middle MCP at (0, 0.4, 0) -> current palm length = 0.4
+    const hand: Landmark3D[] = [
+      [0, 0, 0], // wrist (0)
+      [0.1, 0.1, 0],
+      [0.2, 0.2, 0],
+      [0.3, 0.3, 0],
+      [0.4, 0.4, 0],
+      [0, 0.1, 0],
+      [0, 0.2, 0],
+      [0, 0.3, 0],
+      [0, 0.4, 0],
+      [0, 0.4, 0], // middle MCP (9)
+    ];
+    while (hand.length < 21) {
+      hand.push([0, 0.5, 0]);
+    }
+
+    const scaled = normalizeHandScale(hand, 0.2);
+    expect(scaled).not.toBeNull();
+    // Wrist stays at (0,0,0)
+    expect(scaled![0][0]).toBeCloseTo(0);
+    expect(scaled![0][1]).toBeCloseTo(0);
+    // Middle MCP scaled from 0.4 to 0.2
+    expect(scaled![9][1]).toBeCloseTo(0.2);
   });
 });

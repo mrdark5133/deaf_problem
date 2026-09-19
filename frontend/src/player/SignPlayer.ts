@@ -51,7 +51,7 @@ export interface PlayerTickResult {
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const BLEND_DURATION_MS = 150;
+const BLEND_DURATION_MS = 100;
 const MIN_SPEED = 0.5;
 const MAX_SPEED = 1.5;
 
@@ -229,7 +229,8 @@ export class SignPlayer {
   private tickBlending(timestamp: number): SignFrame {
     const elapsed = timestamp - this.blendStartTime;
     const t = Math.min(1.0, elapsed / BLEND_DURATION_MS);
-    const blended = lerpFrames(this.blendFromFrame, this.blendToFrame, t);
+    const easeT = t * t * (3 - 2 * t);
+    const blended = lerpFrames(this.blendFromFrame, this.blendToFrame, easeT);
 
     if (t >= 1.0) {
       if (this.blendTarget === 'next') {

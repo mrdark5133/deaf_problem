@@ -27,6 +27,7 @@ export const AvatarContainer: React.FC<AvatarContainerProps> = ({
   mirrored = false,
   highContrast = false,
   isQuestion = false,
+  questionType = null,
   badge,
   className = '',
   cameraPreset = 'front',
@@ -93,6 +94,7 @@ export const AvatarContainer: React.FC<AvatarContainerProps> = ({
             mirrored={mirrored}
             highContrast={highContrast}
             isQuestion={isQuestion}
+            questionType={questionType}
             badge={badge}
             cameraPreset={cameraPreset}
             onFpsUpdate={onFpsUpdate}
@@ -107,6 +109,7 @@ export const AvatarContainer: React.FC<AvatarContainerProps> = ({
           mirrored={mirrored}
           highContrast={highContrast}
           isQuestion={isQuestion}
+          questionType={questionType}
           badge={badge}
           className="w-full h-full"
         />

@@ -59,6 +59,7 @@ interface DrawCtx {
   mirrored?: boolean;
   highContrast?: boolean;
   isQuestion?: boolean;
+  questionType?: 'wh' | 'yes_no' | null;
 }
 
 function project(lm: Landmark3D, d: DrawCtx): [number, number] {
@@ -339,6 +340,7 @@ function drawSkeleton(
   mirrored = false,
   highContrast = false,
   isQuestion = false,
+  questionType: 'wh' | 'yes_no' | null = null,
   motionTrails: TrailPoint[] = []
 ) {
   const pose = frame.pose;
@@ -356,7 +358,7 @@ function drawSkeleton(
   const cx = w / 2 - (mirrored ? -midShX : midShX) * scale;
   const cy = h * 0.38 - midShY * scale;
 
-  const d: DrawCtx = { ctx, cx, cy, scale, mirrored, highContrast, isQuestion };
+  const d: DrawCtx = { ctx, cx, cy, scale, mirrored, highContrast, isQuestion, questionType };
 
   // Color Definitions
   const BODY_COLOR = highContrast
@@ -542,17 +544,24 @@ function drawSkeleton(
       ctx.fill();
     }
 
-    // Expressive Eyebrows (Lift +8px when isQuestion is true)
-    const browOffset = isQuestion ? -scale * 0.055 : 0;
-    const browColor = isQuestion ? '#facc15' : 'rgba(255, 255, 255, 0.95)';
+    // Expressive Eyebrows (ASL Grammar NMM: WH-question furrows brow +0.035; Yes/No question raises brow -0.055)
+    const isWh = d.isQuestion && d.questionType === 'wh';
+    const isYesNo = d.isQuestion && (!d.questionType || d.questionType === 'yes_no');
+    const browOffset = isWh ? scale * 0.035 : isYesNo ? -scale * 0.055 : 0;
+    const browColor = isWh ? '#f59e0b' : isYesNo ? '#facc15' : 'rgba(255, 255, 255, 0.95)';
 
     if (pose[L_EYE]) {
       const [lex, ley] = project(pose[L_EYE], d);
       ctx.beginPath();
-      ctx.moveTo(lex - scale * 0.045, ley - scale * 0.045 + browOffset);
-      ctx.lineTo(lex + scale * 0.045, ley - scale * 0.058 + browOffset);
+      if (isWh) {
+        ctx.moveTo(lex - scale * 0.045, ley - scale * 0.065 + browOffset);
+        ctx.lineTo(lex + scale * 0.045, ley - scale * 0.042 + browOffset);
+      } else {
+        ctx.moveTo(lex - scale * 0.045, ley - scale * 0.045 + browOffset);
+        ctx.lineTo(lex + scale * 0.045, ley - scale * 0.058 + browOffset);
+      }
       ctx.strokeStyle = browColor;
-      ctx.lineWidth = isQuestion ? 4.0 : 3.0;
+      ctx.lineWidth = d.isQuestion ? 4.0 : 3.0;
       ctx.lineCap = 'round';
       ctx.stroke();
     }
@@ -560,10 +569,15 @@ function drawSkeleton(
     if (pose[R_EYE]) {
       const [rex, rey] = project(pose[R_EYE], d);
       ctx.beginPath();
-      ctx.moveTo(rex - scale * 0.045, rey - scale * 0.058 + browOffset);
-      ctx.lineTo(rex + scale * 0.045, rey - scale * 0.045 + browOffset);
+      if (isWh) {
+        ctx.moveTo(rex - scale * 0.045, rey - scale * 0.042 + browOffset);
+        ctx.lineTo(rex + scale * 0.045, rey - scale * 0.065 + browOffset);
+      } else {
+        ctx.moveTo(rex - scale * 0.045, rey - scale * 0.058 + browOffset);
+        ctx.lineTo(rex + scale * 0.045, rey - scale * 0.045 + browOffset);
+      }
       ctx.strokeStyle = browColor;
-      ctx.lineWidth = isQuestion ? 4.0 : 3.0;
+      ctx.lineWidth = d.isQuestion ? 4.0 : 3.0;
       ctx.lineCap = 'round';
       ctx.stroke();
     }
@@ -602,6 +616,7 @@ export interface SkeletonAvatarProps {
   mirrored?: boolean;
   highContrast?: boolean;
   isQuestion?: boolean;
+  questionType?: 'wh' | 'yes_no' | null;
   badge?: string;
   className?: string;
 }
@@ -612,6 +627,7 @@ export const SkeletonAvatar: React.FC<SkeletonAvatarProps> = ({
   mirrored = false,
   highContrast = false,
   isQuestion = false,
+  questionType = null,
   badge,
   className = '',
 }) => {
@@ -626,12 +642,14 @@ export const SkeletonAvatar: React.FC<SkeletonAvatarProps> = ({
   const mirroredRef = useRef<boolean>(mirrored);
   const highContrastRef = useRef<boolean>(highContrast);
   const isQuestionRef = useRef<boolean>(isQuestion);
+  const questionTypeRef = useRef<'wh' | 'yes_no' | null>(questionType);
 
   frameRef.current = frame;
   idleRef.current = isIdle;
   mirroredRef.current = mirrored;
   highContrastRef.current = highContrast;
   isQuestionRef.current = isQuestion;
+  questionTypeRef.current = questionType;
 
   // Update motion trail on frame change
   useEffect(() => {
@@ -685,6 +703,7 @@ export const SkeletonAvatar: React.FC<SkeletonAvatarProps> = ({
               mirroredRef.current,
               highContrastRef.current,
               isQuestionRef.current,
+              questionTypeRef.current,
               trailsRef.current
             );
           }
@@ -714,10 +733,11 @@ export const SkeletonAvatar: React.FC<SkeletonAvatarProps> = ({
         mirrored,
         highContrast,
         isQuestion,
+        questionType,
         trailsRef.current
       );
     }
-  }, [frame, isIdle, mirrored, highContrast, isQuestion]);
+  }, [frame, isIdle, mirrored, highContrast, isQuestion, questionType]);
 
   return (
     <div
@@ -764,6 +784,7 @@ function drawFrame(
   mirrored = false,
   highContrast = false,
   isQuestion = false,
+  questionType: 'wh' | 'yes_no' | null = null,
   motionTrails: TrailPoint[] = []
 ) {
   ctx.clearRect(0, 0, w, h);
@@ -791,6 +812,7 @@ function drawFrame(
     mirrored,
     highContrast,
     isQuestion,
+    questionType,
     motionTrails
   );
 }

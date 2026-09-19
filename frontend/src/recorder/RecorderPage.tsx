@@ -13,6 +13,8 @@ import {
 } from 'lucide-react';
 import type { Landmark3D, SignClip, SignFrame } from '../lib/clipTypes';
 import { normalizeFrame, smoothSignFrames } from './cvUtils';
+import { evaluateClipQuality } from './clipQuality';
+import { ClipQualityBadge } from './ClipQualityBadge';
 import { ImportReviewPage } from './ImportReviewPage';
 
 export interface RecorderPageProps {
@@ -183,8 +185,19 @@ export const RecorderPage: React.FC<RecorderPageProps> = ({ onBack }) => {
     setHasRecorded(false);
   };
 
+  const qualityMetrics = useMemo(() => {
+    if (!hasRecorded || !recordedFrames.length) return null;
+    return evaluateClipQuality(recordedFrames, 30);
+  }, [hasRecorded, recordedFrames]);
+
   const handleExportJSON = () => {
     if (!recordedFrames.length) return;
+    if (qualityMetrics?.verdict === 'RED') {
+      const confirmExport = window.confirm(
+        'Warning: This clip failed quality validation (Verdict: RED). Are you sure you want to export it?'
+      );
+      if (!confirmExport) return;
+    }
 
     const clipId = gloss.toLowerCase().replace(/[^a-z0-9]/g, '-');
     const clipData: SignClip = {
@@ -470,6 +483,10 @@ export const RecorderPage: React.FC<RecorderPageProps> = ({ onBack }) => {
                   Ready for export with valid Hard Rule 3 provenance tags.
                 </p>
               </div>
+            )}
+
+            {hasRecorded && qualityMetrics && (
+              <ClipQualityBadge metrics={qualityMetrics} showDetails={true} />
             )}
           </div>
 

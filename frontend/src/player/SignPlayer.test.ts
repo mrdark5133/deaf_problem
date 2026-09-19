@@ -201,11 +201,11 @@ describe('SignPlayer', () => {
     player.tick(110);
     expect(player.status).toBe('blending');
 
-    // At 75ms into blend (t=0.5), landmarks should be ~midpoint
-    const midBlend = player.tick(185); // 110 + 75ms
+    // At 50ms into 100ms blend (t=0.5), landmarks should be ~midpoint
+    const midBlend = player.tick(160); // 110 + 50ms
     expect(midBlend.status).toBe('blending');
     // The last frame of item0 has pose[0][0]=2, first frame of item1 has pose[0][0]=0
-    // At t=0.5: lerp(2, 0, 0.5) = 1
+    // At t=0.5: smoothstep(0.5) = 0.5, lerp(2, 0, 0.5) = 1
     expect(midBlend.frame.pose[0][0]).toBeCloseTo(1, 0);
   });
 

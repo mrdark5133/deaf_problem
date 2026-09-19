@@ -25,6 +25,7 @@ export interface AvatarRendererProps {
   mirrored?: boolean;
   highContrast?: boolean;
   isQuestion?: boolean;
+  questionType?: 'wh' | 'yes_no' | null;
   badge?: string;
   className?: string;
   cameraPreset?: CameraPreset;

@@ -68,6 +68,26 @@ describe('3D Retargeting & Bone Invariant (Hard Rule 3)', () => {
     expect(hipDist).toBeCloseTo(BONE_LENGTHS.hipHalfWidth * 2, 4);
   });
 
+  it('strictly preserves lower body bone invariants (thighs, shins)', () => {
+    const s = retargetFrame(mockFrame);
+
+    // Left Thigh invariant
+    const lThighDist = vecDistance(s.leftHip, s.leftKnee);
+    expect(lThighDist).toBeCloseTo(BONE_LENGTHS.thigh, 4);
+
+    // Left Shin invariant
+    const lShinDist = vecDistance(s.leftKnee, s.leftAnkle);
+    expect(lShinDist).toBeCloseTo(BONE_LENGTHS.shin, 4);
+
+    // Right Thigh invariant
+    const rThighDist = vecDistance(s.rightHip, s.rightKnee);
+    expect(rThighDist).toBeCloseTo(BONE_LENGTHS.thigh, 4);
+
+    // Right Shin invariant
+    const rShinDist = vecDistance(s.rightKnee, s.rightAnkle);
+    expect(rShinDist).toBeCloseTo(BONE_LENGTHS.shin, 4);
+  });
+
   it('guarantees no NaN or Infinity values exist in any output joint', () => {
     const s = retargetFrame(mockFrame);
 
@@ -77,7 +97,11 @@ describe('3D Retargeting & Bone Invariant (Hard Rule 3)', () => {
       s.leftShoulder, s.rightShoulder,
       s.leftElbow, s.rightElbow,
       s.leftWrist, s.rightWrist,
-      s.spineMid, s.leftHip, s.rightHip,
+      s.spineMid, s.pelvis,
+      s.leftHip, s.rightHip,
+      s.leftKnee, s.rightKnee,
+      s.leftAnkle, s.rightAnkle,
+      s.leftFoot, s.rightFoot,
       ...(s.leftHand || []),
       ...(s.rightHand || []),
     ];
@@ -94,11 +118,16 @@ describe('3D Retargeting & Bone Invariant (Hard Rule 3)', () => {
 
   it('lifts eyebrows upwards when isQuestion is true', () => {
     const normal = retargetFrame(mockFrame, false);
-    const question = retargetFrame(mockFrame, true);
+    const question = retargetFrame(mockFrame, true, false, 'yes_no');
+    const whQuestion = retargetFrame(mockFrame, true, false, 'wh');
 
     // In Three.js screen space, negative Y is up
     expect(question.leftEyebrow[1]).toBeLessThan(normal.leftEyebrow[1]);
     expect(question.rightEyebrow[1]).toBeLessThan(normal.rightEyebrow[1]);
+
+    // WH questions furrow eyebrows down (+Y)
+    expect(whQuestion.leftEyebrow[1]).toBeGreaterThan(normal.leftEyebrow[1]);
+    expect(whQuestion.rightEyebrow[1]).toBeGreaterThan(normal.rightEyebrow[1]);
   });
 
   it('correctly flips X coordinates when mirrored is true', () => {

@@ -547,6 +547,7 @@ export const App: React.FC = () => {
               mirrored={settings.avatarMirrored}
               highContrast={isHighContrast}
               isQuestion={pipeline.isQuestion}
+              questionType={pipeline.questionType as 'wh' | 'yes_no' | null}
               className="w-full h-full"
             />
 

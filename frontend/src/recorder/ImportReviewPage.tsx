@@ -24,6 +24,8 @@ import {
 import type { SignClip, SignLibraryIndex } from '../lib/clipTypes';
 import { AvatarContainer } from '../avatar/AvatarContainer';
 import { useSignPlayer } from '../player/useSignPlayer';
+import { evaluateClipQuality } from './clipQuality';
+import { ClipQualityBadge } from './ClipQualityBadge';
 
 export interface ImportReviewPageProps {
   onBack?: () => void;
@@ -98,6 +100,11 @@ export const ImportReviewPage: React.FC<ImportReviewPageProps> = ({ onBack }) =>
       return true;
     });
   }, [indexData, searchQuery, filterType]);
+
+  const qualityMetrics = useMemo(() => {
+    if (!selectedClip || !selectedClip.frames) return null;
+    return evaluateClipQuality(selectedClip.frames, selectedClip.fps || 30);
+  }, [selectedClip]);
 
   const handleReplay = () => {
     if (!selectedClip) return;
@@ -387,6 +394,11 @@ export const ImportReviewPage: React.FC<ImportReviewPageProps> = ({ onBack }) =>
                   <span className="text-slate-500 font-semibold">Attribution Note: </span>
                   {selectedClip.meta.notes}
                 </div>
+              )}
+
+              {/* Automated Quality Gate Badge */}
+              {qualityMetrics && (
+                <ClipQualityBadge metrics={qualityMetrics} showDetails={true} />
               )}
             </div>
           )}

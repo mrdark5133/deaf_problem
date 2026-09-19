@@ -34,6 +34,7 @@ export const Avatar3D: React.FC<AvatarRendererProps> = ({
   mirrored = false,
   highContrast = false,
   isQuestion = false,
+  questionType = null,
   badge,
   className = '',
   cameraPreset = 'front',
@@ -52,6 +53,8 @@ export const Avatar3D: React.FC<AvatarRendererProps> = ({
   frameRef.current = frame;
   const isQuestionRef = useRef<boolean>(isQuestion);
   isQuestionRef.current = isQuestion;
+  const questionTypeRef = useRef<'wh' | 'yes_no' | null>(questionType);
+  questionTypeRef.current = questionType;
   const mirroredRef = useRef<boolean>(mirrored);
   mirroredRef.current = mirrored;
   const isIdleRef = useRef<boolean>(isIdle);
@@ -64,7 +67,10 @@ export const Avatar3D: React.FC<AvatarRendererProps> = ({
   const fallbackTriggered = useRef<boolean>(false);
   const rafId = useRef<number | null>(null);
 
-  // 1. Initialize Scene & WebGL with Continuous RAF loop
+  const callbacksRef = useRef({ onFallback, onFpsUpdate });
+  callbacksRef.current = { onFallback, onFpsUpdate };
+
+  // 1. Initialize Scene & Animation Loop
   useEffect(() => {
     const container = containerRef.current;
     const canvas = canvasRef.current;
@@ -72,7 +78,7 @@ export const Avatar3D: React.FC<AvatarRendererProps> = ({
     if (!container || !canvas) return;
 
     if (!isWebGLAvailable()) {
-      onFallback?.('WebGL is not supported on this browser or hardware.');
+      callbacksRef.current.onFallback?.('WebGL is not supported on this browser or hardware.');
       return;
     }
 
@@ -87,7 +93,7 @@ export const Avatar3D: React.FC<AvatarRendererProps> = ({
       scene.resize(w, h);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Failed to initialize WebGL 3D scene';
-      onFallback?.(msg);
+      callbacksRef.current.onFallback?.(msg);
       return;
     }
 
@@ -108,7 +114,8 @@ export const Avatar3D: React.FC<AvatarRendererProps> = ({
         sceneRef.current.render(
           frameRef.current,
           isQuestionRef.current,
-          mirroredRef.current
+          mirroredRef.current,
+          questionTypeRef.current
         );
       }
 
@@ -120,7 +127,7 @@ export const Avatar3D: React.FC<AvatarRendererProps> = ({
       if (elapsed >= 1000) {
         const currentFps = Math.round((fpsFrameCount.current * 1000) / elapsed);
         setMeasuredFps(currentFps);
-        onFpsUpdate?.(currentFps);
+        callbacksRef.current.onFpsUpdate?.(currentFps);
         fpsFrameCount.current = 0;
         fpsLastTime.current = now;
 
@@ -129,7 +136,7 @@ export const Avatar3D: React.FC<AvatarRendererProps> = ({
           lowFpsCounter.current++;
           if (lowFpsCounter.current >= 3 && !fallbackTriggered.current) {
             fallbackTriggered.current = true;
-            onFallback?.(`Performance dropped below 30 FPS (${currentFps} FPS). Falling back to 2D Canvas.`);
+            callbacksRef.current.onFallback?.(`Performance dropped below 30 FPS (${currentFps} FPS). Falling back to 2D Canvas.`);
           }
         } else {
           lowFpsCounter.current = 0;
@@ -151,7 +158,7 @@ export const Avatar3D: React.FC<AvatarRendererProps> = ({
         sceneRef.current = null;
       }
     };
-  }, [onFallback, onFpsUpdate]);
+  }, []);
 
   // 2. Update Theme
   useEffect(() => {

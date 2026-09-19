@@ -17,7 +17,7 @@
 ```
  ┌────────────────────────────────────────────────────────┐
  │           Speech Recognition / Typed Input             │
- │          (Web Speech API + Interim Debounce)           │
+ │  (Web Speech API in Chrome / 100% Offline Typed Input) │
  └──────────────────────────┬─────────────────────────────┘
                             │
                             ▼
@@ -52,7 +52,7 @@
 
 ## ✨ Key Features
 
-1. **Deterministic ASL Grammar Engine:** Converts English syntax to ASL gloss grammar in **under 4 ms (p50: 3.57 ms)** with 100% test accuracy across 42 golden benchmark fixtures.
+1. **Deterministic ASL Grammar Engine:** Converts English syntax to ASL gloss grammar on CPU in **under 4 ms (median p50: 3.57 ms, p95: 45.56 ms for the gloss step)** with a 100% pass rate across our 42 golden regression test fixtures.
 2. **High-Precision 2D Canvas Avatar:**
    - **Dynamic Mid-Shoulder Anchoring:** Auto-centers and scales across all sign datasets without jitter.
    - **3D Palm Normal Shading:** Distinguishes anterior palm (with crease lines), posterior dorsum (with knuckle bar), and blade views.
@@ -61,16 +61,16 @@
    - **Dominant vs Base Hand Distinction:** Sun Amber (Right) and Electric Cyan (Left) with bottom-right HUD legend.
    - **Non-Manual Markers:** Head gradient contour and question-lifting eyebrows.
 3. **Procedural 3D Mannequin View:** Direction-only retargeting with invariant bone lengths and 2D/3D switcher (<kbd>3</kbd> key).
-4. **Real ASL Dataset Integration:** 39 real sign clips from ASL Citizen & ASL-MNIST with 100% vocabulary coverage (96 total clips).
-5. **Computer Vision Sign Capture Studio (`/recorder`):** Web-based MediaPipe Pose and Hand landmark tracker to inspect, record, and validate sign clips.
+4. **Real ASL Dataset Integration & Provenance (CC BY-NC-SA 4.0):** 39 real human-signed clips (13 ASL Citizen vocabulary + 26 ASL-MNIST fingerspelling letters A–Z) with full dataset provenance tracking. 57 procedural clips remain explicitly labelled `SYNTHETIC`.
+5. **Computer Vision Sign Capture Studio (`/recorder`):** Web-based MediaPipe Pose and Hand landmark tracker to inspect, record, and validate sign clips with automated quality scoring.
 6. **Alphanumeric Fingerspelling Fallback:** Automatically spells out unknown medical words, proper nouns, and numbers (A–Z, 0–9).
 7. **Backpressure Rate Adaptation:** Prevents latency buildup during continuous speech by dynamically adapting playback speed (up to 1.5×).
 8. **WCAG 2.2 AA & AAA Accessibility:**
-   - **Themes:** Dark (default), Light, and High-Contrast (pure black with bright yellow & cyan landmarks, $\ge 19:1$ contrast).
+   - **Themes:** Dark (default), Light, and High-Contrast (pure black with bright yellow & cyan landmarks, $\ge 19:1$ contrast ratio).
    - **Avatar Mirror View:** Instant horizontal perspective flip (<kbd>M</kbd>).
    - **Customizable Caption Sizing:** Small, Medium, Large, and Extra Large typography.
    - **Full Keyboard Navigation:** Operate the entire application without a mouse.
-9. **Offline Scripted Demo Mode:** 3 pre-built scenarios (*Doctor Visit*, *Classroom*, *Help Desk*) that run completely offline.
+9. **Offline Scripted Demo & Local Typed Modes:** 3 pre-built scenarios (*Doctor Visit*, *Classroom*, *Help Desk*) and typed text input run completely offline on local CPU.
 
 ---
 
@@ -105,12 +105,12 @@ npm run dev
 
 | Metric | Target | Measured Result | Status |
 |---|---|---|---|
-| **ASL Gloss Golden Accuracy** | $\ge 95\%$ | **100.0%** (42/42 passed) | ✅ PASS |
-| **Doctor Visit Sign Coverage** | $\ge 80\%$ | **92.3%** direct signs | ✅ PASS |
-| **Classroom Sign Coverage** | $\ge 80\%$ | **100.0%** direct signs | ✅ PASS |
-| **Help Desk Sign Coverage** | $\ge 80\%$ | **83.3%** direct signs | ✅ PASS |
-| **NLP Backend Processing (p50)** | $< 50\text{ ms}$ | **3.57 ms** | ✅ PASS |
-| **NLP Backend Processing (p95)** | $< 100\text{ ms}$ | **45.56 ms** | ✅ PASS |
+| **ASL Gloss Golden Regression Suite** | $\ge 95\%$ | **100.0%** (42/42 passed) | ✅ PASS |
+| **Doctor Visit Sign Coverage** | $\ge 80\%$ | **92.3%** direct signs (real + synth) | ✅ PASS |
+| **Classroom Sign Coverage** | $\ge 80\%$ | **100.0%** direct signs (real + synth) | ✅ PASS |
+| **Help Desk Sign Coverage** | $\ge 80\%$ | **83.3%** direct signs (real + synth) | ✅ PASS |
+| **NLP Backend Gloss Step (p50)** | $< 50\text{ ms}$ | **3.57 ms** (CPU) | ✅ PASS |
+| **NLP Backend Gloss Step (p95)** | $< 100\text{ ms}$ | **45.56 ms** (CPU) | ✅ PASS |
 | **Avatar RAF Animation Loop** | $\ge 55\text{ FPS}$ | **60 FPS** sustained | ✅ PASS |
 
 ---
@@ -139,7 +139,7 @@ hackspora/
 │   │   ├── gloss/         # spaCy NLP, ASL grammar rules, vocabulary & fingerspelling
 │   │   ├── main.py        # FastAPI endpoints (/health, /api/translate)
 │   │   └── schemas.py     # Pydantic data models
-│   └── tests/             # Pytest test suite & golden fixtures
+│   └── tests/             # Pytest test suite & golden regression fixtures
 ├── frontend/
 │   └── src/
 │       ├── demo/          # Scripted offline demo scenarios & DemoBar
@@ -151,11 +151,16 @@ hackspora/
 │       └── ui/            # CaptionPanel, GlossStrip, Modals & DebugOverlay
 ├── data/
 │   ├── vocabulary.json    # Canonical 60-sign dictionary + synonyms
-│   └── signs/             # Normalized 2D landmark sign clips + index.json
+│   └── signs/             # Normalized 2D landmark sign clips + index.json (39 real, 57 synthetic)
 ├── docs/
+│   ├── claims-audit.md    # Fact-checking claims audit matrix & verification sources
 │   ├── evaluation.md      # Automated evaluation report & benchmarks
-│   ├── pitch.md           # 3-minute presentation script & judge Q&A
+│   ├── related-work.md    # Comparative analysis vs sign.mt, ZurichNLP, AWS GenAI
+│   ├── pitch/
+│   │   └── judge-qa.md    # Judge Q&A guide & competitive differentiation
+│   ├── pitch.md           # 3-minute presentation script & pitch pack
 │   ├── demo-checklist.md  # Pre-demo runbook & Plan B contingency playbook
+│   ├── backup-video-script.md # 90-second screen-recording backup script
 │   └── limitations.md     # ASL linguistic scope & ethical validation notes
 ├── reports/               # Phase 0 through Phase 7 milestone reports
 └── scripts/
@@ -167,5 +172,3 @@ hackspora/
 
 ## 📄 License & Ethical Usage
 SignBridge is developed as an assistive communication prototype. Please review [`docs/limitations.md`](docs/limitations.md) for linguistic boundaries and our ethical commitment to native Deaf community validation before clinical deployment.
-#   d e a f _ p r o b l e m  
- 
