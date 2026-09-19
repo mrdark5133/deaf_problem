@@ -52,25 +52,36 @@
 
 ## ✨ Key Features
 
-1. **Deterministic ASL Grammar Engine:** Converts English syntax to ASL gloss grammar on CPU in **under 4 ms (median p50: 3.57 ms, p95: 45.56 ms for the gloss step)** with a 100% pass rate across our 42 golden regression test fixtures.
-2. **High-Precision 2D Canvas Avatar:**
+1. **Deterministic ASL Grammar Engine:** Converts English syntax to ASL gloss grammar on CPU with **median ~3.6 ms (p95 ~46 ms)** latency for the gloss step and a 100% pass rate across our 42 golden regression test fixtures.
+2. **Handshape-First Signing Architecture (Phases S0–S5):**
+   - **Canonical Handshape Library:** 47 real captured handshapes (A–Z, 0–9, and standard ASL classifier handshapes) stored in normalized canonical hand frames (wrist at origin $(0,0,0)$, $+Y$ middle MCP, $+Z$ palm normal).
+   - **Analytical Two-Bone Arm IK Solver:** Guaranteed fixed bone lengths ($L_1 = 0.420, L_2 = 0.380$), reach clamping, and Gram-Schmidt orthonormal hand orientation with $\le 5^\circ$ palm error.
+   - **Deterministic Sign Compiler:** Compiles explicit keyframe specs directly into 30 FPS `SignClip` format consumed by both 2D and 3D avatars.
+   - **100% Demo Scenario Coverage:** 100% of tokens in Doctor Visit, Classroom, and Help Desk demo scenarios use Real or Spec-Compiled signs (0 synthetic fallback clips during demos).
+3. **Sign Library Inventory & Source Priority:**
+   - **Total Library:** 98 signs.
+   - **Tier 1 (Real Dataset):** 34 signs (34.7%).
+   - **Tier 2 (Spec-Compiled):** 30 signs (30.6%).
+   - **Tier 3 (Synthetic Fallback):** 34 signs (34.7%).
+   - **Honest Linguistic Status:** All 30 specs marked `[UNVERIFIED]` (`verified_by: null`) until signed off by a fluent ASL signer.
+4. **High-Precision 2D Canvas & 3D Avatars:**
    - **Dynamic Mid-Shoulder Anchoring:** Auto-centers and scales across all sign datasets without jitter.
-   - **3D Palm Normal Shading:** Distinguishes anterior palm (with crease lines), posterior dorsum (with knuckle bar), and blade views.
-   - **Z-Depth Sorted Finger Bones:** Tapered capsules with contrasting borders prevent finger blurring in complex handshapes.
-   - **Motion Trajectory Ghost Trails:** Fading bezier ribbon tracks active signing hand dynamics.
-   - **Dominant vs Base Hand Distinction:** Sun Amber (Right) and Electric Cyan (Left) with bottom-right HUD legend.
-   - **Non-Manual Markers:** Head gradient contour and question-lifting eyebrows.
-3. **Procedural 3D Mannequin View:** Direction-only retargeting with invariant bone lengths and 2D/3D switcher (<kbd>3</kbd> key).
-4. **Real ASL Dataset Integration & Provenance (CC BY-NC-SA 4.0):** 39 real human-signed clips (13 ASL Citizen vocabulary + 26 ASL-MNIST fingerspelling letters A–Z) with full dataset provenance tracking. 57 procedural clips remain explicitly labelled `SYNTHETIC`.
-5. **Computer Vision Sign Capture Studio (`/recorder`):** Web-based MediaPipe Pose and Hand landmark tracker to inspect, record, and validate sign clips with automated quality scoring.
+   - **3D Palm Normal Shading:** Distinguishes anterior palm, posterior dorsum, and blade views.
+   - **Z-Depth Sorted Finger Bones:** Tapered capsules with contrasting borders prevent finger blurring.
+   - **Procedural 3D Mannequin View:** Direction-only retargeting with invariant bone lengths and 2D/3D switcher (<kbd>3</kbd> key).
+5. **Interactive Studios & Tools:**
+   - **Sign Spec Studio (`/specs` or hotkey <kbd>5</kbd>):** Real-time keyframe timeline scrubber, slow-motion controls ($0.1\times - 1.0\times$), live IK invariant inspector, and JSON editor.
+   - **Handshape Capture Wizard (`/handshapes` or hotkey <kbd>4</kbd>):** Step-by-step camera capture, median filtering, spread stability scoring, and 3-view Contact Sheet.
+   - **Sign Capture CV Studio (`/recorder` or hotkey <kbd>2</kbd>):** Web-based MediaPipe landmark tracker with quality metrics.
+   - **Pre-Flight Self-Check Modal (`/selfcheck` button):** Verifies backend health, library counts, speech support, and verification audit.
 6. **Alphanumeric Fingerspelling Fallback:** Automatically spells out unknown medical words, proper nouns, and numbers (A–Z, 0–9).
 7. **Backpressure Rate Adaptation:** Prevents latency buildup during continuous speech by dynamically adapting playback speed (up to 1.5×).
-8. **WCAG 2.2 AA & AAA Accessibility:**
-   - **Themes:** Dark (default), Light, and High-Contrast (pure black with bright yellow & cyan landmarks, $\ge 19:1$ contrast ratio).
+8. **WCAG 2.2 AA Accessibility & Studio Minimalist Mono Design:**
+   - Pure white architectural studio layout with high contrast typography.
    - **Avatar Mirror View:** Instant horizontal perspective flip (<kbd>M</kbd>).
    - **Customizable Caption Sizing:** Small, Medium, Large, and Extra Large typography.
-   - **Full Keyboard Navigation:** Operate the entire application without a mouse.
-9. **Offline Scripted Demo & Local Typed Modes:** 3 pre-built scenarios (*Doctor Visit*, *Classroom*, *Help Desk*) and typed text input run completely offline on local CPU.
+   - **Full Keyboard Navigation:** Hotkeys 1-5 for instant view switching, <kbd>Space</kbd> for mic, <kbd>?</kbd> for cheat sheet.
+9. **Offline Scripted Demo & Local Typed Modes:** 3 pre-built scenarios (*Doctor Visit*, *Classroom*, *Help Desk*) and typed text input run completely offline on local CPU. (Note: Live speech recognition in Chrome uses Google's cloud speech service).
 
 ---
 

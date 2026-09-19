@@ -1,0 +1,60 @@
+{
+  "gloss": "HELP",
+  "hands": "two",
+  "duration_ms": 1100,
+  "reference": "Lifeprint: Dominant fist-A with thumb up resting on non-dominant flat-B palm, lifted together",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "fist_a",
+        "palm": "left",
+        "fingers": "up",
+        "location": "neutral",
+        "offset": [
+          0.0,
+          0.15,
+          0.2
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_b",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          0.0,
+          0.18,
+          0.2
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "fist_a",
+        "palm": "left",
+        "fingers": "up",
+        "location": "neutral",
+        "offset": [
+          0.0,
+          -0.1,
+          0.22
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_b",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          0.0,
+          -0.07,
+          0.22
+        ]
+      }
+    }
+  ]
+}

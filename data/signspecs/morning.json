@@ -1,0 +1,60 @@
+{
+  "gloss": "MORNING",
+  "hands": "two",
+  "duration_ms": 1100,
+  "reference": "Lifeprint: Non-dominant Flat-B across elbow, dominant Flat-B rising up like sun",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "flat_b",
+        "palm": "toward_body",
+        "fingers": "up",
+        "location": "waist",
+        "offset": [
+          0.05,
+          0.1,
+          0.15
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_b",
+        "palm": "down",
+        "fingers": "right",
+        "location": "chest",
+        "offset": [
+          -0.05,
+          0.05,
+          0.12
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "flat_b",
+        "palm": "toward_body",
+        "fingers": "up",
+        "location": "chest",
+        "offset": [
+          0.05,
+          -0.15,
+          0.18
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_b",
+        "palm": "down",
+        "fingers": "right",
+        "location": "chest",
+        "offset": [
+          -0.05,
+          0.05,
+          0.12
+        ]
+      }
+    }
+  ]
+}

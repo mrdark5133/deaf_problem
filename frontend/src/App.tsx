@@ -1,18 +1,14 @@
 /**
- * SignBridge App — Phase 6 Accessible & Production Polished UI.
+ * SignBridge App — Minimalist Mono Edition (White Background / Studio Precision).
  *
- * Layout (main view):
- *   Header (logo | nav buttons | accessibility controls | backend badge)
- *   ┌────────────────────────────────────────┐
- *   │ Optional 3-Step Onboarding Quick-Guide │
- *   └────────────────────────────────────────┘
- *   ┌─────────────────────────┬──────────────┐
- *   │  SkeletonAvatar canvas  │ CaptionPanel │
- *   │  (large, 3/5 width)     │ GlossStrip   │
- *   └─────────────────────────┴──────────────┘
- *   Input bar (Mic + TextInput)
- *   Footer with Keyboard Shortcuts reference
- *   Modals: SettingsModal, ShortcutsModal, DebugOverlay
+ * Clean architectural layout:
+ *   Header (Brand [SB] | View Navigation | Settings | Status)
+ *   Demo Bar (Offline scenario presets)
+ *   Optional Onboarding Guide
+ *   Split Workspace:
+ *     Left (60%): Skeleton / 3D Avatar + ASL Gloss Token Strip
+ *     Right (40%): Live Captions Panel + Voice & Typed Input Bar
+ *   Minimalist Footer with keyboard shortcuts
  */
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -21,16 +17,15 @@ import {
   CheckCircle2,
   XCircle,
   RefreshCw,
-  Volume2,
-  AlertTriangle,
-  Info,
-  Bug,
-  Sparkles,
   Sliders,
   Keyboard,
   Camera,
   Tv2,
   FlipHorizontal,
+  Bug,
+  Hand,
+  Code,
+  ShieldCheck,
 } from 'lucide-react';
 import { checkHealth } from './lib/api';
 import type { HealthResponse } from './lib/types';
@@ -47,10 +42,13 @@ import { GlossStrip } from './ui/GlossStrip';
 import { DebugOverlay } from './ui/DebugOverlay';
 import { SettingsModal } from './ui/SettingsModal';
 import { ShortcutsModal } from './ui/ShortcutsModal';
+import { SelfCheckModal } from './ui/SelfCheckModal';
 import { OnboardingCard } from './ui/OnboardingCard';
 import { AvatarContainer } from './avatar/AvatarContainer';
 import { RecorderPage } from './recorder/RecorderPage';
 import { PlayerTestPage } from './player/PlayerTestPage';
+import { HandshapeWizardPage } from './handshapes/HandshapeWizardPage';
+import { SpecPreviewPage } from './compiler/SpecPreviewPage';
 import { DemoBar } from './demo/DemoBar';
 import { type DemoScenario } from './demo/demoScenarios';
 import { signLibraryLoader } from './player/libraryLoader';
@@ -58,7 +56,7 @@ import { expandTokensToQueue } from './lib/translationOrdering';
 import type { ClipQueueItem } from './player/SignPlayer';
 
 export const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'main' | 'recorder' | 'player'>('main');
+  const [currentView, setCurrentView] = useState<'main' | 'recorder' | 'player' | 'handshapes' | 'specs'>('main');
   const [health, setHealth] = useState<HealthResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [_error, setError] = useState<string | null>(null);
@@ -73,6 +71,7 @@ export const App: React.FC = () => {
   const [showDebug, setShowDebug] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showShortcuts, setShowShortcuts] = useState(false);
+  const [showSelfCheck, setShowSelfCheck] = useState(false);
 
   // Accessibility & UX Settings hook
   const {
@@ -125,12 +124,8 @@ export const App: React.FC = () => {
     onError: (msg) => setError(msg),
   });
 
-  // Remaining queue items ref (for lag estimation)
   const queueItemsRef = useRef<ClipQueueItem[]>([]);
 
-  // Sync player state into the pipeline for lag estimation and debug metrics.
-  // setDebugMetrics inside pipeline is ref-guarded, so this won't cause
-  // infinite re-renders even though it calls into the pipeline on every change.
   useEffect(() => {
     pipeline.updatePlayerState({
       status: playerStatus,
@@ -143,14 +138,12 @@ export const App: React.FC = () => {
     });
   }, [pipeline, playerStatus, fps, speed, currentGloss, setSpeed, enqueue]);
 
-  // Sync settings playback speed with player
   useEffect(() => {
     if (settings.playbackSpeed !== speed) {
       setSpeed(settings.playbackSpeed);
     }
   }, [settings.playbackSpeed, setSpeed, speed]);
 
-  // Health fetch
   const fetchHealthStatus = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -165,7 +158,6 @@ export const App: React.FC = () => {
     }
   }, []);
 
-  // Caption subscription
   useEffect(() => {
     const unsub = globalTextSource.subscribe((evt: TextEvent) => {
       if (evt.type === 'final' && evt.text.trim()) {
@@ -178,7 +170,6 @@ export const App: React.FC = () => {
     return () => unsub();
   }, []);
 
-  // Initial health
   useEffect(() => {
     let mounted = true;
     checkHealth()
@@ -223,7 +214,6 @@ export const App: React.FC = () => {
       setDemoSentenceIdx(idx);
       const sentence = scenario.sentences[idx];
 
-      // Add to live captions
       setCaptions((prev) => [
         ...prev,
         {
@@ -235,7 +225,6 @@ export const App: React.FC = () => {
         },
       ]);
 
-      // Resolve and preload clips for tokens
       const clipIdsToFetch: string[] = [];
       for (const t of sentence.tokens) {
         if (t.clip_id) clipIdsToFetch.push(t.clip_id);
@@ -253,7 +242,6 @@ export const App: React.FC = () => {
       const queueItems = expandTokensToQueue(sentence.tokens, clipMap);
       enqueue(queueItems);
 
-      // Schedule next sentence after this sentence finishes signing
       const totalFrames = queueItems.reduce((acc, it) => acc + (it.clip.frames?.length ?? 30), 0);
       const sentenceDurationMs = Math.max(2200, (totalFrames / 30) * 1000 + 350);
 
@@ -280,7 +268,6 @@ export const App: React.FC = () => {
     clearPlayer();
   }, [stopDemoScenario, clearPlayer]);
 
-  // Global Keyboard Shortcuts
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
@@ -289,7 +276,6 @@ export const App: React.FC = () => {
         target?.tagName === 'TEXTAREA' ||
         target?.isContentEditable;
 
-      // Escape closes open modals
       if (e.key === 'Escape') {
         setShowSettings(false);
         setShowShortcuts(false);
@@ -297,48 +283,43 @@ export const App: React.FC = () => {
         return;
       }
 
-      // If user is currently typing in an input field, do not hijack typing shortcuts
       if (isInput) return;
 
-      // Space = toggle speech recognition
       if (e.key === ' ' || e.code === 'Space') {
         e.preventDefault();
         toggleListening();
         return;
       }
 
-      // [D] = toggle debug metrics
       if (e.key === 'd' || e.key === 'D') {
         if (!e.ctrlKey && !e.metaKey && !e.altKey) {
           setShowDebug((v) => !v);
         }
       }
 
-      // [M] = toggle avatar mirror
       if (e.key === 'm' || e.key === 'M') {
         if (!e.ctrlKey && !e.metaKey && !e.altKey) {
           toggleAvatarMirrored();
         }
       }
 
-      // [C] = clear captions
       if (e.key === 'c' || e.key === 'C') {
         if (!e.ctrlKey && !e.metaKey && !e.altKey) {
           handleClearCaptions();
         }
       }
 
-      // [?] or [H] = toggle keyboard shortcuts
       if (e.key === '?' || e.key === 'h' || e.key === 'H') {
         if (!e.ctrlKey && !e.metaKey && !e.altKey) {
           setShowShortcuts((v) => !v);
         }
       }
 
-      // [1], [2], [3] = view switches
       if (e.key === '1') setCurrentView('main');
       if (e.key === '2') setCurrentView('recorder');
       if (e.key === '3') setCurrentView('player');
+      if (e.key === '4') setCurrentView('handshapes');
+      if (e.key === '5') setCurrentView('specs');
     };
 
     window.addEventListener('keydown', handler);
@@ -349,29 +330,31 @@ export const App: React.FC = () => {
   const backendOk = !loading && health?.status === 'ok';
   const isHighContrast = settings.theme === 'high-contrast';
 
-  // ── Shared header ──────────────────────────────────────────────────────────
+  // ── Minimalist Mono Header ──────────────────────────────────────────────────
   const header = (
-    <header className="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md px-4 sm:px-6 py-3 flex items-center justify-between sticky top-0 z-50">
+    <header className="border-b border-neutral-200 bg-white px-4 sm:px-6 py-2.5 flex items-center justify-between sticky top-0 z-50 font-mono">
       <div className="flex items-center gap-3">
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20 shrink-0">
-          <Volume2 className="w-4.5 h-4.5 text-white" />
+        <div className="w-8 h-8 rounded border border-neutral-900 bg-black text-white flex items-center justify-center font-bold text-xs tracking-tighter shrink-0">
+          SB
         </div>
         <div>
-          <h1 className="text-lg font-bold tracking-tight bg-gradient-to-r from-white via-slate-200 to-blue-400 bg-clip-text text-transparent leading-tight">
+          <h1 className="text-sm font-bold tracking-tight text-neutral-900 leading-none">
             SignBridge
           </h1>
-          <p className="text-[10px] text-slate-400 leading-none">Speech → ASL Avatar</p>
+          <p className="text-[10px] text-neutral-500 uppercase tracking-wider mt-0.5">
+            Speech → ASL Avatar
+          </p>
         </div>
       </div>
 
-      <div className="flex items-center gap-2">
-        {/* Nav buttons */}
+      <div className="flex items-center gap-1.5">
+        {/* Nav views */}
         <button
           onClick={() => setCurrentView(currentView === 'recorder' ? 'main' : 'recorder')}
-          className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-lg border transition-colors cursor-pointer ${
+          className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded border transition-colors cursor-pointer ${
             currentView === 'recorder'
-              ? 'bg-indigo-900 border-indigo-700 text-indigo-200'
-              : 'bg-indigo-950/70 border-indigo-800/60 text-indigo-300 hover:bg-indigo-900'
+              ? 'bg-black border-black text-white'
+              : 'bg-white border-neutral-300 text-neutral-800 hover:border-black hover:bg-neutral-100'
           }`}
           id="nav-cv-studio-btn"
           title="Sign Capture CV Studio [2]"
@@ -382,10 +365,10 @@ export const App: React.FC = () => {
 
         <button
           onClick={() => setCurrentView(currentView === 'player' ? 'main' : 'player')}
-          className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-lg border transition-colors cursor-pointer ${
+          className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded border transition-colors cursor-pointer ${
             currentView === 'player'
-              ? 'bg-purple-900 border-purple-700 text-purple-200'
-              : 'bg-purple-950/70 border-purple-800/60 text-purple-300 hover:bg-purple-900'
+              ? 'bg-black border-black text-white'
+              : 'bg-white border-neutral-300 text-neutral-800 hover:border-black hover:bg-neutral-100'
           }`}
           id="nav-player-test-btn"
           title="Avatar Player Studio [3]"
@@ -394,13 +377,41 @@ export const App: React.FC = () => {
           <span className="hidden sm:inline">Player</span>
         </button>
 
+        <button
+          onClick={() => setCurrentView(currentView === 'handshapes' ? 'main' : 'handshapes')}
+          className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded border transition-colors cursor-pointer ${
+            currentView === 'handshapes'
+              ? 'bg-black border-black text-white'
+              : 'bg-white border-neutral-300 text-neutral-800 hover:border-black hover:bg-neutral-100'
+          }`}
+          id="nav-handshapes-btn"
+          title="Handshape Capture Wizard [4]"
+        >
+          <Hand className="w-3.5 h-3.5" />
+          <span className="hidden sm:inline">Handshapes</span>
+        </button>
+
+        <button
+          onClick={() => setCurrentView(currentView === 'specs' ? 'main' : 'specs')}
+          className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded border transition-colors cursor-pointer ${
+            currentView === 'specs'
+              ? 'bg-black border-black text-white'
+              : 'bg-white border-neutral-300 text-neutral-800 hover:border-black hover:bg-neutral-100'
+          }`}
+          id="nav-specs-btn"
+          title="Sign Spec Studio [5]"
+        >
+          <Code className="w-3.5 h-3.5" />
+          <span className="hidden sm:inline">Spec Studio</span>
+        </button>
+
         {/* Mirror quick toggle */}
         <button
           onClick={toggleAvatarMirrored}
-          className={`p-2 rounded-lg border transition-colors cursor-pointer ${
+          className={`p-1.5 rounded border transition-colors cursor-pointer ${
             settings.avatarMirrored
-              ? 'bg-cyan-950/70 border-cyan-800/60 text-cyan-300'
-              : 'border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+              ? 'bg-black border-black text-white'
+              : 'border-neutral-300 text-neutral-700 hover:border-black hover:bg-neutral-100'
           }`}
           title="Toggle Avatar Mirror View [M]"
           aria-label="Toggle Avatar Mirror Mode"
@@ -412,7 +423,7 @@ export const App: React.FC = () => {
         {/* Keyboard Shortcuts helper button */}
         <button
           onClick={() => setShowShortcuts(true)}
-          className="p-2 rounded-lg border border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 transition-colors cursor-pointer"
+          className="p-1.5 rounded border border-neutral-300 text-neutral-700 hover:border-black hover:bg-neutral-100 transition-colors cursor-pointer"
           title="Keyboard Shortcuts [?]"
           aria-label="Open keyboard shortcuts cheat sheet"
         >
@@ -422,20 +433,31 @@ export const App: React.FC = () => {
         {/* Settings & Accessibility Modal button */}
         <button
           onClick={() => setShowSettings(true)}
-          className="p-2 rounded-lg border border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 transition-colors cursor-pointer"
+          className="p-1.5 rounded border border-neutral-300 text-neutral-700 hover:border-black hover:bg-neutral-100 transition-colors cursor-pointer"
           title="Accessibility & Preferences"
           aria-label="Open accessibility and preferences settings"
         >
           <Sliders className="w-4 h-4" />
         </button>
 
+        {/* Self-Check & Honesty Audit Modal button */}
+        <button
+          onClick={() => setShowSelfCheck(true)}
+          className="p-1.5 rounded border border-neutral-300 text-neutral-700 hover:border-black hover:bg-neutral-100 transition-colors cursor-pointer"
+          title="System Self-Check & Provenance Audit"
+          aria-label="Open system self check modal"
+          id="selfcheck-btn"
+        >
+          <ShieldCheck className="w-4 h-4 text-emerald-700" />
+        </button>
+
         {/* Debug Toggle */}
         <button
           onClick={() => setShowDebug((v) => !v)}
-          className={`p-2 rounded-lg border transition-colors cursor-pointer ${
+          className={`p-1.5 rounded border transition-colors cursor-pointer ${
             showDebug
-              ? 'bg-amber-950/60 border-amber-800/60 text-amber-300'
-              : 'border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+              ? 'bg-black border-black text-white'
+              : 'border-neutral-300 text-neutral-700 hover:border-black hover:bg-neutral-100'
           }`}
           title="Toggle Debug Overlay [D]"
           id="debug-toggle-btn"
@@ -450,19 +472,19 @@ export const App: React.FC = () => {
             void fetchHealthStatus();
           }}
           disabled={loading}
-          className="p-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/80 rounded-lg transition-colors border border-slate-800 disabled:opacity-50 cursor-pointer"
+          className="p-1.5 text-neutral-700 hover:text-black hover:bg-neutral-100 rounded border border-neutral-300 disabled:opacity-50 transition-colors cursor-pointer"
           title="Refresh backend status"
           aria-label="Refresh status"
         >
-          <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-blue-400' : ''}`} />
+          <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-black' : ''}`} />
         </button>
 
         {/* Backend Status Badge */}
         <div
           data-testid="backend-status-badge"
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${
+          className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-[11px] font-bold uppercase tracking-wider border ${
             loading
-              ? 'bg-slate-800/80 text-slate-300 border-slate-700'
+              ? 'bg-neutral-100 text-neutral-600 border-neutral-300'
               : backendOk
               ? 'bg-emerald-950/80 text-emerald-300 border-emerald-800/60'
               : 'bg-rose-950/80 text-rose-300 border-rose-800/60'
@@ -470,7 +492,7 @@ export const App: React.FC = () => {
         >
           {loading ? (
             <>
-              <Activity className="w-3 h-3 animate-pulse text-blue-400" />
+              <Activity className="w-3 h-3 animate-pulse text-neutral-500" />
               <span className="hidden sm:inline">Checking…</span>
             </>
           ) : backendOk ? (
@@ -492,7 +514,7 @@ export const App: React.FC = () => {
   // ── Sub-views ──────────────────────────────────────────────────────────────
   if (currentView === 'recorder') {
     return (
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+      <div className="min-h-screen bg-white text-neutral-900 font-mono flex flex-col">
         {header}
         <RecorderPage onBack={() => setCurrentView('main')} />
       </div>
@@ -500,16 +522,32 @@ export const App: React.FC = () => {
   }
   if (currentView === 'player') {
     return (
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+      <div className="min-h-screen bg-white text-neutral-900 font-mono flex flex-col">
         {header}
         <PlayerTestPage onBack={() => setCurrentView('main')} />
+      </div>
+    );
+  }
+  if (currentView === 'handshapes') {
+    return (
+      <div className="min-h-screen bg-white text-neutral-900 font-mono flex flex-col">
+        {header}
+        <HandshapeWizardPage onBack={() => setCurrentView('main')} />
+      </div>
+    );
+  }
+  if (currentView === 'specs') {
+    return (
+      <div className="min-h-screen bg-white text-neutral-900 font-mono flex flex-col">
+        {header}
+        <SpecPreviewPage onBack={() => setCurrentView('main')} />
       </div>
     );
   }
 
   // ── Main View ──────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-blue-500/30">
+    <div className="min-h-screen bg-white text-neutral-900 font-mono flex flex-col selection:bg-neutral-200">
       {header}
 
       {/* Scripted Offline Demo Scenarios Bar */}
@@ -531,16 +569,15 @@ export const App: React.FC = () => {
         </div>
       )}
 
-      <main className="flex-1 flex flex-col lg:flex-row gap-0 overflow-hidden" style={{ minHeight: 0 }}>
+      <main className="flex-1 flex flex-col lg:flex-row gap-0 overflow-hidden bg-white" style={{ minHeight: 0 }}>
         {/* ── Left: Avatar ── */}
         <div
-          className={`flex flex-col bg-slate-950 border-b lg:border-b-0 lg:border-r border-slate-800/60 transition-all ${
+          className={`flex flex-col bg-white border-b lg:border-b-0 lg:border-r border-neutral-200 transition-all ${
             settings.avatarSize === 'large' ? 'lg:w-2/3' : 'lg:w-3/5'
           }`}
         >
           {/* Avatar viewport */}
-          <div className="flex-1 relative" style={{ minHeight: '340px' }}>
-            <div className="absolute inset-0 bg-gradient-to-b from-slate-900/30 to-slate-950/60" />
+          <div className="flex-1 relative bg-white" style={{ minHeight: '340px' }}>
             <AvatarContainer
               frame={frame}
               isIdle={isIdle}
@@ -552,55 +589,54 @@ export const App: React.FC = () => {
             />
 
             {/* Status badge */}
-            <div className="absolute top-3 left-3 flex items-center gap-2 px-2.5 py-1 rounded-full bg-slate-950/80 border border-slate-800/80 text-[10px] font-mono text-slate-400 backdrop-blur-md">
-              <Sparkles className="w-3 h-3 text-indigo-400" />
-              <span>Phase 6 — Accessible</span>
+            <div className="absolute top-3 left-3 flex items-center gap-2 px-2 py-0.5 rounded bg-white/95 border border-neutral-300 text-[10px] font-mono font-semibold text-neutral-800 shadow-xs">
+              <span>AVATAR ENGINE</span>
               <span
                 className={`w-1.5 h-1.5 rounded-full ${
                   playerStatus === 'playing' || playerStatus === 'blending'
-                    ? 'bg-emerald-400 animate-pulse'
+                    ? 'bg-green-600 animate-pulse'
                     : playerStatus === 'paused'
-                    ? 'bg-amber-400'
-                    : 'bg-slate-700'
+                    ? 'bg-amber-500'
+                    : 'bg-neutral-400'
                 }`}
               />
             </div>
 
             {/* Mirror Indicator */}
             {settings.avatarMirrored && (
-              <div className="absolute top-3 left-36 font-mono text-[10px] px-2 py-0.5 rounded-full border border-cyan-800/60 bg-cyan-950/60 text-cyan-300">
-                Mirrored
+              <div className="absolute top-3 left-36 font-mono text-[10px] px-2 py-0.5 rounded bg-white border border-neutral-300 text-neutral-800 font-bold">
+                MIRRORED
               </div>
             )}
 
             {/* FPS counter & Speed badge */}
-            <div className="absolute top-3 right-3 flex items-center gap-2 font-mono text-[10px]">
-              <span className="px-2 py-0.5 rounded-full border border-slate-800 bg-slate-900/80 text-slate-300">
+            <div className="absolute top-3 right-3 flex items-center gap-1.5 font-mono text-[10px]">
+              <span className="px-2 py-0.5 rounded border border-neutral-300 bg-white font-bold text-neutral-800">
                 {speed.toFixed(2)}×
               </span>
               <div
-                className={`px-2 py-0.5 rounded-full border ${
+                className={`px-2 py-0.5 rounded border font-bold ${
                   fps >= 55
-                    ? 'text-emerald-400 border-emerald-900/60 bg-emerald-950/40'
+                    ? 'text-neutral-900 border-neutral-300 bg-white'
                     : fps >= 30
-                    ? 'text-amber-400 border-amber-900/60 bg-amber-950/40'
-                    : 'text-rose-400 border-rose-900/60 bg-rose-950/40'
+                    ? 'text-amber-800 border-amber-300 bg-amber-50'
+                    : 'text-red-800 border-red-300 bg-red-50'
                 }`}
               >
-                {fps} fps
+                {fps} FPS
               </div>
             </div>
           </div>
 
           {/* Gloss strip */}
-          <div className="shrink-0 p-3.5 border-t border-slate-800/60 bg-slate-900/40">
-            <div className="flex items-center gap-2 mb-1.5">
-              <span className="text-[10px] uppercase tracking-widest text-slate-500 font-semibold font-mono">
-                ASL Gloss
+          <div className="shrink-0 p-3.5 border-t border-neutral-200 bg-neutral-50">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold font-mono">
+                // ASL GLOSS STREAM
               </span>
               {pipeline.isQuestion && (
-                <span className="text-[9px] font-mono text-amber-400 uppercase font-bold bg-amber-950/60 px-1.5 py-0.5 rounded border border-amber-800/50">
-                  {pipeline.questionType === 'wh' ? 'WH-Question (Furrowed Brow)' : 'Yes/No-Question (Raised Brow)'}
+                <span className="text-[9px] font-mono text-neutral-900 uppercase font-bold bg-neutral-200 px-1.5 py-0.5 rounded border border-neutral-300">
+                  {pipeline.questionType === 'wh' ? 'WH-QUESTION (FURROWED BROW)' : 'YES/NO-QUESTION (RAISED BROW)'}
                 </span>
               )}
             </div>
@@ -615,40 +651,34 @@ export const App: React.FC = () => {
 
         {/* ── Right: Captions + Input ── */}
         <div
-          className={`flex flex-col bg-slate-950 ${
+          className={`flex flex-col bg-neutral-50/50 ${
             settings.avatarSize === 'large' ? 'lg:w-1/3' : 'lg:w-2/5'
           }`}
         >
           {/* Alerts / Banners */}
           <div className="shrink-0 px-4 pt-3 space-y-2">
             {(speechStatus === 'denied' || !pipeline.backendReachable) && (
-              <div className="flex items-start gap-2.5 p-3 rounded-xl bg-amber-950/50 border border-amber-800/50 text-amber-200 text-xs">
-                <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <div>
-                  {speechStatus === 'denied' && (
-                    <p className="font-semibold">Mic permission denied — click the lock/settings icon in your browser URL bar to allow microphone access, or use typed input.</p>
-                  )}
-                  {!pipeline.backendReachable && (
-                    <p className="font-semibold mt-0.5">Backend unreachable — retrying automatically.</p>
-                  )}
-                </div>
+              <div className="p-3 rounded border border-amber-300 bg-amber-50 text-amber-900 text-xs">
+                {speechStatus === 'denied' && (
+                  <p className="font-semibold">Microphone blocked — enable microphone permission in browser settings or use typed text input.</p>
+                )}
+                {!pipeline.backendReachable && (
+                  <p className="font-semibold mt-0.5">Backend offline — attempting automatic reconnection.</p>
+                )}
               </div>
             )}
             {speechStatus === 'error' && speechError && (
-              <div className="flex items-start gap-2.5 p-3 rounded-xl bg-rose-950/40 border border-rose-800/50 text-rose-200 text-xs">
-                <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+              <div className="p-3 rounded border border-red-300 bg-red-50 text-red-900 text-xs">
                 <p>{speechError}</p>
               </div>
             )}
             {speechStatus === 'unsupported' && (
-              <div className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 text-xs">
-                <Info className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
-                <p>Speech recognition works best in Chrome / Edge. Keyboard input is always active.</p>
+              <div className="p-3 rounded border border-neutral-300 bg-neutral-100 text-neutral-700 text-xs">
+                <p>Web Speech API active in Chrome / Edge. Typed input mode is active on all browsers.</p>
               </div>
             )}
             {pipeline.lastError && (
-              <div className="flex items-start gap-2.5 p-3 rounded-xl bg-rose-950/40 border border-rose-800/50 text-rose-200 text-xs">
-                <XCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+              <div className="p-3 rounded border border-red-300 bg-red-50 text-red-900 text-xs">
                 <p>{pipeline.lastError}</p>
               </div>
             )}
@@ -666,8 +696,8 @@ export const App: React.FC = () => {
           </div>
 
           {/* Input controls */}
-          <div className="shrink-0 p-4 border-t border-slate-800/60 bg-slate-900/60 backdrop-blur-md">
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col sm:flex-row items-center gap-4 shadow-xl">
+          <div className="shrink-0 p-4 border-t border-neutral-200 bg-white">
+            <div className="bg-white border border-neutral-300 rounded-lg p-3.5 flex flex-col sm:flex-row items-center gap-3.5 shadow-xs">
               <div className="shrink-0">
                 <MicButton
                   status={speechStatus}
@@ -675,11 +705,11 @@ export const App: React.FC = () => {
                   onToggle={toggleListening}
                 />
               </div>
-              <div className="hidden sm:block w-px h-12 bg-slate-800" />
-              <div className="w-full flex-1 flex flex-col gap-1.5">
-                <div className="flex items-center justify-between text-[11px] text-slate-400">
-                  <span>Type a sentence or press Space for mic</span>
-                  <span>↵ to translate</span>
+              <div className="hidden sm:block w-px h-12 bg-neutral-200" />
+              <div className="w-full flex-1 flex flex-col gap-1">
+                <div className="flex items-center justify-between text-[10px] text-neutral-500 font-mono">
+                  <span>SPEAK [SPACE] OR TYPE SENTENCE</span>
+                  <span>ENTER TO TRANSLATE</span>
                 </div>
                 <TextInput textSource={globalTextSource} />
               </div>
@@ -688,23 +718,27 @@ export const App: React.FC = () => {
         </div>
       </main>
 
-      {/* Footer with Accessibility shortcuts info */}
-      <footer className="shrink-0 border-t border-slate-800/60 bg-slate-900/50 py-2.5 px-6 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400">
-        <div className="flex items-center gap-3">
-          <span>SignBridge • WCAG 2.2 AA Accessible • ASL Translation Engine</span>
+      {/* Footer */}
+      <footer className="shrink-0 border-t border-neutral-200 bg-white py-2 px-6 flex flex-wrap items-center justify-between gap-2 text-[11px] text-neutral-500 font-mono">
+        <div className="flex items-center gap-2">
+          <span className="font-semibold text-neutral-700">SignBridge ASL</span>
+          <span>•</span>
+          <span>WCAG 2.2 AA Accessible</span>
+          <span>•</span>
+          <span>Deterministic ASL Grammar</span>
         </div>
-        <div className="flex items-center gap-3 font-mono">
+        <div className="flex items-center gap-2">
           <span>
-            <kbd className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">Space</kbd> Mic
+            <kbd className="px-1.5 py-0.2 rounded bg-neutral-100 text-neutral-800 border border-neutral-300">Space</kbd> Mic
           </span>
           <span>
-            <kbd className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">M</kbd> Mirror
+            <kbd className="px-1.5 py-0.2 rounded bg-neutral-100 text-neutral-800 border border-neutral-300">M</kbd> Mirror
           </span>
           <span>
-            <kbd className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">?</kbd> Shortcuts
+            <kbd className="px-1.5 py-0.2 rounded bg-neutral-100 text-neutral-800 border border-neutral-300">?</kbd> Shortcuts
           </span>
           <span>
-            <kbd className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">D</kbd> Debug
+            <kbd className="px-1.5 py-0.2 rounded bg-neutral-100 text-neutral-800 border border-neutral-300">D</kbd> Debug
           </span>
         </div>
       </footer>
@@ -728,6 +762,13 @@ export const App: React.FC = () => {
         isOpen={showShortcuts}
         onClose={() => setShowShortcuts(false)}
       />
+
+      {/* Self-Check Modal */}
+      {showSelfCheck && (
+        <SelfCheckModal
+          onClose={() => setShowSelfCheck(false)}
+        />
+      )}
 
       {/* Debug Overlay */}
       {showDebug && (

@@ -1,0 +1,38 @@
+{
+  "gloss": "YOU",
+  "hands": "dominant",
+  "duration_ms": 800,
+  "reference": "Lifeprint: Dominant index finger points forward toward conversational partner",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "index_1",
+        "palm": "forward",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          0.05,
+          0.0,
+          0.18
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "index_1",
+        "palm": "forward",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          0.05,
+          0.0,
+          0.32
+        ]
+      }
+    }
+  ]
+}

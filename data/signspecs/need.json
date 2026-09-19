@@ -1,0 +1,38 @@
+{
+  "gloss": "NEED",
+  "hands": "dominant",
+  "duration_ms": 850,
+  "reference": "Lifeprint: Dominant bent-V / hooked index finger drops downward firmly at wrist",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "bent_v",
+        "palm": "down",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          0.1,
+          -0.05,
+          0.22
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "bent_v",
+        "palm": "down",
+        "fingers": "down",
+        "location": "neutral",
+        "offset": [
+          0.1,
+          0.1,
+          0.22
+        ]
+      }
+    }
+  ]
+}

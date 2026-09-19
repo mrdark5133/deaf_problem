@@ -1,0 +1,85 @@
+{
+  "gloss": "TODAY",
+  "hands": "two",
+  "duration_ms": 1000,
+  "reference": "Lifeprint: Both Y-hands perform double downward bounce (NOW + NOW)",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "horns_y",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "chest",
+        "offset": [
+          0.1,
+          -0.05,
+          0.2
+        ]
+      },
+      "non_dominant": {
+        "handshape": "horns_y",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "chest",
+        "offset": [
+          -0.1,
+          -0.05,
+          0.2
+        ]
+      }
+    },
+    {
+      "t": 0.5,
+      "dominant": {
+        "handshape": "horns_y",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "chest",
+        "offset": [
+          0.1,
+          0.08,
+          0.22
+        ]
+      },
+      "non_dominant": {
+        "handshape": "horns_y",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "chest",
+        "offset": [
+          -0.1,
+          0.08,
+          0.22
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "horns_y",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "waist",
+        "offset": [
+          0.1,
+          0.12,
+          0.22
+        ]
+      },
+      "non_dominant": {
+        "handshape": "horns_y",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "waist",
+        "offset": [
+          -0.1,
+          0.12,
+          0.22
+        ]
+      }
+    }
+  ]
+}

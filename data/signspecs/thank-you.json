@@ -1,0 +1,38 @@
+{
+  "gloss": "THANK-YOU",
+  "hands": "dominant",
+  "duration_ms": 1100,
+  "reference": "Lifeprint: Flat-B hand from chin/mouth moving outward and forward toward receiver",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "flat_b",
+        "palm": "toward_body",
+        "fingers": "up",
+        "location": "chin",
+        "offset": [
+          0.0,
+          0.02,
+          0.06
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "flat_b",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          0.05,
+          0.0,
+          0.32
+        ]
+      }
+    }
+  ]
+}

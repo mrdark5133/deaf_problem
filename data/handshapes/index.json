@@ -1,0 +1,288 @@
+{
+  "version": "1.0.0",
+  "total_handshapes": 47,
+  "handshapes": {
+    "letter_a": {
+      "id": "letter_a",
+      "name": "ASL Letter A",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_a.json"
+    },
+    "letter_b": {
+      "id": "letter_b",
+      "name": "ASL Letter B",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_b.json"
+    },
+    "letter_c": {
+      "id": "letter_c",
+      "name": "ASL Letter C",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_c.json"
+    },
+    "letter_d": {
+      "id": "letter_d",
+      "name": "ASL Letter D",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_d.json"
+    },
+    "letter_e": {
+      "id": "letter_e",
+      "name": "ASL Letter E",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_e.json"
+    },
+    "letter_f": {
+      "id": "letter_f",
+      "name": "ASL Letter F",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_f.json"
+    },
+    "letter_g": {
+      "id": "letter_g",
+      "name": "ASL Letter G",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_g.json"
+    },
+    "letter_h": {
+      "id": "letter_h",
+      "name": "ASL Letter H",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_h.json"
+    },
+    "letter_i": {
+      "id": "letter_i",
+      "name": "ASL Letter I",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_i.json"
+    },
+    "letter_j": {
+      "id": "letter_j",
+      "name": "ASL Letter J",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_j.json"
+    },
+    "letter_k": {
+      "id": "letter_k",
+      "name": "ASL Letter K",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_k.json"
+    },
+    "letter_l": {
+      "id": "letter_l",
+      "name": "ASL Letter L",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_l.json"
+    },
+    "letter_m": {
+      "id": "letter_m",
+      "name": "ASL Letter M",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_m.json"
+    },
+    "letter_n": {
+      "id": "letter_n",
+      "name": "ASL Letter N",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_n.json"
+    },
+    "letter_o": {
+      "id": "letter_o",
+      "name": "ASL Letter O",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_o.json"
+    },
+    "letter_p": {
+      "id": "letter_p",
+      "name": "ASL Letter P",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_p.json"
+    },
+    "letter_q": {
+      "id": "letter_q",
+      "name": "ASL Letter Q",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_q.json"
+    },
+    "letter_r": {
+      "id": "letter_r",
+      "name": "ASL Letter R",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_r.json"
+    },
+    "letter_s": {
+      "id": "letter_s",
+      "name": "ASL Letter S",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_s.json"
+    },
+    "letter_t": {
+      "id": "letter_t",
+      "name": "ASL Letter T",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_t.json"
+    },
+    "letter_u": {
+      "id": "letter_u",
+      "name": "ASL Letter U",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_u.json"
+    },
+    "letter_v": {
+      "id": "letter_v",
+      "name": "ASL Letter V",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_v.json"
+    },
+    "letter_w": {
+      "id": "letter_w",
+      "name": "ASL Letter W",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_w.json"
+    },
+    "letter_x": {
+      "id": "letter_x",
+      "name": "ASL Letter X",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_x.json"
+    },
+    "letter_y": {
+      "id": "letter_y",
+      "name": "ASL Letter Y",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_y.json"
+    },
+    "letter_z": {
+      "id": "letter_z",
+      "name": "ASL Letter Z",
+      "category": "fingerspell-alpha",
+      "file": "handshapes/letter_z.json"
+    },
+    "digit_0": {
+      "id": "digit_0",
+      "name": "ASL Digit 0",
+      "category": "fingerspell-digit",
+      "file": "handshapes/digit_0.json"
+    },
+    "digit_1": {
+      "id": "digit_1",
+      "name": "ASL Digit 1",
+      "category": "fingerspell-digit",
+      "file": "handshapes/digit_1.json"
+    },
+    "digit_2": {
+      "id": "digit_2",
+      "name": "ASL Digit 2",
+      "category": "fingerspell-digit",
+      "file": "handshapes/digit_2.json"
+    },
+    "digit_3": {
+      "id": "digit_3",
+      "name": "ASL Digit 3",
+      "category": "fingerspell-digit",
+      "file": "handshapes/digit_3.json"
+    },
+    "digit_4": {
+      "id": "digit_4",
+      "name": "ASL Digit 4",
+      "category": "fingerspell-digit",
+      "file": "handshapes/digit_4.json"
+    },
+    "digit_5": {
+      "id": "digit_5",
+      "name": "ASL Digit 5",
+      "category": "fingerspell-digit",
+      "file": "handshapes/digit_5.json"
+    },
+    "digit_6": {
+      "id": "digit_6",
+      "name": "ASL Digit 6",
+      "category": "fingerspell-digit",
+      "file": "handshapes/digit_6.json"
+    },
+    "digit_7": {
+      "id": "digit_7",
+      "name": "ASL Digit 7",
+      "category": "fingerspell-digit",
+      "file": "handshapes/digit_7.json"
+    },
+    "digit_8": {
+      "id": "digit_8",
+      "name": "ASL Digit 8",
+      "category": "fingerspell-digit",
+      "file": "handshapes/digit_8.json"
+    },
+    "digit_9": {
+      "id": "digit_9",
+      "name": "ASL Digit 9",
+      "category": "fingerspell-digit",
+      "file": "handshapes/digit_9.json"
+    },
+    "flat_b": {
+      "id": "flat_b",
+      "name": "ASL Flat B (Open Palm)",
+      "category": "asl-standard",
+      "file": "handshapes/flat_b.json"
+    },
+    "open_5": {
+      "id": "open_5",
+      "name": "ASL Open 5 (Spread Fingers)",
+      "category": "asl-standard",
+      "file": "handshapes/open_5.json"
+    },
+    "fist_s": {
+      "id": "fist_s",
+      "name": "ASL Fist S",
+      "category": "asl-standard",
+      "file": "handshapes/fist_s.json"
+    },
+    "fist_a": {
+      "id": "fist_a",
+      "name": "ASL Fist A",
+      "category": "asl-standard",
+      "file": "handshapes/fist_a.json"
+    },
+    "index_1": {
+      "id": "index_1",
+      "name": "ASL Index 1 (Pointing)",
+      "category": "asl-standard",
+      "file": "handshapes/index_1.json"
+    },
+    "bent_v": {
+      "id": "bent_v",
+      "name": "ASL Bent V",
+      "category": "asl-standard",
+      "file": "handshapes/bent_v.json"
+    },
+    "curved_c": {
+      "id": "curved_c",
+      "name": "ASL Curved C",
+      "category": "asl-standard",
+      "file": "handshapes/curved_c.json"
+    },
+    "flat_o": {
+      "id": "flat_o",
+      "name": "ASL Flat O / Tapered",
+      "category": "asl-standard",
+      "file": "handshapes/flat_o.json"
+    },
+    "pinch_f": {
+      "id": "pinch_f",
+      "name": "ASL Pinch F",
+      "category": "asl-standard",
+      "file": "handshapes/pinch_f.json"
+    },
+    "horns_y": {
+      "id": "horns_y",
+      "name": "ASL Horns Y (Thumb & Pinky)",
+      "category": "asl-standard",
+      "file": "handshapes/horns_y.json"
+    },
+    "flat_m": {
+      "id": "flat_m",
+      "name": "ASL Flat M (Three fingers over thumb)",
+      "category": "asl-standard",
+      "file": "handshapes/flat_m.json"
+    }
+  }
+}

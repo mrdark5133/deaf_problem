@@ -1,0 +1,52 @@
+{
+  "gloss": "YES",
+  "hands": "dominant",
+  "duration_ms": 900,
+  "reference": "Lifeprint: Fist-S hand nodding down at wrist like a head nodding yes",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "fist_s",
+        "palm": "forward",
+        "fingers": "up",
+        "location": "neutral",
+        "offset": [
+          0.05,
+          -0.1,
+          0.2
+        ]
+      }
+    },
+    {
+      "t": 0.5,
+      "dominant": {
+        "handshape": "fist_s",
+        "palm": "forward",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          0.05,
+          0.05,
+          0.25
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "fist_s",
+        "palm": "forward",
+        "fingers": "up",
+        "location": "neutral",
+        "offset": [
+          0.05,
+          -0.1,
+          0.2
+        ]
+      }
+    }
+  ]
+}

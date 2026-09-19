@@ -231,26 +231,25 @@ export const RecorderPage: React.FC<RecorderPageProps> = ({ onBack }) => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col p-6 max-w-6xl mx-auto">
+    <div className="min-h-screen bg-white text-neutral-900 font-mono flex flex-col p-6 max-w-6xl mx-auto">
       {/* Header */}
-      <div className="flex items-center justify-between pb-6 border-b border-slate-800">
+      <div className="flex items-center justify-between pb-4 border-b border-neutral-200">
         <div className="flex items-center gap-3">
           {onBack && (
             <button
               onClick={onBack}
-              className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
+              className="p-1.5 text-neutral-600 hover:text-black hover:bg-neutral-100 rounded border border-neutral-300 transition-colors cursor-pointer"
               title="Back to Translator"
               aria-label="Back to Translator"
             >
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeft className="w-4 h-4" />
             </button>
           )}
           <div>
-            <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-indigo-400 font-semibold mb-1">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-              <span>SignBridge MediaPipe Studio</span>
+            <div className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold mb-0.5">
+              // MEDIAPIPE CV PIPELINE
             </div>
-            <h1 className="text-2xl font-bold text-white tracking-tight">
+            <h1 className="text-base font-bold text-neutral-900 tracking-tight leading-none">
               Sign Video & CV Capture Pipeline
             </h1>
           </div>
@@ -259,52 +258,52 @@ export const RecorderPage: React.FC<RecorderPageProps> = ({ onBack }) => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setActiveTab('review')}
-            className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-semibold text-emerald-400 flex items-center gap-2 transition-colors cursor-pointer"
+            className="px-3 py-1.5 rounded border border-neutral-300 bg-white hover:bg-neutral-100 text-xs font-bold uppercase tracking-wider text-neutral-800 flex items-center gap-1.5 transition-colors cursor-pointer"
           >
-            <FileCheck className="w-4 h-4" />
-            <span>Open Library Provenance Review</span>
+            <FileCheck className="w-3.5 h-3.5" />
+            <span>Library Review</span>
           </button>
         </div>
       </div>
 
       {/* Mode Selector Tabs */}
-      <div className="flex items-center gap-3 mt-6">
+      <div className="flex items-center gap-2 mt-4 flex-wrap">
         <button
           onClick={() => setSourceMode('webcam')}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer ${
+          className={`px-3 py-1.5 rounded text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer ${
             sourceMode === 'webcam'
-              ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
-              : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800'
+              ? 'bg-black text-white'
+              : 'bg-white text-neutral-700 hover:text-black border border-neutral-300'
           }`}
         >
-          <Camera className="w-4 h-4" />
-          <span>Live Webcam Stream</span>
+          <Camera className="w-3.5 h-3.5" />
+          <span>Live Webcam</span>
         </button>
         <button
           onClick={() => setSourceMode('video-file')}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer ${
+          className={`px-3 py-1.5 rounded text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer ${
             sourceMode === 'video-file'
-              ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
-              : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800'
+              ? 'bg-black text-white'
+              : 'bg-white text-neutral-700 hover:text-black border border-neutral-300'
           }`}
         >
-          <Upload className="w-4 h-4" />
-          <span>Upload Video File (MP4 / WebM)</span>
+          <Upload className="w-3.5 h-3.5" />
+          <span>Upload Video File (MP4/WebM)</span>
         </button>
 
         {sourceMode === 'webcam' && (
-          <span className={`text-[11px] font-mono px-2.5 py-1 rounded-lg border ${
+          <span className={`text-[10px] font-mono font-bold px-2 py-1 rounded border uppercase ${
             webcamActive
-              ? 'bg-emerald-950/60 border-emerald-800/60 text-emerald-400'
-              : 'bg-slate-900 border-slate-800 text-slate-400'
+              ? 'bg-emerald-50 border-emerald-300 text-emerald-800'
+              : 'bg-neutral-100 border-neutral-300 text-neutral-600'
           }`}>
-            Webcam: {webcamActive ? 'Streaming' : 'Connecting...'}
+            Webcam: {webcamActive ? 'STREAMING' : 'CONNECTING...'}
           </span>
         )}
 
         {sourceMode === 'video-file' && uploadedFileName && (
-          <span className="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-indigo-950/60 border border-indigo-800/60 text-indigo-300 truncate max-w-xs">
-            File: {uploadedFileName}
+          <span className="text-[10px] font-mono font-bold px-2 py-1 rounded bg-neutral-100 border border-neutral-300 text-neutral-800 truncate max-w-xs uppercase">
+            FILE: {uploadedFileName}
           </span>
         )}
       </div>
@@ -313,16 +312,16 @@ export const RecorderPage: React.FC<RecorderPageProps> = ({ onBack }) => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-4 flex-1">
         {/* Left 2 cols: Video / Canvas Viewport */}
         <div className="lg:col-span-2 flex flex-col gap-4">
-          <div className="relative aspect-[4/3] bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center">
+          <div className="relative aspect-[4/3] bg-white border border-neutral-300 rounded shadow-xs overflow-hidden flex items-center justify-center">
             {sourceMode === 'webcam' ? (
               webcamError ? (
-                <div className="p-6 text-center text-rose-300 text-sm max-w-md">
-                  <Video className="w-12 h-12 mx-auto mb-3 text-rose-400 opacity-60" />
-                  <p className="font-semibold mb-1">Camera Notice</p>
-                  <p className="text-xs text-rose-400/80 mb-3">{webcamError}</p>
+                <div className="p-6 text-center text-neutral-800 text-xs max-w-md font-mono">
+                  <Video className="w-10 h-10 mx-auto mb-2 text-neutral-400" />
+                  <p className="font-bold mb-1 uppercase">// CAMERA NOTICE</p>
+                  <p className="text-neutral-600 mb-3">{webcamError}</p>
                   <button
                     onClick={() => setSourceMode('video-file')}
-                    className="px-3.5 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-semibold"
+                    className="px-3 py-1.5 rounded bg-black text-white text-xs font-bold uppercase cursor-pointer"
                   >
                     Switch to Video File Upload
                   </button>
@@ -365,15 +364,15 @@ export const RecorderPage: React.FC<RecorderPageProps> = ({ onBack }) => {
                     />
                   </>
                 ) : (
-                  <div className="p-8 text-center text-slate-400 flex flex-col items-center gap-3">
-                    <Upload className="w-12 h-12 text-indigo-400 opacity-80" />
-                    <p className="text-sm font-semibold text-slate-200">
-                      Select an ASL video file to extract landmarks
+                  <div className="p-8 text-center text-neutral-500 flex flex-col items-center gap-2 font-mono">
+                    <Upload className="w-10 h-10 text-neutral-400" />
+                    <p className="text-xs font-bold text-neutral-800 uppercase">
+                      SELECT AN ASL VIDEO FILE TO EXTRACT LANDMARKS
                     </p>
-                    <p className="text-xs text-slate-500 max-w-xs">
+                    <p className="text-[11px] text-neutral-500 max-w-xs">
                       Supports MP4, WebM, and MOV formats. Frames are normalized and smoothed.
                     </p>
-                    <label className="mt-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-xl cursor-pointer shadow-lg shadow-indigo-600/20 transition-all">
+                    <label className="mt-2 px-3.5 py-1.5 bg-black hover:bg-neutral-800 text-white text-xs font-bold uppercase rounded cursor-pointer transition-colors">
                       Choose Video File
                       <input
                         type="file"
@@ -389,15 +388,15 @@ export const RecorderPage: React.FC<RecorderPageProps> = ({ onBack }) => {
 
             {/* Countdown Overlay */}
             {countdown !== null && (
-              <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center animate-in fade-in">
-                <span className="text-8xl font-black text-indigo-400 animate-ping">{countdown}</span>
+              <div className="absolute inset-0 bg-white/80 backdrop-blur-xs flex items-center justify-center font-mono">
+                <span className="text-7xl font-bold text-black">{countdown}</span>
               </div>
             )}
 
             {/* Recording Indicator */}
             {isRecording && (
-              <div className="absolute top-4 right-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-950/80 border border-rose-700 text-rose-300 text-xs font-semibold animate-pulse shadow-lg">
-                <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+              <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded bg-red-100 border border-red-300 text-red-900 text-[10px] font-bold uppercase animate-pulse">
+                <span className="w-2 h-2 rounded-full bg-red-600" />
                 <span>PROCESSING FRAMES...</span>
               </div>
             )}
@@ -405,81 +404,81 @@ export const RecorderPage: React.FC<RecorderPageProps> = ({ onBack }) => {
         </div>
 
         {/* Right col: Clip Metadata & Provenance Form */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 flex flex-col gap-4 justify-between">
-          <div className="flex flex-col gap-3.5">
-            <h2 className="text-sm font-semibold text-slate-200 uppercase tracking-wider">
-              Provenance Configuration
+        <div className="bg-white border border-neutral-300 rounded p-4 flex flex-col gap-4 justify-between font-mono">
+          <div className="flex flex-col gap-3">
+            <h2 className="text-xs font-bold text-neutral-900 uppercase tracking-wider">
+              // PROVENANCE CONFIGURATION
             </h2>
 
             <div>
-              <label className="block text-xs font-medium text-slate-400 mb-1">
-                Sign Gloss Label
+              <label className="block text-[11px] font-bold text-neutral-700 uppercase mb-1">
+                SIGN GLOSS LABEL
               </label>
               <input
                 type="text"
                 value={gloss}
                 onChange={(e) => setGloss(e.target.value.toUpperCase())}
                 placeholder="e.g. HELLO, THANK-YOU"
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 font-mono outline-none focus:border-indigo-500"
+                className="w-full bg-white border border-neutral-300 rounded px-2.5 py-1.5 text-xs text-neutral-900 font-mono outline-none focus:border-black"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-slate-400 mb-1">
-                Dataset Source
+              <label className="block text-[11px] font-bold text-neutral-700 uppercase mb-1">
+                DATASET SOURCE
               </label>
               <input
                 type="text"
                 value={datasetSource}
                 onChange={(e) => setDatasetSource(e.target.value)}
-                placeholder="e.g. asl-citizen-processed-200, ZahidYasinMittha"
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 outline-none focus:border-indigo-500"
+                placeholder="e.g. asl-citizen-processed-200"
+                className="w-full bg-white border border-neutral-300 rounded px-2.5 py-1.5 text-xs text-neutral-900 outline-none focus:border-black"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">License</label>
+                <label className="block text-[11px] font-bold text-neutral-700 uppercase mb-1">LICENSE</label>
                 <input
                   type="text"
                   value={license}
                   onChange={(e) => setLicense(e.target.value)}
                   placeholder="MIT, CC-BY-NC-SA 4.0"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 outline-none focus:border-indigo-500"
+                  className="w-full bg-white border border-neutral-300 rounded px-2.5 py-1.5 text-xs text-neutral-900 outline-none focus:border-black"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">Signer ID</label>
+                <label className="block text-[11px] font-bold text-neutral-700 uppercase mb-1">SIGNER ID</label>
                 <input
                   type="text"
                   value={signerName}
                   onChange={(e) => setSignerName(e.target.value)}
                   placeholder="signer-01"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 outline-none focus:border-indigo-500"
+                  className="w-full bg-white border border-neutral-300 rounded px-2.5 py-1.5 text-xs text-neutral-900 outline-none focus:border-black"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-slate-400 mb-1">
-                Original Sample ID
+              <label className="block text-[11px] font-bold text-neutral-700 uppercase mb-1">
+                ORIGINAL SAMPLE ID
               </label>
               <input
                 type="text"
                 value={originalId}
                 onChange={(e) => setOriginalId(e.target.value)}
                 placeholder="video-sample-id-1234"
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 font-mono outline-none focus:border-indigo-500"
+                className="w-full bg-white border border-neutral-300 rounded px-2.5 py-1.5 text-xs text-neutral-900 font-mono outline-none focus:border-black"
               />
             </div>
 
             {hasRecorded && (
-              <div className="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-800/50 text-emerald-300 text-xs flex flex-col gap-1">
-                <div className="flex items-center gap-1.5 font-semibold">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  <span>Clip Processed ({recordedFrames.length} frames)</span>
+              <div className="p-2.5 rounded bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs flex flex-col gap-0.5">
+                <div className="flex items-center gap-1.5 font-bold uppercase text-[11px]">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>CLIP PROCESSED ({recordedFrames.length} FRAMES)</span>
                 </div>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[10px] text-emerald-700">
                   Ready for export with valid Hard Rule 3 provenance tags.
                 </p>
               </div>
@@ -490,24 +489,24 @@ export const RecorderPage: React.FC<RecorderPageProps> = ({ onBack }) => {
             )}
           </div>
 
-          <div className="flex flex-col gap-2.5">
+          <div className="flex flex-col gap-2">
             <button
               onClick={handleStartRecording}
               disabled={isRecording || countdown !== null}
-              className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 disabled:bg-slate-800 text-white font-semibold text-xs rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20 transition-all cursor-pointer disabled:cursor-not-allowed"
+              className="w-full py-2 bg-black hover:bg-neutral-800 disabled:bg-neutral-200 disabled:text-neutral-400 text-white font-bold text-xs uppercase tracking-wider rounded flex items-center justify-center gap-1.5 transition-colors cursor-pointer disabled:cursor-not-allowed"
             >
               {isRecording ? (
                 <>
-                  <RotateCcw className="w-4 h-4 animate-spin" />
-                  <span>Processing...</span>
+                  <RotateCcw className="w-3.5 h-3.5 animate-spin" />
+                  <span>PROCESSING...</span>
                 </>
               ) : (
                 <>
-                  <Play className="w-4 h-4" />
+                  <Play className="w-3.5 h-3.5" />
                   <span>
                     {sourceMode === 'video-file'
-                      ? 'Process Video File (2s Sample)'
-                      : 'Start 3s Countdown & Record'}
+                      ? 'PROCESS VIDEO FILE (2S)'
+                      : 'START 3S COUNTDOWN & RECORD'}
                   </span>
                 </>
               )}
@@ -516,10 +515,10 @@ export const RecorderPage: React.FC<RecorderPageProps> = ({ onBack }) => {
             {hasRecorded && (
               <button
                 onClick={handleExportJSON}
-                className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-100 font-medium text-xs rounded-xl flex items-center justify-center gap-2 border border-slate-700 transition-colors cursor-pointer"
+                className="w-full py-2 bg-white hover:bg-neutral-100 text-neutral-900 font-bold text-xs uppercase tracking-wider rounded flex items-center justify-center gap-1.5 border border-neutral-300 transition-colors cursor-pointer"
               >
-                <Download className="w-4 h-4" />
-                <span>Export Real Clip JSON ({gloss.toLowerCase()}.json)</span>
+                <Download className="w-3.5 h-3.5" />
+                <span>EXPORT REAL CLIP JSON ({gloss.toLowerCase()}.json)</span>
               </button>
             )}
           </div>

@@ -37,18 +37,21 @@ The **ASL Gloss Golden Regression Suite** consists of 42 curated, deterministic 
 
 ## 3. Demo Scenario Vocabulary & Library Composition Coverage
 
-Evaluates direct real sign vocabulary matches versus procedural synthetic clips and character-by-character fingerspelling fallback across the 3 core healthcare, education, and help-desk demo scenarios:
+Evaluates direct real sign vocabulary matches versus spec-compiled clips and synthetic placeholders across the 3 core healthcare, education, and help-desk demo scenarios:
 
-| Scenario | Sentences | Total Gloss Tokens | Direct Real Signs | Synthetic Signs | Fingerspell Fallback | Real Sign Coverage | Total Available (Real+Synth) |
-|---|---|---|---|---|---|---|---|
-| **Doctor Visit** | 5 | 13 | 3 | 9 | 1 | **23.1% Real** | **92.3%** |
-| **Classroom** | 5 | 16 | 4 | 12 | 0 | **25.0% Real** | **100.0%** |
-| **Help Desk / Emergency** | 5 | 12 | 2 | 8 | 2 | **16.7% Real** | **83.3%** |
+| Scenario | Sentences | Total Gloss Tokens | Direct Real Signs | Spec-Compiled Signs (Handshape-First) | Synthetic Fallback | High-Fidelity Coverage (Real + Spec) |
+|---|---|---|---|---|---|---|
+| **Doctor Visit** | 5 | 12 | 2 | 10 | 0 | **100.0% Non-Synthetic** |
+| **Classroom** | 5 | 12 | 1 | 11 | 0 | **100.0% Non-Synthetic** |
+| **Help Desk / Emergency** | 5 | 8 | 1 | 7 | 0 | **100.0% Non-Synthetic** |
+| **Total Demo Suite** | **15** | **26 unique words** | **2** | **24** | **0** | **100.0% Non-Synthetic** |
 
 ### Library Composition (Provenance & Validation)
-- **Total Valid Clips:** 96 clips (validated via `scripts/validate_library.py --audit`)
-- **Real Human Data:** **39 clips (40.6%)** — 13 ASL Citizen vocabulary signs (`CC BY-NC-SA 4.0`) + 26 ASL-MNIST fingerspelling letters A–Z (`CC0`).
-- **Synthetic Clips:** **57 clips (59.4%)** — Generated via procedural keyframe generator; explicitly tagged with `SYNTHETIC` badge in UI and metadata.
+- **Total Valid Clips:** 98 clips (validated via `scripts/validate_library.py --audit`)
+- **Tier 1 (Real Human Data):** **34 clips (34.7%)** — ASL Citizen vocabulary + ASL-MNIST fingerspelling letters.
+- **Tier 2 (Spec-Compiled Handshape-First):** **30 clips (30.6%)** — Compiled deterministically from 47 canonical handshapes and kinematic keyframes.
+- **Tier 3 (Synthetic Fallback):** **34 clips (34.7%)** — Legacy fallback placeholders only.
+- **Linguistic Verification:** 0 / 30 verified by an external certified signer (`verified_by: null`). All specs marked `[UNVERIFIED]`.
 
 ---
 
@@ -56,8 +59,8 @@ Evaluates direct real sign vocabulary matches versus procedural synthetic clips 
 
 Measured on local CPU for the FastAPI rule-based ASL gloss generation step (`gloss_pipeline.translate()`):
 
-- **Median Latency (p50):** `3.57 ms` (Warm benchmark: `2.58 ms`, Budget: $< 50\text{ ms}$)
-- **95th Percentile (p95):** `45.56 ms` (Warm benchmark: `3.15 ms`, Budget: $< 100\text{ ms}$)
+- **Median Latency (p50):** `3.57 ms` (Reported as: **median ~3.6 ms (p95 ~46 ms)**)
+- **95th Percentile (p95):** `45.56 ms` (Budget: $< 100\text{ ms}$)
 - **Average Latency:** `8.30 ms`
 - **Min / Max Latency:** `2.09 ms` / `67.33 ms`
 

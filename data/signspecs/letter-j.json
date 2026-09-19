@@ -1,0 +1,52 @@
+{
+  "gloss": "LETTER-J",
+  "hands": "dominant",
+  "duration_ms": 1000,
+  "reference": "ASL Manual Alphabet: Pinky finger traces letter J hook in the air",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "letter_i",
+        "palm": "forward",
+        "fingers": "up",
+        "location": "neutral",
+        "offset": [
+          0.05,
+          -0.1,
+          0.2
+        ]
+      }
+    },
+    {
+      "t": 0.6,
+      "dominant": {
+        "handshape": "letter_i",
+        "palm": "forward",
+        "fingers": "down",
+        "location": "neutral",
+        "offset": [
+          0.05,
+          0.1,
+          0.2
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "letter_i",
+        "palm": "toward_body",
+        "fingers": "up",
+        "location": "neutral",
+        "offset": [
+          -0.08,
+          0.05,
+          0.2
+        ]
+      }
+    }
+  ]
+}

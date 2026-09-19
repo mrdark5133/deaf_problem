@@ -36,22 +36,25 @@ To ensure responsible and ethical technology development, this document transpar
 
 | Dimension | Current Implementation | Boundary / Future Roadmap |
 |---|---|---|
-| **Vocabulary Scope** | 60 core high-frequency domain signs + 36 fingerspelling signs (A–Z, 0–9). | Extended vocabulary expansion via multi-signer CV recording. |
-| **Spatial Reference (Loci)** | Fixed 2D skeleton pose and 21-landmark hand coordinate tracking. | 3D spatial indexation and pronoun directional agreement (loci setup). |
+| **Vocabulary & Provenance** | 98 total signs (34 Real, 30 Spec-Compiled Handshape-First, 34 Synthetic Fallback). | 30 specs compiled from 47 canonical handshapes. 100% demo scenario coverage. |
+| **Linguistic Verification** | 0 / 30 sign specifications currently verified by an external certified signer (`verified_by: null`). All specs marked `[UNVERIFIED]`. | Formal verification audit with certified Deaf ASL interpreters (RID/NAD). |
+| **Speech Recognition** | Browser Web Speech API (uses Google cloud service in Chrome) + 100% offline local typed input. | Fully local offline neural ASR model (e.g. Whisper.cpp/Vosk). |
+| **Spatial Reference (Loci)** | Fixed 2D skeleton pose and procedural 3D mannequin avatar with analytical IK solver ($L_1=0.420, L_2=0.380$). | Full 3D spatial indexation and pronoun directional agreement (loci setup). |
 | **Non-Manual Markers (NMM)** | Visual brow-raise (Y/N questions) and furrowed-brow (WH questions) indicators. | Full 3D facial mesh animation (mouth morphemes, head tilts, eye gaze). |
-| **Classifiers & Depicting Signs** | Lexicalized signs and discrete gestures. | Complex spatial classifier predicates and size/shape specifiers. |
+| **Classifiers & Depicting Signs** | Handshape-first keyframed classifiers and lexicalized signs. | Complex spatial classifier predicates and size/shape specifiers. |
 | **Bidirectionality** | Speech/Text $\rightarrow$ ASL Avatar. | Reverse ASL Sign $\rightarrow$ Spoken English translation. |
 
 ---
 
 ## 4. Accessibility & Inclusive Design Standards
 
-- **WCAG 2.2 AA Compliance:** High-contrast mode (contrast ratio $\ge 7:1$), full keyboard navigation, ARIA live regions for screen readers, adjustable caption typography, and mirror views.
+- **WCAG 2.2 AA Compliance:** High-contrast mode (contrast ratio $\ge 7:1$), full keyboard navigation (hotkeys 1-5), ARIA live regions for screen readers, adjustable caption typography, and mirror views (<kbd>M</kbd>).
 - **Backpressure & Speed Control:** Dynamic rate adaptation keeps video latency under 4 seconds without frame loss.
 - **Fail-Safe Fallbacks:** Typed input remains functional even when microphone permissions or browser speech APIs are unavailable.
+- **Pre-Flight Verification:** Built-in `/selfcheck` pre-flight modal and real-time provenance tracking in the Debug overlay.
 
 ---
 
 ## 5. Ethical Commitment & Community Validation
 
-Assistive communication technology in healthcare and public services must be evaluated directly with native Deaf signers and certified ASL interpreters (RID/NAD). SignBridge serves as an accessible reference prototype and interactive foundation for ongoing community-centered research.
+Assistive communication technology in healthcare and public services must be evaluated directly with native Deaf signers and certified ASL interpreters (RID/NAD). SignBridge serves as an accessible reference prototype and interactive foundation for ongoing community-centered research. Sign specifications are derived from standard ASL educational references without generative hallucination, but remain explicitly flagged as `[UNVERIFIED]` until community verification.

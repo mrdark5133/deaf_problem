@@ -1,0 +1,66 @@
+{
+  "gloss": "PLEASE",
+  "hands": "dominant",
+  "duration_ms": 1200,
+  "reference": "Lifeprint: Flat-B hand circular rubbing motion over chest",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "flat_b",
+        "palm": "toward_body",
+        "fingers": "left",
+        "location": "chest",
+        "offset": [
+          0.05,
+          0.0,
+          0.06
+        ]
+      }
+    },
+    {
+      "t": 0.33,
+      "dominant": {
+        "handshape": "flat_b",
+        "palm": "toward_body",
+        "fingers": "up",
+        "location": "chest",
+        "offset": [
+          -0.05,
+          -0.06,
+          0.06
+        ]
+      }
+    },
+    {
+      "t": 0.66,
+      "dominant": {
+        "handshape": "flat_b",
+        "palm": "toward_body",
+        "fingers": "right",
+        "location": "chest",
+        "offset": [
+          -0.08,
+          0.04,
+          0.06
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "flat_b",
+        "palm": "toward_body",
+        "fingers": "left",
+        "location": "chest",
+        "offset": [
+          0.05,
+          0.0,
+          0.06
+        ]
+      }
+    }
+  ]
+}

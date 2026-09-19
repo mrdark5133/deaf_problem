@@ -1,0 +1,85 @@
+{
+  "gloss": "WHEN",
+  "hands": "two",
+  "duration_ms": 1100,
+  "reference": "Lifeprint: Dominant index circles around stationary non-dominant index tip and lands on it",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "index_1",
+        "palm": "toward_body",
+        "fingers": "left",
+        "location": "neutral",
+        "offset": [
+          0.08,
+          -0.1,
+          0.2
+        ]
+      },
+      "non_dominant": {
+        "handshape": "index_1",
+        "palm": "right",
+        "fingers": "up",
+        "location": "neutral",
+        "offset": [
+          -0.05,
+          0.0,
+          0.2
+        ]
+      }
+    },
+    {
+      "t": 0.5,
+      "dominant": {
+        "handshape": "index_1",
+        "palm": "left",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          0.05,
+          -0.02,
+          0.28
+        ]
+      },
+      "non_dominant": {
+        "handshape": "index_1",
+        "palm": "right",
+        "fingers": "up",
+        "location": "neutral",
+        "offset": [
+          -0.05,
+          0.0,
+          0.2
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "index_1",
+        "palm": "down",
+        "fingers": "left",
+        "location": "neutral",
+        "offset": [
+          -0.04,
+          0.0,
+          0.2
+        ]
+      },
+      "non_dominant": {
+        "handshape": "index_1",
+        "palm": "right",
+        "fingers": "up",
+        "location": "neutral",
+        "offset": [
+          -0.05,
+          0.0,
+          0.2
+        ]
+      }
+    }
+  ]
+}

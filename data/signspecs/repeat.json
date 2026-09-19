@@ -1,0 +1,60 @@
+{
+  "gloss": "REPEAT",
+  "hands": "two",
+  "duration_ms": 1000,
+  "reference": "Lifeprint: Identical in production to AGAIN",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "bent_v",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          0.15,
+          -0.1,
+          0.2
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_b",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          -0.05,
+          0.1,
+          0.2
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "bent_v",
+        "palm": "down",
+        "fingers": "forward",
+        "location": "non_dominant_palm",
+        "offset": [
+          0.0,
+          0.02,
+          0.02
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_b",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          -0.05,
+          0.1,
+          0.2
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "gloss": "MORE",
+  "hands": "two",
+  "duration_ms": 900,
+  "reference": "Lifeprint: Both flat-O hands tap fingertips together twice at chest level",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "flat_o",
+        "palm": "toward_body",
+        "fingers": "left",
+        "location": "chest",
+        "offset": [
+          0.08,
+          0.0,
+          0.18
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_o",
+        "palm": "toward_body",
+        "fingers": "right",
+        "location": "chest",
+        "offset": [
+          -0.08,
+          0.0,
+          0.18
+        ]
+      }
+    },
+    {
+      "t": 0.5,
+      "dominant": {
+        "handshape": "flat_o",
+        "palm": "toward_body",
+        "fingers": "left",
+        "location": "chest",
+        "offset": [
+          0.02,
+          0.0,
+          0.18
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_o",
+        "palm": "toward_body",
+        "fingers": "right",
+        "location": "chest",
+        "offset": [
+          -0.02,
+          0.0,
+          0.18
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "flat_o",
+        "palm": "toward_body",
+        "fingers": "left",
+        "location": "chest",
+        "offset": [
+          0.08,
+          0.0,
+          0.18
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_o",
+        "palm": "toward_body",
+        "fingers": "right",
+        "location": "chest",
+        "offset": [
+          -0.08,
+          0.0,
+          0.18
+        ]
+      }
+    }
+  ]
+}

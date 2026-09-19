@@ -1,0 +1,52 @@
+{
+  "gloss": "EMERGENCY",
+  "hands": "dominant",
+  "duration_ms": 1000,
+  "reference": "Lifeprint: Letter-E hand shakes side-to-side in neutral space",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "letter_e",
+        "palm": "left",
+        "fingers": "up",
+        "location": "chest",
+        "offset": [
+          -0.05,
+          0.0,
+          0.18
+        ]
+      }
+    },
+    {
+      "t": 0.5,
+      "dominant": {
+        "handshape": "letter_e",
+        "palm": "left",
+        "fingers": "up",
+        "location": "chest",
+        "offset": [
+          0.08,
+          0.0,
+          0.18
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "letter_e",
+        "palm": "left",
+        "fingers": "up",
+        "location": "chest",
+        "offset": [
+          -0.05,
+          0.0,
+          0.18
+        ]
+      }
+    }
+  ]
+}

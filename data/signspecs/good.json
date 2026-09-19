@@ -1,0 +1,60 @@
+{
+  "gloss": "GOOD",
+  "hands": "two",
+  "duration_ms": 1000,
+  "reference": "Lifeprint: Dominant Flat-B at chin drops down into palm of non-dominant Flat-B",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "flat_b",
+        "palm": "toward_body",
+        "fingers": "up",
+        "location": "chin",
+        "offset": [
+          0.0,
+          0.02,
+          0.06
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_b",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          -0.05,
+          0.15,
+          0.2
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "flat_b",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "non_dominant_palm",
+        "offset": [
+          0.0,
+          0.02,
+          0.04
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_b",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          -0.05,
+          0.15,
+          0.2
+        ]
+      }
+    }
+  ]
+}

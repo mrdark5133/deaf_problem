@@ -1,0 +1,52 @@
+{
+  "gloss": "WHERE",
+  "hands": "dominant",
+  "duration_ms": 1000,
+  "reference": "Lifeprint: Dominant index-1 held upright, waving side-to-side",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "index_1",
+        "palm": "forward",
+        "fingers": "up",
+        "location": "neutral",
+        "offset": [
+          -0.05,
+          -0.05,
+          0.22
+        ]
+      }
+    },
+    {
+      "t": 0.5,
+      "dominant": {
+        "handshape": "index_1",
+        "palm": "forward",
+        "fingers": "up",
+        "location": "neutral",
+        "offset": [
+          0.1,
+          -0.05,
+          0.22
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "index_1",
+        "palm": "forward",
+        "fingers": "up",
+        "location": "neutral",
+        "offset": [
+          -0.05,
+          -0.05,
+          0.22
+        ]
+      }
+    }
+  ]
+}

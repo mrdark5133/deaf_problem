@@ -32,18 +32,18 @@ describe('AvatarContainer', () => {
     const btn3D = screen.getByText('3D Mannequin');
     fireEvent.click(btn3D);
 
-    expect(btn3D.closest('button')).toHaveClass('bg-indigo-600');
+    expect(btn3D.closest('button')).toHaveClass('bg-black');
   });
 
   it('toggles mode when keyboard shortcut "3" is pressed', () => {
     render(<AvatarContainer frame={mockFrame} isIdle={true} />);
 
     const btn2D = screen.getByText('2D Skeleton');
-    expect(btn2D.closest('button')).toHaveClass('bg-indigo-600');
+    expect(btn2D.closest('button')).toHaveClass('bg-black');
 
     fireEvent.keyDown(window, { key: '3' });
 
     const btn3D = screen.getByText('3D Mannequin');
-    expect(btn3D.closest('button')).toHaveClass('bg-indigo-600');
+    expect(btn3D.closest('button')).toHaveClass('bg-black');
   });
 });

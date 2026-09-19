@@ -123,26 +123,25 @@ export const ImportReviewPage: React.FC<ImportReviewPageProps> = ({ onBack }) =>
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col p-6 max-w-7xl mx-auto">
+    <div className="min-h-screen bg-white text-neutral-900 font-mono flex flex-col p-6 max-w-7xl mx-auto">
       {/* Top Navigation */}
-      <div className="flex items-center justify-between pb-6 border-b border-slate-800">
+      <div className="flex items-center justify-between pb-4 border-b border-neutral-200">
         <div className="flex items-center gap-3">
           {onBack && (
             <button
               onClick={onBack}
-              className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
+              className="p-1.5 text-neutral-600 hover:text-black hover:bg-neutral-100 rounded border border-neutral-300 transition-colors cursor-pointer"
               title="Back to Translator"
               aria-label="Back to Translator"
             >
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeft className="w-4 h-4" />
             </button>
           )}
           <div>
-            <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-emerald-400 font-semibold mb-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Phase D1 — Sign Data Import & Provenance Review</span>
+            <div className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold mb-0.5">
+              // SIGN DATA IMPORT & PROVENANCE
             </div>
-            <h1 className="text-2xl font-bold text-white tracking-tight">
+            <h1 className="text-base font-bold text-neutral-900 tracking-tight leading-none">
               Library Provenance Inspector
             </h1>
           </div>
@@ -150,55 +149,55 @@ export const ImportReviewPage: React.FC<ImportReviewPageProps> = ({ onBack }) =>
 
         {/* Global Library Stats Banner */}
         {indexData && (
-          <div className="flex items-center gap-4 text-xs font-mono">
-            <div className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 flex items-center gap-2">
-              <Database className="w-3.5 h-3.5 text-indigo-400" />
-              <span className="text-slate-400">Total:</span>
-              <span className="text-white font-bold">{indexData.total_signs}</span>
+          <div className="flex items-center gap-2 text-xs font-mono">
+            <div className="px-2.5 py-1 rounded bg-neutral-100 border border-neutral-300 flex items-center gap-1.5 font-bold">
+              <Database className="w-3.5 h-3.5 text-neutral-700" />
+              <span className="text-neutral-500">TOTAL:</span>
+              <span className="text-neutral-900">{indexData.total_signs}</span>
             </div>
-            <div className="px-3 py-1.5 rounded-lg bg-emerald-950/40 border border-emerald-800/50 flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="text-emerald-400 font-semibold">Real Data:</span>
-              <span className="text-emerald-200 font-bold">{indexData.real_signs}</span>
+            <div className="px-2.5 py-1 rounded bg-emerald-50 border border-emerald-300 flex items-center gap-1.5 font-bold text-emerald-900">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+              <span>REAL:</span>
+              <span>{indexData.real_signs}</span>
             </div>
-            <div className="px-3 py-1.5 rounded-lg bg-amber-950/40 border border-amber-800/50 flex items-center gap-2">
-              <Layers className="w-3.5 h-3.5 text-amber-400" />
-              <span className="text-amber-400 font-semibold">Synthetic:</span>
-              <span className="text-amber-200 font-bold">{indexData.synthetic_signs}</span>
+            <div className="px-2.5 py-1 rounded bg-amber-50 border border-amber-300 flex items-center gap-1.5 font-bold text-amber-900">
+              <Layers className="w-3.5 h-3.5 text-amber-600" />
+              <span>SYNTHETIC:</span>
+              <span>{indexData.synthetic_signs}</span>
             </div>
           </div>
         )}
       </div>
 
       {/* Main Workspace: 2-Column Split */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6 flex-1 min-h-0">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-4 flex-1 min-h-0">
         {/* Left 5 Cols: Clip Search & Table */}
-        <div className="lg:col-span-5 flex flex-col gap-4 bg-slate-900/70 border border-slate-800 rounded-2xl p-4">
+        <div className="lg:col-span-5 flex flex-col gap-3 bg-white border border-neutral-300 rounded p-4">
           {/* Filter Toolbar */}
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2.5">
             <div className="relative">
-              <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
+              <Search className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-2.5" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by gloss, ID, or dataset source..."
-                className="w-full pl-10 pr-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 outline-none focus:border-indigo-500"
+                placeholder="Search by gloss, ID, source..."
+                className="w-full pl-8 pr-3 py-1.5 bg-white border border-neutral-300 rounded text-xs text-neutral-900 placeholder-neutral-400 outline-none focus:border-black font-mono"
               />
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               {(['all', 'real', 'synthetic'] as const).map((t) => (
                 <button
                   key={t}
                   onClick={() => setFilterType(t)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-colors cursor-pointer ${
+                  className={`px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer ${
                     filterType === t
-                      ? 'bg-indigo-600 text-white shadow-sm'
-                      : 'bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800'
+                      ? 'bg-black text-white'
+                      : 'bg-white text-neutral-700 hover:text-black border border-neutral-300'
                   }`}
                 >
-                  {t === 'all' ? `All (${indexData?.total_signs ?? 0})` : t}
+                  {t === 'all' ? `ALL (${indexData?.total_signs ?? 0})` : t}
                 </button>
               ))}
             </div>
@@ -207,9 +206,9 @@ export const ImportReviewPage: React.FC<ImportReviewPageProps> = ({ onBack }) =>
           {/* Clip Table List */}
           <div className="flex-1 overflow-y-auto space-y-1.5 pr-1 max-h-[600px]">
             {loading ? (
-              <div className="p-8 text-center text-slate-500 text-xs">Loading library index...</div>
+              <div className="p-8 text-center text-neutral-500 text-xs font-mono">Loading library index...</div>
             ) : filteredSigns.length === 0 ? (
-              <div className="p-8 text-center text-slate-500 text-xs">No matching sign clips found.</div>
+              <div className="p-8 text-center text-neutral-500 text-xs font-mono">No matching sign clips found.</div>
             ) : (
               filteredSigns.map((entry) => {
                 const isSelected = entry.id === selectedClipId;
@@ -217,25 +216,25 @@ export const ImportReviewPage: React.FC<ImportReviewPageProps> = ({ onBack }) =>
                   <button
                     key={entry.id}
                     onClick={() => setSelectedClipId(entry.id)}
-                    className={`w-full text-left p-3 rounded-xl border transition-all flex items-center justify-between cursor-pointer ${
+                    className={`w-full text-left p-2.5 rounded border transition-colors flex items-center justify-between cursor-pointer font-mono ${
                       isSelected
-                        ? 'bg-indigo-950/60 border-indigo-500 shadow-md shadow-indigo-950/40'
-                        : 'bg-slate-950/60 border-slate-800/80 hover:border-slate-700'
+                        ? 'bg-neutral-100 border-black shadow-xs'
+                        : 'bg-white border-neutral-200 hover:border-neutral-400'
                     }`}
                   >
                     <div className="flex flex-col gap-0.5">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-sm text-white font-mono">{entry.gloss}</span>
-                        <span className="text-[10px] text-slate-500 font-mono">({entry.id})</span>
+                        <span className="font-bold text-xs text-neutral-900">{entry.gloss}</span>
+                        <span className="text-[10px] text-neutral-500">({entry.id})</span>
                       </div>
-                      <div className="flex items-center gap-2 text-[11px] text-slate-400">
+                      <div className="flex items-center gap-1.5 text-[10px] text-neutral-600">
                         <span>{entry.duration_ms}ms</span>
                         <span>•</span>
                         <span>{entry.fps} FPS</span>
                         {entry.source && (
                           <>
                             <span>•</span>
-                            <span className="text-indigo-400/90 font-mono truncate max-w-[140px]">
+                            <span className="text-neutral-700 truncate max-w-[140px]">
                               {entry.source}
                             </span>
                           </>
@@ -245,11 +244,11 @@ export const ImportReviewPage: React.FC<ImportReviewPageProps> = ({ onBack }) =>
 
                     <div>
                       {entry.synthetic ? (
-                        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-amber-950/80 text-amber-300 border border-amber-800/60">
+                        <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-amber-50 text-amber-800 border border-amber-300">
                           SYNTHETIC
                         </span>
                       ) : (
-                        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-emerald-950/80 text-emerald-300 border border-emerald-800/60">
+                        <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-emerald-50 text-emerald-800 border border-emerald-300">
                           REAL DATA
                         </span>
                       )}
@@ -264,9 +263,9 @@ export const ImportReviewPage: React.FC<ImportReviewPageProps> = ({ onBack }) =>
         {/* Right 7 Cols: Preview Player & Provenance Card */}
         <div className="lg:col-span-7 flex flex-col gap-4">
           {/* Player Viewport */}
-          <div className="relative aspect-[16/10] bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center">
+          <div className="relative aspect-[16/10] bg-white border border-neutral-300 rounded shadow-xs overflow-hidden flex items-center justify-center">
             {clipLoading ? (
-              <div className="text-xs text-slate-400 animate-pulse">Loading sign clip...</div>
+              <div className="text-xs text-neutral-500 font-mono animate-pulse">Loading sign clip...</div>
             ) : (
               <>
                 <AvatarContainer
@@ -278,55 +277,55 @@ export const ImportReviewPage: React.FC<ImportReviewPageProps> = ({ onBack }) =>
 
                 {/* Status Overlay */}
                 <div className="absolute top-3 right-3 flex items-center gap-2">
-                  <div className="px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-sm border border-slate-800 text-[11px] font-mono text-slate-300">
-                    Status: <span className="text-indigo-400 font-semibold">{status}</span>
+                  <div className="px-2 py-0.5 rounded bg-white/95 border border-neutral-300 text-[10px] font-mono font-bold text-neutral-800 shadow-xs">
+                    STATUS: <span className="text-black uppercase">{status}</span>
                   </div>
                 </div>
 
                 {/* Bottom Control Bar */}
-                <div className="absolute bottom-3 inset-x-3 bg-slate-950/80 backdrop-blur-md border border-slate-800 rounded-xl p-2.5 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
+                <div className="absolute bottom-3 inset-x-3 bg-white/95 backdrop-blur-md border border-neutral-300 rounded p-2 flex items-center justify-between font-mono">
+                  <div className="flex items-center gap-1.5">
                     {status === 'playing' ? (
                       <button
                         onClick={pause}
-                        className="p-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white cursor-pointer"
+                        className="p-1.5 rounded bg-black hover:bg-neutral-800 text-white cursor-pointer"
                         title="Pause"
                       >
-                        <Pause className="w-4 h-4" />
+                        <Pause className="w-3.5 h-3.5" />
                       </button>
                     ) : (
                       <button
                         onClick={play}
-                        className="p-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white cursor-pointer"
+                        className="p-1.5 rounded bg-black hover:bg-neutral-800 text-white cursor-pointer"
                         title="Play"
                       >
-                        <Play className="w-4 h-4" />
+                        <Play className="w-3.5 h-3.5" />
                       </button>
                     )}
 
                     <button
                       onClick={handleReplay}
-                      className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer"
+                      className="p-1.5 rounded bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 text-neutral-800 cursor-pointer"
                       title="Replay"
                     >
-                      <RotateCcw className="w-4 h-4" />
+                      <RotateCcw className="w-3.5 h-3.5" />
                     </button>
 
-                    <span className="text-xs font-mono text-slate-300 ml-2">
+                    <span className="text-[11px] font-mono text-neutral-800 ml-1.5 font-bold">
                       {selectedClip?.gloss} ({selectedClip?.frames.length ?? 0} frames)
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-slate-400">Speed:</span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10px] text-neutral-500 uppercase font-bold">SPEED:</span>
                     {[0.5, 1.0, 1.5].map((s) => (
                       <button
                         key={s}
                         onClick={() => setSpeed(s)}
-                        className={`px-2 py-0.5 rounded text-[11px] font-mono ${
+                        className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-bold ${
                           Math.abs(speed - s) < 0.05
-                            ? 'bg-indigo-600 text-white'
-                            : 'bg-slate-800 text-slate-400 hover:text-white'
+                            ? 'bg-black text-white'
+                            : 'bg-neutral-100 border border-neutral-300 text-neutral-700 hover:text-black'
                         }`}
                       >
                         {s}x
@@ -340,58 +339,58 @@ export const ImportReviewPage: React.FC<ImportReviewPageProps> = ({ onBack }) =>
 
           {/* Provenance Card (Hard Rule 3 Inspection) */}
           {selectedClip && (
-            <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 flex flex-col gap-3">
-              <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
-                <div className="flex items-center gap-2">
-                  <FileCheck className="w-4 h-4 text-emerald-400" />
-                  <h3 className="text-sm font-semibold text-white">Clip Provenance & Metadata</h3>
+            <div className="bg-white border border-neutral-300 rounded p-4 flex flex-col gap-3 font-mono">
+              <div className="flex items-center justify-between border-b border-neutral-200 pb-2.5">
+                <div className="flex items-center gap-1.5">
+                  <FileCheck className="w-4 h-4 text-neutral-800" />
+                  <h3 className="text-xs font-bold text-neutral-900 uppercase tracking-wider">// PROVENANCE & METADATA</h3>
                 </div>
-                <span className="text-[11px] font-mono text-slate-400">
-                  ID: <code className="text-indigo-400 font-semibold">{selectedClip.id}</code>
+                <span className="text-[10px] font-mono text-neutral-500 font-bold">
+                  ID: <span className="text-neutral-900">{selectedClip.id}</span>
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800/80">
-                  <span className="block text-[10px] text-slate-500 uppercase tracking-wider mb-0.5">
-                    Dataset Source
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                <div className="p-2 rounded bg-neutral-50 border border-neutral-200">
+                  <span className="block text-[9px] text-neutral-500 uppercase font-bold tracking-wider mb-0.5">
+                    DATASET SOURCE
                   </span>
-                  <span className="font-semibold text-slate-200 truncate block">
+                  <span className="font-bold text-neutral-800 text-[11px] truncate block">
                     {(selectedClip as any).source || (selectedClip.synthetic ? 'Synthetic Generator' : 'Unknown')}
                   </span>
                 </div>
 
-                <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800/80">
-                  <span className="block text-[10px] text-slate-500 uppercase tracking-wider mb-0.5">
-                    License
+                <div className="p-2 rounded bg-neutral-50 border border-neutral-200">
+                  <span className="block text-[9px] text-neutral-500 uppercase font-bold tracking-wider mb-0.5">
+                    LICENSE
                   </span>
-                  <span className="font-semibold text-emerald-400 truncate block">
+                  <span className="font-bold text-emerald-800 text-[11px] truncate block">
                     {(selectedClip as any).license || (selectedClip.synthetic ? 'Project-internal' : 'Unknown')}
                   </span>
                 </div>
 
-                <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800/80">
-                  <span className="block text-[10px] text-slate-500 uppercase tracking-wider mb-0.5">
-                    Signer ID
+                <div className="p-2 rounded bg-neutral-50 border border-neutral-200">
+                  <span className="block text-[9px] text-neutral-500 uppercase font-bold tracking-wider mb-0.5">
+                    SIGNER ID
                   </span>
-                  <span className="font-semibold text-slate-200 truncate block">
+                  <span className="font-bold text-neutral-800 text-[11px] truncate block">
                     {selectedClip.signer || 'anonymous'}
                   </span>
                 </div>
 
-                <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800/80">
-                  <span className="block text-[10px] text-slate-500 uppercase tracking-wider mb-0.5">
-                    Original Sample ID
+                <div className="p-2 rounded bg-neutral-50 border border-neutral-200">
+                  <span className="block text-[9px] text-neutral-500 uppercase font-bold tracking-wider mb-0.5">
+                    SAMPLE ID
                   </span>
-                  <span className="font-semibold text-slate-300 truncate block font-mono">
+                  <span className="font-bold text-neutral-800 text-[11px] truncate block font-mono">
                     {(selectedClip as any).original_id || 'N/A'}
                   </span>
                 </div>
               </div>
 
               {selectedClip.meta?.notes && (
-                <div className="text-[11px] text-slate-400 bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/50">
-                  <span className="text-slate-500 font-semibold">Attribution Note: </span>
+                <div className="text-[10px] text-neutral-700 bg-neutral-50 p-2 rounded border border-neutral-200">
+                  <span className="font-bold text-neutral-900">// ATTRIBUTION NOTE: </span>
                   {selectedClip.meta.notes}
                 </div>
               )}

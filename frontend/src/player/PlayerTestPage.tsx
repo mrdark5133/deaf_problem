@@ -102,14 +102,14 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
   const { frame, status, fps, speed, enqueue, play, pause, clear, setSpeed } = useSignPlayer({
     onTokenStart: (gloss, idx) => {
       setActiveTokenIdx(idx);
-      addLog(`▶ TokenStart: ${gloss} (idx ${idx})`);
+      addLog(`[START] Token: ${gloss} (idx ${idx})`);
     },
     onTokenEnd: (gloss, idx) => {
-      addLog(`◼ TokenEnd: ${gloss} (idx ${idx})`);
+      addLog(`[END] Token: ${gloss} (idx ${idx})`);
     },
     onIdle: () => {
       setActiveTokenIdx(-1);
-      addLog('⏸ Player idle — rest pose');
+      addLog('[IDLE] Player rest pose');
     },
   });
 
@@ -153,7 +153,7 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
       if (queueItems.length > 0) {
         enqueue(queueItems);
       } else {
-        addLog('⚠ No clips loaded — cannot play');
+        addLog('[WARN] No clips loaded — cannot play');
       }
     }
   }, [status, play, clear, enqueue, queueItems, addLog]);
@@ -207,11 +207,11 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
     const h = canvas.height;
     ctx.clearRect(0, 0, w, h);
 
-    // Dark grid background
-    ctx.fillStyle = '#090d16';
+    // Clean mono grid background
+    ctx.fillStyle = '#f8fafc';
     ctx.fillRect(0, 0, w, h);
 
-    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.strokeStyle = 'rgba(0,0,0,0.06)';
     ctx.lineWidth = 1;
     for (let x = 0; x < w; x += 20) {
       ctx.beginPath();
@@ -252,43 +252,35 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
       [0, 17, 18, 19, 20], // Pinky
     ];
 
-    for (const chain of FINGER_CHAINS) {
-      for (let i = 0; i < chain.length - 1; i++) {
-        const pA = hand[chain[i]];
-        const pB = hand[chain[i + 1]];
-        if (pA && pB) {
-          const [ax, ay] = projectZ(pA);
-          const [bx, by] = projectZ(pB);
+    ctx.strokeStyle = '#0f172a';
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
 
-          ctx.beginPath();
-          ctx.moveTo(ax, ay);
-          ctx.lineTo(bx, by);
-          ctx.strokeStyle = chain[0] === 1 || i === 0 ? '#38bdf8' : '#fbbf24';
-          ctx.lineWidth = 3.5;
-          ctx.lineCap = 'round';
-          ctx.stroke();
-        }
+    for (const chain of FINGER_CHAINS) {
+      ctx.beginPath();
+      for (let i = 0; i < chain.length; i++) {
+        const p = projectZ(hand[chain[i]]);
+        if (i === 0) ctx.moveTo(p[0], p[1]);
+        else ctx.lineTo(p[0], p[1]);
       }
+      ctx.stroke();
     }
 
-    // 2. Draw 21 Articulated Joint Circles with Landmark ID Labels
+    // 2. Draw Joint Points & Numbers
     for (let i = 0; i < 21; i++) {
-      const p = hand[i];
-      if (p) {
-        const [jx, jy] = projectZ(p);
-        const isTip = [4, 8, 12, 16, 20].includes(i);
-        const isMcp = [1, 5, 9, 13, 17].includes(i);
-
+      const [jx, jy] = projectZ(hand[i]);
+      if (jx >= 0 && jx <= w && jy >= 0 && jy <= h) {
         ctx.beginPath();
-        ctx.arc(jx, jy, isTip ? 5.5 : isMcp ? 4.5 : 3.5, 0, Math.PI * 2);
-        ctx.fillStyle = isTip ? '#f43f5e' : isMcp ? '#a855f7' : '#ffffff';
+        ctx.arc(jx, jy, 3.5, 0, 2 * Math.PI);
+        ctx.fillStyle = i === 4 || i === 8 || i === 12 || i === 16 || i === 20 ? '#d97706' : '#2563eb';
         ctx.fill();
         ctx.strokeStyle = '#000000';
-        ctx.lineWidth = 1.5;
+        ctx.lineWidth = 1;
         ctx.stroke();
 
         // Joint Number Label
-        ctx.fillStyle = '#cbd5e1';
+        ctx.fillStyle = '#0f172a';
         ctx.font = '9px monospace';
         ctx.textAlign = 'left';
         ctx.fillText(`${i}`, jx + 6, jy + 3);
@@ -297,34 +289,35 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
   }, [viewMode, activeDebugFrame]);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-white text-neutral-900 font-mono flex flex-col">
       {/* Header */}
-      <header className="border-b border-slate-800/80 bg-slate-900/60 px-6 py-4 flex items-center justify-between">
+      <header className="border-b border-neutral-200 bg-white px-6 py-3.5 flex items-center justify-between sticky top-0 z-50 font-mono">
         <div className="flex items-center gap-3">
           {onBack && (
             <button
               onClick={onBack}
-              className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
+              className="p-1.5 text-neutral-600 hover:text-black hover:bg-neutral-100 rounded border border-neutral-300 transition-colors cursor-pointer"
               aria-label="Back"
             >
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeft className="w-4 h-4" />
             </button>
           )}
           <div>
-            <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-purple-400 font-semibold mb-0.5">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Phase 4 & Phase H0 — Accuracy & Debug Studio</span>
+            <div className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold mb-0.5">
+              // STUDIO & DIAGNOSTICS
             </div>
-            <h1 className="text-xl font-bold text-white tracking-tight">Sign Player & Hand Accuracy Studio</h1>
+            <h1 className="text-base font-bold text-neutral-900 tracking-tight leading-none">
+              Sign Player & Hand Accuracy Studio
+            </h1>
           </div>
         </div>
 
         {/* View Mode Toggle */}
-        <div className="flex items-center gap-2 bg-slate-900 border border-slate-800 p-1 rounded-xl">
+        <div className="flex items-center gap-1.5 bg-neutral-100 border border-neutral-300 p-1 rounded">
           <button
             onClick={() => setViewMode('player')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
-              viewMode === 'player' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'
+            className={`px-3 py-1.5 rounded text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer ${
+              viewMode === 'player' ? 'bg-black text-white' : 'text-neutral-700 hover:text-black'
             }`}
           >
             <Play className="w-3.5 h-3.5" />
@@ -332,12 +325,12 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
           </button>
           <button
             onClick={() => setViewMode('debug')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
-              viewMode === 'debug' ? 'bg-purple-600 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'
+            className={`px-3 py-1.5 rounded text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer ${
+              viewMode === 'debug' ? 'bg-black text-white' : 'text-neutral-700 hover:text-black'
             }`}
           >
             <Bug className="w-3.5 h-3.5" />
-            <span>🔬 Landmark Debug Mode</span>
+            <span>Landmark Debug</span>
           </button>
         </div>
       </header>
@@ -346,7 +339,7 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
         {/* ── Left 2 Cols: Avatar Canvas ── */}
         <div className="lg:col-span-2 flex flex-col gap-4">
           <div
-            className="relative rounded-2xl overflow-hidden border border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 shadow-2xl"
+            className="relative rounded border border-neutral-300 bg-white shadow-xs overflow-hidden"
             style={{ aspectRatio: '4/3' }}
           >
             <AvatarContainer
@@ -364,13 +357,13 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
 
             {/* Hand Zoom View Inset (Picture-in-Picture) */}
             {viewMode === 'debug' && (
-              <div className="absolute top-3 right-3 w-52 h-52 bg-slate-950/90 border border-purple-500/60 rounded-xl overflow-hidden shadow-2xl backdrop-blur-md z-20 flex flex-col">
-                <div className="px-2 py-1 bg-purple-950/80 border-b border-purple-800 text-[10px] font-mono font-semibold text-purple-300 flex items-center justify-between">
+              <div className="absolute top-3 right-3 w-52 h-52 bg-white/95 border border-neutral-400 rounded overflow-hidden shadow-md backdrop-blur-md z-20 flex flex-col font-mono">
+                <div className="px-2 py-1 bg-neutral-100 border-b border-neutral-300 text-[10px] font-bold text-neutral-800 flex items-center justify-between">
                   <span className="flex items-center gap-1">
-                    <ZoomIn className="w-3 h-3 text-purple-400" />
-                    <span>Hand Zoom (21 Joint IDs)</span>
+                    <ZoomIn className="w-3 h-3 text-neutral-700" />
+                    <span>HAND ZOOM (21 JOINTS)</span>
                   </span>
-                  <span className="text-[9px] text-purple-400">4× MAG</span>
+                  <span className="text-[9px] text-neutral-500">4× MAG</span>
                 </div>
                 <canvas
                   ref={zoomCanvasRef}
@@ -384,20 +377,21 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
 
           {/* Player Mode: Token strip */}
           {viewMode === 'player' && (
-            <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex items-center gap-2 flex-wrap p-3 bg-neutral-50 border border-neutral-200 rounded">
+              <span className="text-[10px] uppercase font-bold text-neutral-500 mr-1">// SEQUENCE:</span>
               {DEMO_TOKENS.map((token, i) => (
                 <div
                   key={i}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-sm font-mono font-medium transition-all duration-200 ${
+                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded border text-xs font-mono font-bold transition-all ${
                     activeTokenIdx === i
-                      ? 'bg-indigo-950 border-indigo-500 text-indigo-200 shadow-lg shadow-indigo-500/20 scale-105'
-                      : 'bg-slate-900 border-slate-800 text-slate-400'
+                      ? 'bg-black border-black text-white'
+                      : 'bg-white border-neutral-300 text-neutral-800'
                   }`}
                 >
-                  {token.kind === 'fingerspell' && <FlaskConical className="w-3 h-3 text-purple-400" />}
-                  {token.gloss}
+                  {token.kind === 'fingerspell' && <span className="text-[10px] opacity-70">[FS]</span>}
+                  <span>{token.gloss}</span>
                   {i < DEMO_TOKENS.length - 1 && (
-                    <ChevronRight className="w-3 h-3 text-slate-600 ml-1" />
+                    <ChevronRight className="w-3 h-3 text-neutral-400 ml-1" />
                   )}
                 </div>
               ))}
@@ -406,17 +400,17 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
 
           {/* Debug Mode: Frame Scrubber */}
           {viewMode === 'debug' && (
-            <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-3 flex flex-col gap-2">
-              <div className="flex items-center justify-between text-xs font-mono text-slate-300">
-                <span className="font-semibold text-purple-300">Frame Scrubber:</span>
-                <span>
-                  Frame {debugFrameIdx + 1} of {totalDebugFrames} ({Math.round(((debugFrameIdx + 1) / (totalDebugFrames || 1)) * 100)}%)
+            <div className="bg-white border border-neutral-300 rounded p-3.5 flex flex-col gap-2 font-mono">
+              <div className="flex items-center justify-between text-xs text-neutral-800">
+                <span className="font-bold text-neutral-900">// FRAME SCRUBBER:</span>
+                <span className="font-semibold text-neutral-600">
+                  FRAME {debugFrameIdx + 1} / {totalDebugFrames} ({Math.round(((debugFrameIdx + 1) / (totalDebugFrames || 1)) * 100)}%)
                 </span>
               </div>
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setDebugFrameIdx((prev) => Math.max(0, prev - 1))}
-                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs cursor-pointer"
+                  className="p-1.5 rounded bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 text-neutral-800 text-xs cursor-pointer"
                   title="Previous Frame"
                 >
                   <ChevronLeft className="w-4 h-4" />
@@ -427,23 +421,23 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
                   max={Math.max(0, totalDebugFrames - 1)}
                   value={debugFrameIdx}
                   onChange={(e) => setDebugFrameIdx(Number(e.target.value))}
-                  className="flex-1 accent-purple-500 cursor-pointer"
+                  className="flex-1 accent-black cursor-pointer"
                 />
                 <button
                   onClick={() => setDebugFrameIdx((prev) => Math.min(totalDebugFrames - 1, prev + 1))}
-                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs cursor-pointer"
+                  className="p-1.5 rounded bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 text-neutral-800 text-xs cursor-pointer"
                   title="Next Frame"
                 >
                   <ChevronRight className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => setDebugPlaying(!debugPlaying)}
-                  className={`px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 cursor-pointer ${
-                    debugPlaying ? 'bg-amber-600 text-white' : 'bg-purple-600 text-white'
+                  className={`px-3 py-1 rounded text-xs font-bold uppercase tracking-wider flex items-center gap-1 cursor-pointer transition-colors ${
+                    debugPlaying ? 'bg-amber-600 text-white' : 'bg-black text-white hover:bg-neutral-800'
                   }`}
                 >
                   {debugPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-                  <span>{debugPlaying ? 'Pause' : 'Play Clip'}</span>
+                  <span>{debugPlaying ? 'PAUSE' : 'PLAY'}</span>
                 </button>
               </div>
             </div>
@@ -451,46 +445,46 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
         </div>
 
         {/* ── Right: Controls / Debug Panel ── */}
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-4 font-mono">
           {viewMode === 'player' ? (
             /* Player Mode Controls */
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col gap-4">
-              <h2 className="text-sm font-semibold text-slate-200">Playback Controls</h2>
+            <div className="bg-white border border-neutral-300 rounded p-4 flex flex-col gap-4">
+              <h2 className="text-xs font-bold uppercase tracking-wider text-neutral-900">// PLAYBACK CONTROLS</h2>
 
               <div className="grid grid-cols-3 gap-2">
                 <button
                   onClick={handlePlay}
                   disabled={loading}
-                  className="py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-xl flex flex-col items-center gap-1 transition-all cursor-pointer shadow-lg shadow-indigo-600/20"
+                  className="py-2 bg-black hover:bg-neutral-800 text-white text-xs font-bold uppercase tracking-wider rounded flex flex-col items-center gap-1 transition-colors cursor-pointer disabled:opacity-50"
                 >
                   <Play className="w-4 h-4" />
-                  <span className="text-[11px]">Play</span>
+                  <span>PLAY</span>
                 </button>
                 <button
                   onClick={() => pause()}
                   disabled={!isPlaying}
-                  className="py-2.5 bg-slate-800 hover:bg-slate-700 disabled:opacity-50 text-slate-200 text-sm font-semibold rounded-xl flex flex-col items-center gap-1 transition-all cursor-pointer"
+                  className="py-2 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 disabled:opacity-50 text-neutral-800 text-xs font-bold uppercase tracking-wider rounded flex flex-col items-center gap-1 transition-colors cursor-pointer"
                 >
                   <Pause className="w-4 h-4" />
-                  <span className="text-[11px]">Pause</span>
+                  <span>PAUSE</span>
                 </button>
                 <button
                   onClick={() => {
                     clear();
                     setActiveTokenIdx(-1);
                   }}
-                  className="py-2.5 bg-slate-800 hover:bg-slate-700 text-rose-400 text-sm font-semibold rounded-xl flex flex-col items-center gap-1 transition-all cursor-pointer"
+                  className="py-2 bg-white hover:bg-red-50 border border-red-300 text-red-700 text-xs font-bold uppercase tracking-wider rounded flex flex-col items-center gap-1 transition-colors cursor-pointer"
                 >
                   <StopCircle className="w-4 h-4" />
-                  <span className="text-[11px]">Clear</span>
+                  <span>CLEAR</span>
                 </button>
               </div>
 
               {/* Speed slider */}
-              <div className="flex flex-col gap-2 pt-2 border-t border-slate-800">
-                <div className="flex items-center justify-between text-xs text-slate-400">
-                  <span>Playback Speed</span>
-                  <span className="font-mono font-semibold text-indigo-400">{speed}×</span>
+              <div className="flex flex-col gap-2 pt-3 border-t border-neutral-200">
+                <div className="flex items-center justify-between text-xs text-neutral-700">
+                  <span className="font-semibold">PLAYBACK SPEED</span>
+                  <span className="font-mono font-bold text-neutral-900">{speed}×</span>
                 </div>
                 <input
                   type="range"
@@ -499,28 +493,28 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
                   step="0.1"
                   value={speed}
                   onChange={(e) => setSpeed(parseFloat(e.target.value))}
-                  className="w-full accent-indigo-500 cursor-pointer"
+                  className="w-full accent-black cursor-pointer"
                 />
               </div>
             </div>
           ) : (
             /* Debug Mode Controls */
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col gap-4">
-              <div className="flex items-center gap-2 pb-2 border-b border-slate-800">
-                <Bug className="w-4 h-4 text-purple-400" />
-                <h2 className="text-sm font-semibold text-purple-200">Landmark Debug Inspector</h2>
+            <div className="bg-white border border-neutral-300 rounded p-4 flex flex-col gap-4">
+              <div className="flex items-center gap-2 pb-2 border-b border-neutral-200">
+                <Bug className="w-4 h-4 text-neutral-900" />
+                <h2 className="text-xs font-bold uppercase tracking-wider text-neutral-900">// LANDMARK DIAGNOSTICS</h2>
               </div>
 
               {/* Clip selector */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs text-slate-400 font-medium">Select Clip for Diagnosis:</label>
+                <label className="text-[11px] text-neutral-600 font-bold uppercase">SELECT CLIP FOR DIAGNOSIS:</label>
                 <select
                   value={selectedClipId}
                   onChange={(e) => {
                     setSelectedClipId(e.target.value);
                     setDebugFrameIdx(0);
                   }}
-                  className="px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs font-mono text-slate-200 focus:outline-none focus:border-purple-500"
+                  className="px-2.5 py-1.5 rounded bg-white border border-neutral-300 text-xs font-mono text-neutral-900 focus:outline-none focus:border-black"
                 >
                   <optgroup label="Real Signs (ASL Citizen / ASL-MNIST)">
                     {Object.keys(clipMap)
@@ -544,41 +538,41 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
               </div>
 
               {/* Layer Toggles */}
-              <div className="flex flex-col gap-2 pt-2 border-t border-slate-800">
-                <span className="text-xs font-semibold text-slate-300">Overlaid Pipeline Layers:</span>
-                <label className="flex items-center gap-2 text-xs text-emerald-300 cursor-pointer">
+              <div className="flex flex-col gap-2 pt-2 border-t border-neutral-200 text-xs">
+                <span className="font-bold text-neutral-800 uppercase text-[11px]">// PIPELINE LAYERS:</span>
+                <label className="flex items-center gap-2 text-neutral-800 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={showRaw}
                     onChange={(e) => setShowRaw(e.target.checked)}
-                    className="accent-emerald-500"
+                    className="accent-black"
                   />
                   <span>Raw MediaPipe Keypoints</span>
                 </label>
-                <label className="flex items-center gap-2 text-xs text-cyan-300 cursor-pointer">
+                <label className="flex items-center gap-2 text-neutral-800 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={showNorm}
                     onChange={(e) => setShowNorm(e.target.checked)}
-                    className="accent-cyan-500"
+                    className="accent-black"
                   />
                   <span>Normalized Coordinate Layer</span>
                 </label>
-                <label className="flex items-center gap-2 text-xs text-fuchsia-300 cursor-pointer">
+                <label className="flex items-center gap-2 text-neutral-800 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={showSmoothed}
                     onChange={(e) => setShowSmoothed(e.target.checked)}
-                    className="accent-fuchsia-500"
+                    className="accent-black"
                   />
                   <span>Smoothed Frame Layer (EMA 0.4)</span>
                 </label>
-                <label className="flex items-center gap-2 text-xs text-amber-300 cursor-pointer">
+                <label className="flex items-center gap-2 text-neutral-800 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={showBlended}
                     onChange={(e) => setShowBlended(e.target.checked)}
-                    className="accent-amber-500"
+                    className="accent-black"
                   />
                   <span>Blended Transition Output</span>
                 </label>
@@ -586,19 +580,19 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
 
               {/* Clip Metadata Readout */}
               {currentDebugClip && (
-                <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-[11px] font-mono flex flex-col gap-1 text-slate-300">
+                <div className="p-2.5 rounded bg-neutral-50 border border-neutral-200 text-[11px] font-mono flex flex-col gap-1 text-neutral-800">
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Source:</span>
-                    <span className="text-purple-300">{currentDebugClip.source || (currentDebugClip.synthetic ? 'synthetic' : 'real')}</span>
+                    <span className="text-neutral-500">SOURCE:</span>
+                    <span className="font-bold">{currentDebugClip.source || (currentDebugClip.synthetic ? 'synthetic' : 'real')}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Duration:</span>
+                    <span className="text-neutral-500">DURATION:</span>
                     <span>{currentDebugClip.meta?.duration_ms || 0} ms ({currentDebugClip.frames?.length || 0} frames)</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Classification:</span>
-                    <span className={currentDebugClip.synthetic ? 'text-amber-400' : 'text-emerald-400'}>
-                      {currentDebugClip.synthetic ? 'Synthetic Generator' : 'Real Sign Video'}
+                    <span className="text-neutral-500">CLASS:</span>
+                    <span className={currentDebugClip.synthetic ? 'text-amber-700 font-bold' : 'text-emerald-700 font-bold'}>
+                      {currentDebugClip.synthetic ? 'SYNTHETIC' : 'REAL VIDEO'}
                     </span>
                   </div>
                 </div>

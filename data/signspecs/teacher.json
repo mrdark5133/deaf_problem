@@ -1,0 +1,85 @@
+{
+  "gloss": "TEACHER",
+  "hands": "two",
+  "duration_ms": 1200,
+  "reference": "Lifeprint: Both Flat-O at temples move forward (TEACH) then Flat-B drop down (PERSON)",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "flat_o",
+        "palm": "left",
+        "fingers": "forward",
+        "location": "temple",
+        "offset": [
+          0.08,
+          0.0,
+          0.08
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_o",
+        "palm": "right",
+        "fingers": "forward",
+        "location": "temple",
+        "offset": [
+          -0.08,
+          0.0,
+          0.08
+        ]
+      }
+    },
+    {
+      "t": 0.5,
+      "dominant": {
+        "handshape": "flat_o",
+        "palm": "left",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          0.1,
+          -0.1,
+          0.3
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_o",
+        "palm": "right",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          -0.1,
+          -0.1,
+          0.3
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "flat_b",
+        "palm": "left",
+        "fingers": "down",
+        "location": "waist",
+        "offset": [
+          0.12,
+          0.1,
+          0.2
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_b",
+        "palm": "right",
+        "fingers": "down",
+        "location": "waist",
+        "offset": [
+          -0.12,
+          0.1,
+          0.2
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "gloss": "PAIN",
+  "hands": "two",
+  "duration_ms": 1000,
+  "reference": "Lifeprint: Both index fingers point toward each other and twist inward at chest",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "index_1",
+        "palm": "toward_body",
+        "fingers": "left",
+        "location": "chest",
+        "offset": [
+          0.08,
+          0.0,
+          0.15
+        ]
+      },
+      "non_dominant": {
+        "handshape": "index_1",
+        "palm": "toward_body",
+        "fingers": "right",
+        "location": "chest",
+        "offset": [
+          -0.08,
+          0.0,
+          0.15
+        ]
+      }
+    },
+    {
+      "t": 0.5,
+      "dominant": {
+        "handshape": "index_1",
+        "palm": "down",
+        "fingers": "left",
+        "location": "chest",
+        "offset": [
+          0.03,
+          0.0,
+          0.15
+        ]
+      },
+      "non_dominant": {
+        "handshape": "index_1",
+        "palm": "down",
+        "fingers": "right",
+        "location": "chest",
+        "offset": [
+          -0.03,
+          0.0,
+          0.15
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "index_1",
+        "palm": "toward_body",
+        "fingers": "left",
+        "location": "chest",
+        "offset": [
+          0.08,
+          0.0,
+          0.15
+        ]
+      },
+      "non_dominant": {
+        "handshape": "index_1",
+        "palm": "toward_body",
+        "fingers": "right",
+        "location": "chest",
+        "offset": [
+          -0.08,
+          0.0,
+          0.15
+        ]
+      }
+    }
+  ]
+}

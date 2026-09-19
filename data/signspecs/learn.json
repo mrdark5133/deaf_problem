@@ -1,0 +1,60 @@
+{
+  "gloss": "LEARN",
+  "hands": "two",
+  "duration_ms": 1100,
+  "reference": "Lifeprint: Dominant open hand takes knowledge from non-dominant palm to forehead",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "open_5",
+        "palm": "down",
+        "fingers": "forward",
+        "location": "non_dominant_palm",
+        "offset": [
+          0.0,
+          -0.02,
+          0.02
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_b",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          -0.05,
+          0.15,
+          0.2
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "flat_o",
+        "palm": "toward_body",
+        "fingers": "up",
+        "location": "forehead",
+        "offset": [
+          0.05,
+          0.0,
+          0.06
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_b",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          -0.05,
+          0.15,
+          0.2
+        ]
+      }
+    }
+  ]
+}

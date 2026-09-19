@@ -1,0 +1,85 @@
+{
+  "gloss": "MEDICINE",
+  "hands": "two",
+  "duration_ms": 1100,
+  "reference": "Lifeprint: Dominant bent middle finger pivoting in non-dominant flat-B palm",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "bent_v",
+        "palm": "down",
+        "fingers": "forward",
+        "location": "non_dominant_palm",
+        "offset": [
+          -0.03,
+          -0.02,
+          0.02
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_b",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          -0.05,
+          0.12,
+          0.15
+        ]
+      }
+    },
+    {
+      "t": 0.5,
+      "dominant": {
+        "handshape": "bent_v",
+        "palm": "down",
+        "fingers": "left",
+        "location": "non_dominant_palm",
+        "offset": [
+          0.02,
+          0.0,
+          0.02
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_b",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          -0.05,
+          0.12,
+          0.15
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "bent_v",
+        "palm": "down",
+        "fingers": "forward",
+        "location": "non_dominant_palm",
+        "offset": [
+          -0.02,
+          -0.02,
+          0.02
+        ]
+      },
+      "non_dominant": {
+        "handshape": "flat_b",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          -0.05,
+          0.12,
+          0.15
+        ]
+      }
+    }
+  ]
+}

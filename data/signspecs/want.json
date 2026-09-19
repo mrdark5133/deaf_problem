@@ -1,0 +1,60 @@
+{
+  "gloss": "WANT",
+  "hands": "two",
+  "duration_ms": 1000,
+  "reference": "Lifeprint: Both open-5 claw hands pull toward chest with palms facing up",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "open_5",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          0.1,
+          0.0,
+          0.32
+        ]
+      },
+      "non_dominant": {
+        "handshape": "open_5",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          -0.1,
+          0.0,
+          0.32
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "open_5",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "chest",
+        "offset": [
+          0.08,
+          0.05,
+          0.15
+        ]
+      },
+      "non_dominant": {
+        "handshape": "open_5",
+        "palm": "up",
+        "fingers": "forward",
+        "location": "chest",
+        "offset": [
+          -0.08,
+          0.05,
+          0.15
+        ]
+      }
+    }
+  ]
+}

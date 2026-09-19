@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, CornerDownLeft } from 'lucide-react';
+import { CornerDownLeft, ArrowUpRight } from 'lucide-react';
 import { globalTextSource, TextSource } from '../speech/TextSource';
 
 export interface TextInputProps {
@@ -14,7 +14,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   textSource = globalTextSource,
   onSubmit,
   disabled = false,
-  placeholder = 'Type English sentence here (e.g. "Where is the doctor?")...',
+  placeholder = 'Type English sentence (e.g. "Where is the doctor?")...',
   className = '',
 }) => {
   const [value, setValue] = useState('');
@@ -39,7 +39,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className={`relative flex items-center gap-2 w-full ${className}`}
+      className={`relative flex items-center gap-2 w-full font-mono ${className}`}
       aria-label="Typed translation input"
     >
       <div className="relative flex-1">
@@ -51,11 +51,11 @@ export const TextInput: React.FC<TextInputProps> = ({
           disabled={disabled}
           placeholder={placeholder}
           aria-label="Input text to translate into ASL"
-          className="w-full bg-slate-900/90 border border-slate-700/80 hover:border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-slate-100 placeholder:text-slate-500 text-sm rounded-xl py-3.5 pl-4 pr-16 shadow-inner transition-all disabled:opacity-50 disabled:cursor-not-allowed outline-none"
+          className="w-full bg-white border border-neutral-300 focus:border-black text-neutral-900 placeholder:text-neutral-400 text-xs rounded-md py-3 pl-3.5 pr-16 outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         />
-        <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-[11px] text-slate-500 font-mono pointer-events-none">
+        <div className="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center gap-1 text-[10px] text-neutral-400 font-mono pointer-events-none">
           <CornerDownLeft className="w-3 h-3" />
-          <span>Enter</span>
+          <span>ENTER</span>
         </div>
       </div>
 
@@ -63,10 +63,10 @@ export const TextInput: React.FC<TextInputProps> = ({
         type="submit"
         disabled={!value.trim() || disabled}
         aria-label="Send sentence"
-        className="px-5 py-3.5 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 disabled:bg-slate-800 disabled:text-slate-600 text-white font-medium text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20 disabled:shadow-none transition-all cursor-pointer disabled:cursor-not-allowed shrink-0"
+        className="px-4 py-3 bg-neutral-900 hover:bg-black active:bg-neutral-800 disabled:bg-neutral-200 disabled:text-neutral-400 text-white text-xs font-semibold rounded-md flex items-center justify-center gap-1.5 transition-colors cursor-pointer disabled:cursor-not-allowed shrink-0"
       >
-        <Send className="w-4 h-4" />
-        <span className="hidden sm:inline">Send</span>
+        <span>TRANSLATE</span>
+        <ArrowUpRight className="w-3.5 h-3.5" />
       </button>
     </form>
   );

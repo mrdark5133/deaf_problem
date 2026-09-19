@@ -1,0 +1,66 @@
+{
+  "gloss": "LETTER-Z",
+  "hands": "dominant",
+  "duration_ms": 1000,
+  "reference": "ASL Manual Alphabet: Index finger traces Z pattern in the air",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "index_1",
+        "palm": "forward",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          -0.08,
+          -0.1,
+          0.22
+        ]
+      }
+    },
+    {
+      "t": 0.33,
+      "dominant": {
+        "handshape": "index_1",
+        "palm": "forward",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          0.08,
+          -0.1,
+          0.22
+        ]
+      }
+    },
+    {
+      "t": 0.66,
+      "dominant": {
+        "handshape": "index_1",
+        "palm": "forward",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          -0.08,
+          0.08,
+          0.22
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "index_1",
+        "palm": "forward",
+        "fingers": "forward",
+        "location": "neutral",
+        "offset": [
+          0.08,
+          0.08,
+          0.22
+        ]
+      }
+    }
+  ]
+}

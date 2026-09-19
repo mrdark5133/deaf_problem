@@ -1,0 +1,38 @@
+{
+  "gloss": "HELLO",
+  "hands": "dominant",
+  "duration_ms": 1000,
+  "reference": "Lifeprint ASL University: Flat-B salute from temple moving outward and forward",
+  "verified_by": null,
+  "verified_at": null,
+  "keyframes": [
+    {
+      "t": 0.0,
+      "dominant": {
+        "handshape": "flat_b",
+        "palm": "forward",
+        "fingers": "up",
+        "location": "temple",
+        "offset": [
+          0.05,
+          0.0,
+          0.05
+        ]
+      }
+    },
+    {
+      "t": 1.0,
+      "dominant": {
+        "handshape": "flat_b",
+        "palm": "forward",
+        "fingers": "up",
+        "location": "neutral",
+        "offset": [
+          0.25,
+          -0.15,
+          0.35
+        ]
+      }
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { X, Keyboard, Command } from 'lucide-react';
+import { X, Keyboard } from 'lucide-react';
 
 export interface ShortcutsModalProps {
   isOpen: boolean;
@@ -30,7 +30,7 @@ const SHORTCUTS: ShortcutItem[] = [
   },
   {
     keys: ['M'],
-    description: 'Toggle Avatar Mirror mode (horizontal flip)',
+    description: 'Toggle Avatar Mirror mode (horizontal perspective flip)',
     category: 'Display & Views',
   },
   {
@@ -50,7 +50,7 @@ const SHORTCUTS: ShortcutItem[] = [
   },
   {
     keys: ['Esc'],
-    description: 'Close active modal / overlay',
+    description: 'Close active modal / overlay dialog',
     category: 'General',
   },
   {
@@ -79,7 +79,7 @@ export const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ isOpen, onClose 
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs font-mono"
       role="dialog"
       aria-modal="true"
       aria-labelledby="shortcuts-modal-title"
@@ -89,52 +89,46 @@ export const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ isOpen, onClose 
     >
       <div
         ref={modalRef}
-        className="w-full max-w-lg bg-slate-900 border border-slate-700 text-slate-100 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+        className="w-full max-w-lg bg-white border border-neutral-300 text-neutral-900 rounded-lg shadow-xl overflow-hidden flex flex-col max-h-[90vh]"
       >
         {/* Header */}
-        <div className="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/90">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-lg bg-indigo-600/20 text-indigo-400 border border-indigo-500/30">
-              <Keyboard className="w-5 h-5" />
-            </div>
-            <div>
-              <h2 id="shortcuts-modal-title" className="text-lg font-bold text-white tracking-tight">
-                Keyboard Shortcuts
-              </h2>
-              <p className="text-xs text-slate-400">Full keyboard-only control for accessibility</p>
-            </div>
+        <div className="px-5 py-3.5 border-b border-neutral-200 flex items-center justify-between bg-neutral-50">
+          <div className="flex items-center gap-2">
+            <Keyboard className="w-4 h-4 text-neutral-800" />
+            <h2 id="shortcuts-modal-title" className="text-sm font-bold tracking-wider text-neutral-900 uppercase">
+              KEYBOARD SHORTCUTS
+            </h2>
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none cursor-pointer"
+            className="p-1 text-neutral-400 hover:text-neutral-900 rounded transition-colors cursor-pointer"
             aria-label="Close shortcuts dialog"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* List of shortcuts by category */}
-        <div className="p-6 space-y-6 overflow-y-auto custom-scrollbar">
+        <div className="p-5 space-y-5 overflow-y-auto custom-scrollbar text-xs">
           {categories.map((category) => {
             const items = SHORTCUTS.filter((s) => s.category === category);
             return (
-              <div key={category} className="space-y-2.5">
-                <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                  <Command className="w-3.5 h-3.5 text-indigo-400" />
-                  {category}
+              <div key={category} className="space-y-2">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-600">
+                  // {category}
                 </div>
                 <div className="space-y-1.5">
                   {items.map((item, idx) => (
                     <div
                       key={idx}
-                      className="flex items-center justify-between p-2.5 rounded-xl bg-slate-800/40 border border-slate-800/80 hover:bg-slate-800/70 transition-colors"
+                      className="flex items-center justify-between p-2.5 rounded border border-neutral-200 bg-neutral-50"
                     >
-                      <span className="text-xs text-slate-300 font-medium">{item.description}</span>
+                      <span className="text-neutral-800 font-medium">{item.description}</span>
                       <div className="flex items-center gap-1 shrink-0 ml-3">
                         {item.keys.map((k, kIdx) => (
                           <kbd
                             key={kIdx}
-                            className="px-2 py-1 text-[11px] font-mono font-bold bg-slate-800 border border-slate-700 text-indigo-300 rounded-lg shadow-sm"
+                            className="px-2 py-0.5 text-[11px] font-mono font-bold bg-white border border-neutral-300 text-neutral-900 rounded shadow-xs"
                           >
                             {k}
                           </kbd>
@@ -149,13 +143,13 @@ export const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ isOpen, onClose 
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-3.5 border-t border-slate-800 flex items-center justify-end bg-slate-900/90">
+        <div className="px-5 py-3 border-t border-neutral-200 flex items-center justify-end bg-neutral-50">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-md shadow-indigo-600/20 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:outline-none cursor-pointer"
+            className="px-4 py-1.5 rounded bg-black hover:bg-neutral-800 text-white text-xs font-bold uppercase tracking-wider cursor-pointer"
           >
-            Close
+            CLOSE
           </button>
         </div>
       </div>

@@ -1,17 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import {
-  X,
-  Sun,
-  Moon,
-  Sparkles,
-  Type,
-  Maximize2,
-  FlipHorizontal,
-  Gauge,
-  RotateCcw,
-  Sliders,
-  Check,
-} from 'lucide-react';
+import { X, RotateCcw, Sliders } from 'lucide-react';
 import type {
   ThemeMode,
   CaptionFontSize,
@@ -46,7 +34,6 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Close on Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
@@ -61,7 +48,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs font-mono"
       role="dialog"
       aria-modal="true"
       aria-labelledby="settings-modal-title"
@@ -71,83 +58,73 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
     >
       <div
         ref={modalRef}
-        className="w-full max-w-lg bg-slate-900 border border-slate-700 text-slate-100 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+        className="w-full max-w-lg bg-white border border-neutral-300 text-neutral-900 rounded-lg shadow-xl overflow-hidden flex flex-col max-h-[90vh]"
       >
         {/* Header */}
-        <div className="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/90">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-lg bg-blue-600/20 text-blue-400 border border-blue-500/30">
-              <Sliders className="w-5 h-5" />
-            </div>
-            <div>
-              <h2 id="settings-modal-title" className="text-lg font-bold text-white tracking-tight">
-                Accessibility & Preferences
-              </h2>
-              <p className="text-xs text-slate-400">Personalize display, caption size, and signing speed</p>
-            </div>
+        <div className="px-5 py-3.5 border-b border-neutral-200 flex items-center justify-between bg-neutral-50">
+          <div className="flex items-center gap-2">
+            <Sliders className="w-4 h-4 text-neutral-800" />
+            <h2 id="settings-modal-title" className="text-sm font-bold tracking-wider text-neutral-900 uppercase">
+              PREFERENCES & ACCESSIBILITY
+            </h2>
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none cursor-pointer"
+            className="p-1 text-neutral-400 hover:text-neutral-900 rounded transition-colors cursor-pointer"
             aria-label="Close settings"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-6 overflow-y-auto custom-scrollbar">
+        <div className="p-5 space-y-5 overflow-y-auto custom-scrollbar text-xs">
           {/* Theme selection */}
-          <div className="space-y-2.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-              Display Theme
+          <div className="space-y-2">
+            <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 block">
+              // DISPLAY THEME
             </label>
-            <div className="grid grid-cols-3 gap-2.5">
-              <button
-                type="button"
-                onClick={() => onSetTheme('dark')}
-                className={`flex flex-col items-center justify-center p-3 rounded-xl border text-xs font-medium transition-all cursor-pointer ${
-                  settings.theme === 'dark'
-                    ? 'bg-blue-950/80 border-blue-500 text-white ring-2 ring-blue-500/30'
-                    : 'bg-slate-800/60 border-slate-700 text-slate-300 hover:bg-slate-800'
-                }`}
-              >
-                <Moon className="w-5 h-5 mb-1.5 text-blue-400" />
-                <span>Dark</span>
-              </button>
+            <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
                 onClick={() => onSetTheme('light')}
-                className={`flex flex-col items-center justify-center p-3 rounded-xl border text-xs font-medium transition-all cursor-pointer ${
+                className={`p-2.5 rounded border text-center font-semibold transition-colors cursor-pointer ${
                   settings.theme === 'light'
-                    ? 'bg-amber-950/80 border-amber-500 text-white ring-2 ring-amber-500/30'
-                    : 'bg-slate-800/60 border-slate-700 text-slate-300 hover:bg-slate-800'
+                    ? 'bg-black border-black text-white'
+                    : 'bg-neutral-50 border-neutral-200 text-neutral-700 hover:border-neutral-400'
                 }`}
               >
-                <Sun className="w-5 h-5 mb-1.5 text-amber-400" />
-                <span>Light</span>
+                LIGHT (MONO)
+              </button>
+              <button
+                type="button"
+                onClick={() => onSetTheme('dark')}
+                className={`p-2.5 rounded border text-center font-semibold transition-colors cursor-pointer ${
+                  settings.theme === 'dark'
+                    ? 'bg-black border-black text-white'
+                    : 'bg-neutral-50 border-neutral-200 text-neutral-700 hover:border-neutral-400'
+                }`}
+              >
+                DARK
               </button>
               <button
                 type="button"
                 onClick={() => onSetTheme('high-contrast')}
-                className={`flex flex-col items-center justify-center p-3 rounded-xl border text-xs font-medium transition-all cursor-pointer ${
+                className={`p-2.5 rounded border text-center font-semibold transition-colors cursor-pointer ${
                   settings.theme === 'high-contrast'
-                    ? 'bg-yellow-950/90 border-yellow-400 text-yellow-300 ring-2 ring-yellow-400/40 font-bold'
-                    : 'bg-slate-800/60 border-slate-700 text-slate-300 hover:bg-slate-800'
+                    ? 'bg-black border-black text-yellow-300 font-bold'
+                    : 'bg-neutral-50 border-neutral-200 text-neutral-700 hover:border-neutral-400'
                 }`}
               >
-                <Sparkles className="w-5 h-5 mb-1.5 text-yellow-400" />
-                <span>High Contrast</span>
+                HIGH CONTRAST
               </button>
             </div>
           </div>
 
           {/* Caption font size */}
-          <div className="space-y-2.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-              <Type className="w-3.5 h-3.5 text-indigo-400" />
-              Caption Font Size
+          <div className="space-y-2">
+            <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 block">
+              // CAPTION FONT SIZE
             </label>
             <div className="grid grid-cols-4 gap-2">
               {(['sm', 'base', 'lg', 'xl'] as CaptionFontSize[]).map((size) => (
@@ -155,163 +132,123 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   key={size}
                   type="button"
                   onClick={() => onSetCaptionFontSize(size)}
-                  className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
+                  className={`p-2 rounded border text-center font-semibold uppercase transition-colors cursor-pointer ${
                     settings.captionFontSize === size
-                      ? 'bg-indigo-950/80 border-indigo-500 text-white font-semibold ring-2 ring-indigo-500/30'
-                      : 'bg-slate-800/60 border-slate-700 text-slate-300 hover:bg-slate-800'
+                      ? 'bg-black border-black text-white'
+                      : 'bg-neutral-50 border-neutral-200 text-neutral-700 hover:border-neutral-400'
                   }`}
                 >
-                  <span className="text-xs uppercase block text-slate-400 mb-0.5">{size}</span>
-                  <span
-                    className={`block ${
-                      size === 'sm'
-                        ? 'text-xs'
-                        : size === 'base'
-                        ? 'text-sm'
-                        : size === 'lg'
-                        ? 'text-base font-semibold'
-                        : 'text-lg font-bold'
-                    }`}
-                  >
-                    Aa
-                  </span>
+                  {size}
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Avatar Options */}
-          <div className="space-y-2.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-              <Maximize2 className="w-3.5 h-3.5 text-cyan-400" />
-              Avatar Orientation & Scale
+          {/* Avatar Size */}
+          <div className="space-y-2">
+            <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 block">
+              // AVATAR VIEWPORT WIDTH
             </label>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
-                onClick={() => onSetAvatarMirrored(!settings.avatarMirrored)}
-                className={`flex items-center justify-between p-3.5 rounded-xl border transition-all cursor-pointer ${
-                  settings.avatarMirrored
-                    ? 'bg-cyan-950/70 border-cyan-500 text-cyan-200 ring-2 ring-cyan-500/30'
-                    : 'bg-slate-800/60 border-slate-700 text-slate-300 hover:bg-slate-800'
+                onClick={() => onSetAvatarSize('default')}
+                className={`p-2 rounded border text-center font-semibold transition-colors cursor-pointer ${
+                  settings.avatarSize === 'default'
+                    ? 'bg-black border-black text-white'
+                    : 'bg-neutral-50 border-neutral-200 text-neutral-700 hover:border-neutral-400'
                 }`}
               >
-                <div className="flex items-center gap-2.5 text-left">
-                  <FlipHorizontal className="w-4 h-4 text-cyan-400" />
-                  <div>
-                    <div className="text-xs font-semibold">Mirror Avatar</div>
-                    <div className="text-[10px] text-slate-400">Horizontal flip</div>
-                  </div>
-                </div>
-                <div
-                  className={`w-5 h-5 rounded-md flex items-center justify-center border ${
-                    settings.avatarMirrored
-                      ? 'bg-cyan-500 border-cyan-400 text-slate-950'
-                      : 'border-slate-600'
-                  }`}
-                >
-                  {settings.avatarMirrored && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                </div>
+                BALANCED (60/40)
               </button>
-
               <button
                 type="button"
-                onClick={() => onSetAvatarSize(settings.avatarSize === 'large' ? 'normal' : 'large')}
-                className={`flex items-center justify-between p-3.5 rounded-xl border transition-all cursor-pointer ${
+                onClick={() => onSetAvatarSize('large')}
+                className={`p-2 rounded border text-center font-semibold transition-colors cursor-pointer ${
                   settings.avatarSize === 'large'
-                    ? 'bg-cyan-950/70 border-cyan-500 text-cyan-200 ring-2 ring-cyan-500/30'
-                    : 'bg-slate-800/60 border-slate-700 text-slate-300 hover:bg-slate-800'
+                    ? 'bg-black border-black text-white'
+                    : 'bg-neutral-50 border-neutral-200 text-neutral-700 hover:border-neutral-400'
                 }`}
               >
-                <div className="flex items-center gap-2.5 text-left">
-                  <Maximize2 className="w-4 h-4 text-cyan-400" />
-                  <div>
-                    <div className="text-xs font-semibold">Large Avatar</div>
-                    <div className="text-[10px] text-slate-400">Projector scale</div>
-                  </div>
-                </div>
-                <div
-                  className={`w-5 h-5 rounded-md flex items-center justify-center border ${
-                    settings.avatarSize === 'large'
-                      ? 'bg-cyan-500 border-cyan-400 text-slate-950'
-                      : 'border-slate-600'
-                  }`}
-                >
-                  {settings.avatarSize === 'large' && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                </div>
+                EXPANDED (67/33)
               </button>
             </div>
           </div>
 
-          {/* Signing Speed Slider */}
-          <div className="space-y-2.5">
-            <div className="flex items-center justify-between">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                <Gauge className="w-3.5 h-3.5 text-emerald-400" />
-                Signing Playback Speed
-              </label>
-              <span className="text-xs font-mono font-bold text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded-md border border-emerald-800/60">
-                {settings.playbackSpeed.toFixed(2)}×
-              </span>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-[11px] text-slate-400 font-mono">0.5×</span>
-              <input
-                type="range"
-                min="0.5"
-                max="1.5"
-                step="0.05"
-                value={settings.playbackSpeed}
-                onChange={(e) => onSetPlaybackSpeed(parseFloat(e.target.value))}
-                className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-500"
-                aria-label="Signing speed multiplier"
-              />
-              <span className="text-[11px] text-slate-400 font-mono">1.5×</span>
-            </div>
-          </div>
-
-          {/* Reduced Motion Toggle */}
-          <div className="p-3.5 rounded-xl border border-slate-800 bg-slate-800/40 flex items-center justify-between">
+          {/* Mirror Toggle */}
+          <div className="flex items-center justify-between p-3 rounded border border-neutral-200 bg-neutral-50">
             <div>
-              <div className="text-xs font-semibold text-slate-200">Reduce UI Motion</div>
-              <div className="text-[11px] text-slate-400">
-                Disables animated transitions (avatar signing continues normally)
-              </div>
+              <div className="font-bold text-neutral-900">MIRROR PERSPECTIVE [M]</div>
+              <div className="text-[11px] text-neutral-500">Flips avatar horizontally</div>
             </div>
             <button
               type="button"
-              role="switch"
-              aria-checked={settings.reducedMotion}
-              onClick={() => onSetReducedMotion(!settings.reducedMotion)}
-              className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none ${
-                settings.reducedMotion ? 'bg-blue-600' : 'bg-slate-700'
+              onClick={() => onSetAvatarMirrored(!settings.avatarMirrored)}
+              className={`px-3 py-1 rounded border text-xs font-bold transition-colors cursor-pointer ${
+                settings.avatarMirrored
+                  ? 'bg-black text-white border-black'
+                  : 'bg-white text-neutral-700 border-neutral-300'
               }`}
             >
-              <div
-                className={`w-4 h-4 rounded-full bg-white transition-transform absolute top-1 ${
-                  settings.reducedMotion ? 'translate-x-6' : 'translate-x-1'
-                }`}
-              />
+              {settings.avatarMirrored ? 'ON' : 'OFF'}
+            </button>
+          </div>
+
+          {/* Playback Speed */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600">
+                // SIGNING SPEED
+              </label>
+              <span className="font-bold text-neutral-900">{settings.playbackSpeed.toFixed(2)}×</span>
+            </div>
+            <input
+              type="range"
+              min="0.5"
+              max="2.0"
+              step="0.1"
+              value={settings.playbackSpeed}
+              onChange={(e) => onSetPlaybackSpeed(parseFloat(e.target.value))}
+              className="w-full accent-black cursor-pointer"
+            />
+          </div>
+
+          {/* Reduced Motion */}
+          <div className="flex items-center justify-between p-3 rounded border border-neutral-200 bg-neutral-50">
+            <div>
+              <div className="font-bold text-neutral-900">REDUCE MOTION</div>
+              <div className="text-[11px] text-neutral-500">Minimizes animated UI transitions</div>
+            </div>
+            <button
+              type="button"
+              onClick={() => onSetReducedMotion(!settings.reducedMotion)}
+              className={`px-3 py-1 rounded border text-xs font-bold transition-colors cursor-pointer ${
+                settings.reducedMotion
+                  ? 'bg-black text-white border-black'
+                  : 'bg-white text-neutral-700 border-neutral-300'
+              }`}
+            >
+              {settings.reducedMotion ? 'ON' : 'OFF'}
             </button>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-3.5 border-t border-slate-800 flex items-center justify-between bg-slate-900/90">
+        <div className="px-5 py-3 border-t border-neutral-200 flex items-center justify-between bg-neutral-50">
           <button
             type="button"
             onClick={onResetDefaults}
-            className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-200 transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none cursor-pointer"
+            className="flex items-center gap-1.5 text-xs text-neutral-500 hover:text-neutral-900 font-semibold cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
-            Reset Defaults
+            <span>RESET DEFAULTS</span>
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-md shadow-blue-600/20 transition-colors focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none cursor-pointer"
+            className="px-4 py-1.5 rounded bg-black hover:bg-neutral-800 text-white text-xs font-bold uppercase tracking-wider cursor-pointer"
           >
-            Done
+            DONE
           </button>
         </div>
       </div>
