@@ -111,10 +111,7 @@ export function useTranslationPipeline(
   const enqueueRef = useRef<((items: ClipQueueItem[], ts?: number) => void) | null>(null);
   const setSpeedRef = useRef<((s: number) => void) | null>(null);
 
-  // ── Token-start / end tracking ────────────────────────────────────────────
 
-  // We track which tokenIndex map was built for the *current* response
-  const tokenIndexMapRef = useRef<Map<number, GlossToken>>(new Map());
 
   const onTokenStart = useCallback((gloss: string, tokenIndex: number) => {
     setActiveTokenIndex(tokenIndex);
@@ -241,7 +238,11 @@ export function useTranslationPipeline(
     return () => clearInterval(id);
   }, [backendReachable]);
 
-  // ── updatePlayerState — called from parent every RAF tick ─────────────────
+  // ── updatePlayerState — called from parent when player state changes ────────
+
+  // Ref holding last-seen debug metric values so we can skip setDebugMetrics
+  // when nothing changed (avoids the render→effect→setState→render loop).
+  const lastDebugRef = useRef<string>('');
 
   const updatePlayerState = useCallback(
     (opts_: {
@@ -262,8 +263,9 @@ export function useTranslationPipeline(
         opts_.setSpeed(newSpeed);
       }
 
-      // Update debug metrics (throttle to avoid excessive re-renders: use ref equality)
-      setDebugMetrics({
+      // Only update debug metrics when values actually differ to avoid
+      // triggering unnecessary re-renders.
+      const nextMetrics = {
         fps: opts_.fps,
         playerStatus: opts_.status,
         currentGloss: opts_.currentGloss,
@@ -277,7 +279,12 @@ export function useTranslationPipeline(
         latencySamples: latency.current.count,
         backendReachable,
         lastError,
-      });
+      };
+      const key = JSON.stringify(nextMetrics);
+      if (key !== lastDebugRef.current) {
+        lastDebugRef.current = key;
+        setDebugMetrics(nextMetrics);
+      }
     },
     [backendReachable, lastError]
   );

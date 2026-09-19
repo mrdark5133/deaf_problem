@@ -25,6 +25,9 @@ export interface SignClip {
   fps: number;
   synthetic: boolean;
   signer?: string;
+  source?: string;
+  license?: string;
+  original_id?: string;
   frames: SignFrame[];
   meta: SignClipMeta;
 }
@@ -34,6 +37,9 @@ export interface SignIndexEntry {
   gloss: string;
   category: string;
   synthetic: boolean;
+  source?: string;
+  license?: string;
+  original_id?: string;
   file: string;
   fps: number;
   duration_ms: number;

@@ -1,5 +1,6 @@
 """Validates the SignBridge sign library, checks schema integrity and coordinates,
-and generates data/signs/index.json with coverage statistics.
+enforces provenance fields on real clips, and generates data/signs/index.json
+with coverage statistics.
 """
 
 import json
@@ -11,12 +12,26 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT_DIR / "data"
 SIGNS_DIR = DATA_DIR / "signs"
 VOCAB_FILE = DATA_DIR / "vocabulary.json"
+SOURCES_FILE = DATA_DIR / "SOURCES.md"
 INDEX_FILE = SIGNS_DIR / "index.json"
 
+# Required provenance fields on non-synthetic clips (Hard Rule 3)
+PROVENANCE_FIELDS = ["source", "license", "original_id"]
 
-def is_valid_coordinate(val: any) -> bool:
+
+def is_valid_coordinate(val: object) -> bool:
     """Check that coordinate is a finite numeric float."""
     return isinstance(val, (int, float)) and not math.isnan(val) and not math.isinf(val)
+
+
+def validate_provenance(data: dict) -> tuple[bool, str]:
+    """Enforce Hard Rule 3: non-synthetic clips must carry provenance fields."""
+    if data.get("synthetic", True):
+        return True, "OK (synthetic)"
+    missing = [f for f in PROVENANCE_FIELDS if not data.get(f)]
+    if missing:
+        return False, f"Non-synthetic clip missing provenance fields: {missing}"
+    return True, "OK (real)"
 
 
 def validate_clip_file(file_path: Path) -> tuple[bool, str, dict | None]:
@@ -44,6 +59,11 @@ def validate_clip_file(file_path: Path) -> tuple[bool, str, dict | None]:
     duration_ms = data.get("meta", {}).get("duration_ms", 0)
     if not (200 <= duration_ms <= 5000):
         return False, f"Invalid duration: {duration_ms}ms (must be 200-5000ms)", None
+
+    # Provenance check (Hard Rule 3)
+    prov_ok, prov_msg = validate_provenance(data)
+    if not prov_ok:
+        return False, prov_msg, None
 
     # Validate landmark points in frames
     for f_idx, frame in enumerate(frames):
@@ -83,7 +103,7 @@ def validate_library() -> tuple[bool, dict]:
         print(f"Error: Signs directory '{SIGNS_DIR}' does not exist.")
         return False, {}
 
-    vocab_map = {}
+    vocab_map: dict = {}
     if VOCAB_FILE.exists():
         with open(VOCAB_FILE, encoding="utf-8") as vf:
             vdata = json.load(vf)
@@ -97,10 +117,11 @@ def validate_library() -> tuple[bool, dict]:
         print("Warning: No sign clip JSON files found to validate.")
         return False, {}
 
-    errors = []
-    index_signs = {}
+    errors: list[str] = []
+    index_signs: dict = {}
     real_count = 0
     synthetic_count = 0
+    source_counts: dict[str, int] = {}
 
     for cfile in clip_files:
         is_valid, msg, clip_data = validate_clip_file(cfile)
@@ -111,18 +132,23 @@ def validate_library() -> tuple[bool, dict]:
         cid = clip_data["id"]
         gloss = clip_data["gloss"]
         synthetic = clip_data.get("synthetic", False)
-        category = vocab_map.get(cid, {}).get("category", "fingerspell" if cid.startswith("fs_") else "general")
+        source = clip_data.get("source", "synthetic")
+        category = vocab_map.get(cid, {}).get(
+            "category", "fingerspell" if cid.startswith("fs_") else "general"
+        )
 
         if synthetic:
             synthetic_count += 1
         else:
             real_count += 1
+            source_counts[source] = source_counts.get(source, 0) + 1
 
         index_signs[cid] = {
             "id": cid,
             "gloss": gloss,
             "category": category,
             "synthetic": synthetic,
+            "source": source,
             "file": f"signs/{cfile.name}",
             "fps": clip_data["fps"],
             "duration_ms": clip_data.get("meta", {}).get("duration_ms", 0),
@@ -135,11 +161,12 @@ def validate_library() -> tuple[bool, dict]:
         return False, {}
 
     index_data = {
-        "version": "1.0.0",
+        "version": "1.1.0",
         "sign_language": "ASL",
         "total_signs": len(index_signs),
         "real_signs": real_count,
         "synthetic_signs": synthetic_count,
+        "source_counts": source_counts,
         "signs": index_signs,
     }
 
@@ -156,6 +183,10 @@ def validate_library() -> tuple[bool, dict]:
     print(f"Total Valid Clips : {len(index_signs)}")
     print(f"Real Clips        : {real_count}")
     print(f"Synthetic Clips   : {synthetic_count}")
+    if source_counts:
+        print("By source         :")
+        for src, cnt in sorted(source_counts.items()):
+            print(f"  {src}: {cnt}")
     print(f"Vocabulary Coverage: {vocab_covered}/{total_vocab} ({coverage_pct:.1f}%)")
     print(f"Generated Index   : {INDEX_FILE}")
     print("Status            : PASS [OK]\n")

@@ -9,13 +9,18 @@ const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
 const TRANSLATE_TIMEOUT_MS = 3000;
 
 export class ApiError extends Error {
+  public status?: number;
+  public data?: unknown;
+
   constructor(
     message: string,
-    public status?: number,
-    public data?: unknown
+    status?: number,
+    data?: unknown
   ) {
     super(message);
     this.name = 'ApiError';
+    this.status = status;
+    this.data = data;
   }
 }
 

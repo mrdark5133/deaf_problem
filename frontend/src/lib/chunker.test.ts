@@ -13,7 +13,7 @@ function makeEvent(type: 'interim' | 'final', text: string): TextEvent {
 }
 
 describe('Chunker', () => {
-  let onChunk: ReturnType<typeof vi.fn>;
+  let onChunk: ReturnType<typeof vi.fn<(chunk: ChunkEvent) => void>>;
   let chunker: Chunker;
 
   beforeEach(() => {

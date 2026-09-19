@@ -5,48 +5,67 @@
 
 import type { Landmark3D, SignFrame } from '../lib/clipTypes';
 
-/** Lerp a single 3D landmark. */
-export function lerpLandmark(a: Landmark3D, b: Landmark3D, t: number): Landmark3D {
-  return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
+/** Lerp a single 3D landmark with robust fallback if a point is missing. */
+export function lerpLandmark(
+  a: Landmark3D | undefined | null,
+  b: Landmark3D | undefined | null,
+  t: number
+): Landmark3D {
+  const pA = a || [0, 0, 0];
+  const pB = b || pA;
+  const zA = pA[2] ?? 0;
+  const zB = pB[2] ?? 0;
+  return [
+    pA[0] + (pB[0] - pA[0]) * t,
+    pA[1] + (pB[1] - pA[1]) * t,
+    zA + (zB - zA) * t,
+  ];
 }
 
-/** Lerp two equal-length arrays of landmarks. */
+/** Lerp two arrays of landmarks even if lengths differ. */
 export function lerpLandmarkArray(
-  a: Landmark3D[],
-  b: Landmark3D[],
+  a: Landmark3D[] | null | undefined,
+  b: Landmark3D[] | null | undefined,
   t: number
 ): Landmark3D[] {
-  return a.map((lmA, i) => lerpLandmark(lmA, b[i], t));
+  if (!a && !b) return [];
+  const src = a || b || [];
+  const tgt = b || a || [];
+  const count = Math.max(src.length, tgt.length);
+  const result: Landmark3D[] = [];
+  for (let i = 0; i < count; i++) {
+    result.push(lerpLandmark(src[i], tgt[i], t));
+  }
+  return result;
 }
 
 /**
  * Lerp two SignFrames.
- * - pose: always lerped (same count guaranteed by schema).
- * - hands: lerped only when both frames have the hand; otherwise fades in/out
- *   by lerping from/to a collapsed wrist position rather than snapping.
+ * - pose: always lerped across common landmarks.
+ * - hands: lerped smoothly when present; fades gracefully otherwise.
  */
 export function lerpFrames(a: SignFrame, b: SignFrame, t: number): SignFrame {
-  const pose = lerpLandmarkArray(a.pose, b.pose, t);
+  const poseA = a?.pose || [];
+  const poseB = b?.pose || [];
+  const pose = lerpLandmarkArray(poseA, poseB, t);
 
   // Left hand
   let left_hand: Landmark3D[] | null = null;
-  if (a.left_hand && b.left_hand) {
+  if (a?.left_hand && b?.left_hand) {
     left_hand = lerpLandmarkArray(a.left_hand, b.left_hand, t);
-  } else if (b.left_hand) {
-    // Fade in: t < 0.5 hide, t >= 0.5 show target
+  } else if (b?.left_hand) {
     left_hand = t >= 0.5 ? b.left_hand : null;
-  } else if (a.left_hand) {
-    // Fade out: t < 0.5 show source, t >= 0.5 hide
+  } else if (a?.left_hand) {
     left_hand = t < 0.5 ? a.left_hand : null;
   }
 
   // Right hand
   let right_hand: Landmark3D[] | null = null;
-  if (a.right_hand && b.right_hand) {
+  if (a?.right_hand && b?.right_hand) {
     right_hand = lerpLandmarkArray(a.right_hand, b.right_hand, t);
-  } else if (b.right_hand) {
+  } else if (b?.right_hand) {
     right_hand = t >= 0.5 ? b.right_hand : null;
-  } else if (a.right_hand) {
+  } else if (a?.right_hand) {
     right_hand = t < 0.5 ? a.right_hand : null;
   }
 

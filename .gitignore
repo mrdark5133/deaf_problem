@@ -29,3 +29,9 @@ coverage/
 htmlcov/
 test-results/
 playwright-report/
+
+# Raw sign data — never commit third-party videos, images, or datasets
+data/raw/
+!data/raw/.gitkeep
+data/temp/
+data/cache/

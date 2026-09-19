@@ -1,15 +1,20 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "sign_language": "ASL",
   "total_signs": 96,
-  "real_signs": 0,
-  "synthetic_signs": 96,
+  "real_signs": 39,
+  "synthetic_signs": 57,
+  "source_counts": {
+    "asl-citizen-processed-200": 13,
+    "asl-mnist-voxel51": 26
+  },
   "signs": {
     "again": {
       "id": "again",
       "gloss": "AGAIN",
       "category": "grammar",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/again.json",
       "fps": 30,
       "duration_ms": 800
@@ -19,6 +24,7 @@
       "gloss": "COME",
       "category": "verbs",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/come.json",
       "fps": 30,
       "duration_ms": 800
@@ -28,6 +34,7 @@
       "gloss": "DOCTOR",
       "category": "people",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/doctor.json",
       "fps": 30,
       "duration_ms": 800
@@ -37,6 +44,7 @@
       "gloss": "DRINK",
       "category": "verbs",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/drink.json",
       "fps": 30,
       "duration_ms": 800
@@ -45,16 +53,18 @@
       "id": "eat",
       "gloss": "EAT",
       "category": "verbs",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-citizen-processed-200",
       "file": "signs/eat.json",
       "fps": 30,
-      "duration_ms": 800
+      "duration_ms": 1533
     },
     "emergency": {
       "id": "emergency",
       "gloss": "EMERGENCY",
       "category": "things",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/emergency.json",
       "fps": 30,
       "duration_ms": 800
@@ -64,6 +74,7 @@
       "gloss": "FAMILY",
       "category": "people",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/family.json",
       "fps": 30,
       "duration_ms": 800
@@ -73,6 +84,7 @@
       "gloss": "FEEL",
       "category": "verbs",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/feel.json",
       "fps": 30,
       "duration_ms": 800
@@ -81,16 +93,18 @@
       "id": "finish",
       "gloss": "FINISH",
       "category": "grammar",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-citizen-processed-200",
       "file": "signs/finish.json",
       "fps": 30,
-      "duration_ms": 800
+      "duration_ms": 1533
     },
     "food": {
       "id": "food",
       "gloss": "FOOD",
       "category": "things",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/food.json",
       "fps": 30,
       "duration_ms": 800
@@ -100,6 +114,7 @@
       "gloss": "FRIEND",
       "category": "people",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/friend.json",
       "fps": 30,
       "duration_ms": 800
@@ -109,6 +124,7 @@
       "gloss": "FS:0",
       "category": "fingerspell",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/fs_0.json",
       "fps": 30,
       "duration_ms": 500
@@ -118,6 +134,7 @@
       "gloss": "FS:1",
       "category": "fingerspell",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/fs_1.json",
       "fps": 30,
       "duration_ms": 500
@@ -127,6 +144,7 @@
       "gloss": "FS:2",
       "category": "fingerspell",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/fs_2.json",
       "fps": 30,
       "duration_ms": 500
@@ -136,6 +154,7 @@
       "gloss": "FS:3",
       "category": "fingerspell",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/fs_3.json",
       "fps": 30,
       "duration_ms": 500
@@ -145,6 +164,7 @@
       "gloss": "FS:4",
       "category": "fingerspell",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/fs_4.json",
       "fps": 30,
       "duration_ms": 500
@@ -154,6 +174,7 @@
       "gloss": "FS:5",
       "category": "fingerspell",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/fs_5.json",
       "fps": 30,
       "duration_ms": 500
@@ -163,6 +184,7 @@
       "gloss": "FS:6",
       "category": "fingerspell",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/fs_6.json",
       "fps": 30,
       "duration_ms": 500
@@ -172,6 +194,7 @@
       "gloss": "FS:7",
       "category": "fingerspell",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/fs_7.json",
       "fps": 30,
       "duration_ms": 500
@@ -181,6 +204,7 @@
       "gloss": "FS:8",
       "category": "fingerspell",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/fs_8.json",
       "fps": 30,
       "duration_ms": 500
@@ -190,240 +214,267 @@
       "gloss": "FS:9",
       "category": "fingerspell",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/fs_9.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_a": {
       "id": "fs_a",
-      "gloss": "FS:A",
+      "gloss": "fs_a",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_a.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_b": {
       "id": "fs_b",
-      "gloss": "FS:B",
+      "gloss": "fs_b",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_b.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_c": {
       "id": "fs_c",
-      "gloss": "FS:C",
+      "gloss": "fs_c",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_c.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_d": {
       "id": "fs_d",
-      "gloss": "FS:D",
+      "gloss": "fs_d",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_d.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_e": {
       "id": "fs_e",
-      "gloss": "FS:E",
+      "gloss": "fs_e",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_e.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_f": {
       "id": "fs_f",
-      "gloss": "FS:F",
+      "gloss": "fs_f",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_f.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_g": {
       "id": "fs_g",
-      "gloss": "FS:G",
+      "gloss": "fs_g",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_g.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_h": {
       "id": "fs_h",
-      "gloss": "FS:H",
+      "gloss": "fs_h",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_h.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_i": {
       "id": "fs_i",
-      "gloss": "FS:I",
+      "gloss": "fs_i",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_i.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_j": {
       "id": "fs_j",
-      "gloss": "FS:J",
+      "gloss": "fs_j",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_j.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_k": {
       "id": "fs_k",
-      "gloss": "FS:K",
+      "gloss": "fs_k",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_k.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_l": {
       "id": "fs_l",
-      "gloss": "FS:L",
+      "gloss": "fs_l",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_l.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_m": {
       "id": "fs_m",
-      "gloss": "FS:M",
+      "gloss": "fs_m",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_m.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_n": {
       "id": "fs_n",
-      "gloss": "FS:N",
+      "gloss": "fs_n",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_n.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_o": {
       "id": "fs_o",
-      "gloss": "FS:O",
+      "gloss": "fs_o",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_o.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_p": {
       "id": "fs_p",
-      "gloss": "FS:P",
+      "gloss": "fs_p",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_p.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_q": {
       "id": "fs_q",
-      "gloss": "FS:Q",
+      "gloss": "fs_q",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_q.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_r": {
       "id": "fs_r",
-      "gloss": "FS:R",
+      "gloss": "fs_r",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_r.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_s": {
       "id": "fs_s",
-      "gloss": "FS:S",
+      "gloss": "fs_s",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_s.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_t": {
       "id": "fs_t",
-      "gloss": "FS:T",
+      "gloss": "fs_t",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_t.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_u": {
       "id": "fs_u",
-      "gloss": "FS:U",
+      "gloss": "fs_u",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_u.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_v": {
       "id": "fs_v",
-      "gloss": "FS:V",
+      "gloss": "fs_v",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_v.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_w": {
       "id": "fs_w",
-      "gloss": "FS:W",
+      "gloss": "fs_w",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_w.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_x": {
       "id": "fs_x",
-      "gloss": "FS:X",
+      "gloss": "fs_x",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_x.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_y": {
       "id": "fs_y",
-      "gloss": "FS:Y",
+      "gloss": "fs_y",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_y.json",
       "fps": 30,
       "duration_ms": 500
     },
     "fs_z": {
       "id": "fs_z",
-      "gloss": "FS:Z",
+      "gloss": "fs_z",
       "category": "fingerspell",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-mnist-voxel51",
       "file": "signs/fs_z.json",
       "fps": 30,
       "duration_ms": 500
@@ -433,6 +484,7 @@
       "gloss": "GO",
       "category": "verbs",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/go.json",
       "fps": 30,
       "duration_ms": 800
@@ -442,6 +494,7 @@
       "gloss": "GOOD",
       "category": "social",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/good.json",
       "fps": 30,
       "duration_ms": 800
@@ -451,6 +504,7 @@
       "gloss": "GOODBYE",
       "category": "social",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/goodbye.json",
       "fps": 30,
       "duration_ms": 800
@@ -459,16 +513,18 @@
       "id": "hello",
       "gloss": "HELLO",
       "category": "social",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-citizen-processed-200",
       "file": "signs/hello.json",
       "fps": 30,
-      "duration_ms": 800
+      "duration_ms": 1500
     },
     "help": {
       "id": "help",
       "gloss": "HELP",
       "category": "verbs",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/help.json",
       "fps": 30,
       "duration_ms": 800
@@ -478,6 +534,7 @@
       "gloss": "HOME",
       "category": "places",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/home.json",
       "fps": 30,
       "duration_ms": 800
@@ -486,16 +543,18 @@
       "id": "hospital",
       "gloss": "HOSPITAL",
       "category": "places",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-citizen-processed-200",
       "file": "signs/hospital.json",
       "fps": 30,
-      "duration_ms": 800
+      "duration_ms": 1533
     },
     "how": {
       "id": "how",
       "gloss": "HOW",
       "category": "questions",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/how.json",
       "fps": 30,
       "duration_ms": 800
@@ -505,6 +564,7 @@
       "gloss": "KNOW",
       "category": "verbs",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/know.json",
       "fps": 30,
       "duration_ms": 800
@@ -514,6 +574,7 @@
       "gloss": "LEARN",
       "category": "verbs",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/learn.json",
       "fps": 30,
       "duration_ms": 800
@@ -523,6 +584,7 @@
       "gloss": "LOVE",
       "category": "verbs",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/love.json",
       "fps": 30,
       "duration_ms": 800
@@ -532,6 +594,7 @@
       "gloss": "ME",
       "category": "people",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/me.json",
       "fps": 30,
       "duration_ms": 800
@@ -541,6 +604,7 @@
       "gloss": "MEDICINE",
       "category": "things",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/medicine.json",
       "fps": 30,
       "duration_ms": 800
@@ -550,6 +614,7 @@
       "gloss": "MORE",
       "category": "grammar",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/more.json",
       "fps": 30,
       "duration_ms": 800
@@ -558,16 +623,18 @@
       "id": "morning",
       "gloss": "MORNING",
       "category": "social",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-citizen-processed-200",
       "file": "signs/morning.json",
       "fps": 30,
-      "duration_ms": 800
+      "duration_ms": 1533
     },
     "my": {
       "id": "my",
       "gloss": "MY",
       "category": "people",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/my.json",
       "fps": 30,
       "duration_ms": 800
@@ -576,16 +643,18 @@
       "id": "name",
       "gloss": "NAME",
       "category": "social",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-citizen-processed-200",
       "file": "signs/name.json",
       "fps": 30,
-      "duration_ms": 800
+      "duration_ms": 1500
     },
     "need": {
       "id": "need",
       "gloss": "NEED",
       "category": "verbs",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/need.json",
       "fps": 30,
       "duration_ms": 800
@@ -595,6 +664,7 @@
       "gloss": "NICE-TO-MEET-YOU",
       "category": "social",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/nice-to-meet-you.json",
       "fps": 30,
       "duration_ms": 800
@@ -604,6 +674,7 @@
       "gloss": "NO",
       "category": "social",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/no.json",
       "fps": 30,
       "duration_ms": 800
@@ -613,6 +684,7 @@
       "gloss": "NOT",
       "category": "grammar",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/not.json",
       "fps": 30,
       "duration_ms": 800
@@ -622,6 +694,7 @@
       "gloss": "NOW",
       "category": "time",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/now.json",
       "fps": 30,
       "duration_ms": 800
@@ -631,6 +704,7 @@
       "gloss": "NURSE",
       "category": "people",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/nurse.json",
       "fps": 30,
       "duration_ms": 800
@@ -639,16 +713,18 @@
       "id": "pain",
       "gloss": "PAIN",
       "category": "things",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-citizen-processed-200",
       "file": "signs/pain.json",
       "fps": 30,
-      "duration_ms": 800
+      "duration_ms": 1500
     },
     "please": {
       "id": "please",
       "gloss": "PLEASE",
       "category": "social",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/please.json",
       "fps": 30,
       "duration_ms": 800
@@ -658,6 +734,7 @@
       "gloss": "REPEAT",
       "category": "verbs",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/repeat.json",
       "fps": 30,
       "duration_ms": 800
@@ -667,6 +744,7 @@
       "gloss": "SCHOOL",
       "category": "places",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/school.json",
       "fps": 30,
       "duration_ms": 800
@@ -675,16 +753,18 @@
       "id": "slow",
       "gloss": "SLOW",
       "category": "grammar",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-citizen-processed-200",
       "file": "signs/slow.json",
       "fps": 30,
-      "duration_ms": 800
+      "duration_ms": 1467
     },
     "sorry": {
       "id": "sorry",
       "gloss": "SORRY",
       "category": "social",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/sorry.json",
       "fps": 30,
       "duration_ms": 800
@@ -694,6 +774,7 @@
       "gloss": "TEACHER",
       "category": "people",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/teacher.json",
       "fps": 30,
       "duration_ms": 800
@@ -703,6 +784,7 @@
       "gloss": "THANK-YOU",
       "category": "social",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/thank-you.json",
       "fps": 30,
       "duration_ms": 800
@@ -712,6 +794,7 @@
       "gloss": "TODAY",
       "category": "time",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/today.json",
       "fps": 30,
       "duration_ms": 800
@@ -721,6 +804,7 @@
       "gloss": "TOMORROW",
       "category": "time",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/tomorrow.json",
       "fps": 30,
       "duration_ms": 800
@@ -729,16 +813,18 @@
       "id": "understand",
       "gloss": "UNDERSTAND",
       "category": "verbs",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-citizen-processed-200",
       "file": "signs/understand.json",
       "fps": 30,
-      "duration_ms": 800
+      "duration_ms": 1500
     },
     "wait": {
       "id": "wait",
       "gloss": "WAIT",
       "category": "verbs",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/wait.json",
       "fps": 30,
       "duration_ms": 800
@@ -747,16 +833,18 @@
       "id": "want",
       "gloss": "WANT",
       "category": "verbs",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-citizen-processed-200",
       "file": "signs/want.json",
       "fps": 30,
-      "duration_ms": 800
+      "duration_ms": 1533
     },
     "water": {
       "id": "water",
       "gloss": "WATER",
       "category": "things",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/water.json",
       "fps": 30,
       "duration_ms": 800
@@ -766,6 +854,7 @@
       "gloss": "WE",
       "category": "people",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/we.json",
       "fps": 30,
       "duration_ms": 800
@@ -774,16 +863,18 @@
       "id": "what",
       "gloss": "WHAT",
       "category": "questions",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-citizen-processed-200",
       "file": "signs/what.json",
       "fps": 30,
-      "duration_ms": 800
+      "duration_ms": 1533
     },
     "when": {
       "id": "when",
       "gloss": "WHEN",
       "category": "questions",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/when.json",
       "fps": 30,
       "duration_ms": 800
@@ -793,6 +884,7 @@
       "gloss": "WHERE",
       "category": "questions",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/where.json",
       "fps": 30,
       "duration_ms": 800
@@ -802,6 +894,7 @@
       "gloss": "WHO",
       "category": "questions",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/who.json",
       "fps": 30,
       "duration_ms": 800
@@ -810,16 +903,18 @@
       "id": "why",
       "gloss": "WHY",
       "category": "questions",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-citizen-processed-200",
       "file": "signs/why.json",
       "fps": 30,
-      "duration_ms": 800
+      "duration_ms": 1500
     },
     "will": {
       "id": "will",
       "gloss": "WILL",
       "category": "grammar",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/will.json",
       "fps": 30,
       "duration_ms": 800
@@ -828,16 +923,18 @@
       "id": "work",
       "gloss": "WORK",
       "category": "verbs",
-      "synthetic": true,
+      "synthetic": false,
+      "source": "asl-citizen-processed-200",
       "file": "signs/work.json",
       "fps": 30,
-      "duration_ms": 800
+      "duration_ms": 1567
     },
     "yes": {
       "id": "yes",
       "gloss": "YES",
       "category": "social",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/yes.json",
       "fps": 30,
       "duration_ms": 800
@@ -847,6 +944,7 @@
       "gloss": "YESTERDAY",
       "category": "time",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/yesterday.json",
       "fps": 30,
       "duration_ms": 800
@@ -856,6 +954,7 @@
       "gloss": "YOU",
       "category": "people",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/you.json",
       "fps": 30,
       "duration_ms": 800
@@ -865,6 +964,7 @@
       "gloss": "YOUR",
       "category": "people",
       "synthetic": true,
+      "source": "synthetic",
       "file": "signs/your.json",
       "fps": 30,
       "duration_ms": 800

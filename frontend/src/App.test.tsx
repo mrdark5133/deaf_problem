@@ -27,7 +27,7 @@ describe('App component', () => {
     });
 
     expect(screen.getByTestId('backend-status-badge')).toHaveClass('bg-emerald-950/80');
-    expect(screen.getByText('Speech → ASL')).toBeInTheDocument();
+    expect(screen.getByText(/Speech → ASL/)).toBeInTheDocument();
   });
 
   it('displays offline badge on failed health check', async () => {

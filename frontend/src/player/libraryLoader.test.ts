@@ -3,7 +3,7 @@ import { signLibraryLoader } from './libraryLoader';
 import type { SignClip, SignLibraryIndex } from '../lib/clipTypes';
 
 describe('SignLibraryLoader', () => {
-  const originalFetch = global.fetch;
+  const originalFetch = globalThis.fetch;
 
   beforeEach(() => {
     signLibraryLoader.clearCache();
@@ -11,7 +11,7 @@ describe('SignLibraryLoader', () => {
   });
 
   afterEach(() => {
-    global.fetch = originalFetch;
+    globalThis.fetch = originalFetch;
   });
 
   it('loads and caches sign library index', async () => {
@@ -34,19 +34,19 @@ describe('SignLibraryLoader', () => {
       },
     };
 
-    global.fetch = vi.fn().mockResolvedValueOnce({
+    globalThis.fetch = vi.fn().mockResolvedValueOnce({
       ok: true,
       json: async () => mockIndex,
     });
 
     const index = await signLibraryLoader.loadIndex();
     expect(index).toEqual(mockIndex);
-    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(globalThis.fetch).toHaveBeenCalledTimes(1);
 
     // Second call should return cached index without re-fetching
     const cachedIndex = await signLibraryLoader.loadIndex();
     expect(cachedIndex).toEqual(mockIndex);
-    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(globalThis.fetch).toHaveBeenCalledTimes(1);
   });
 
   it('loads and caches individual sign clips', async () => {
@@ -59,7 +59,7 @@ describe('SignLibraryLoader', () => {
       meta: { duration_ms: 500, recorded_at: '2026-09-19T00:00:00Z' },
     };
 
-    global.fetch = vi.fn().mockResolvedValueOnce({
+    globalThis.fetch = vi.fn().mockResolvedValueOnce({
       ok: true,
       json: async () => mockClip,
     });
@@ -71,6 +71,6 @@ describe('SignLibraryLoader', () => {
     // Cache hit
     const cachedClip = await signLibraryLoader.getClip('doctor');
     expect(cachedClip).toEqual(mockClip);
-    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(globalThis.fetch).toHaveBeenCalledTimes(1);
   });
 });

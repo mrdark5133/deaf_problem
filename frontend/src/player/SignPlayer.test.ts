@@ -61,9 +61,9 @@ function makeItem(
 
 describe('SignPlayer', () => {
   let player: SignPlayer;
-  let onTokenStart: ReturnType<typeof vi.fn>;
-  let onTokenEnd: ReturnType<typeof vi.fn>;
-  let onIdle: ReturnType<typeof vi.fn>;
+  let onTokenStart: ReturnType<typeof vi.fn<(gloss: string, tokenIndex: number) => void>>;
+  let onTokenEnd: ReturnType<typeof vi.fn<(gloss: string, tokenIndex: number) => void>>;
+  let onIdle: ReturnType<typeof vi.fn<() => void>>;
 
   beforeEach(() => {
     onTokenStart = vi.fn();

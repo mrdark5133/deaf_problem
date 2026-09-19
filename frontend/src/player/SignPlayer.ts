@@ -276,14 +276,12 @@ export class SignPlayer {
   private buildResult(): PlayerTickResult {
     const item =
       this.queueHead < this.queue.length ? this.queue[this.queueHead] : null;
-    // Always return a shallow-copied frame so React's useState (which uses
-    // Object.is / reference equality) sees a new object every tick and
-    // triggers a re-render. Without this, consecutive ticks that land on
-    // the same frameIdx in the cached clip return the identical array
-    // reference → React bails out → SkeletonAvatar never redraws → the
-    // avatar appears frozen on the same hand shape across sign transitions.
-    const f = this._currentFrame;
-    const frameCopy = { pose: f.pose, left_hand: f.left_hand, right_hand: f.right_hand };
+    const f = this._currentFrame ?? REST_POSE;
+    const frameCopy: SignFrame = {
+      pose: f.pose ?? REST_POSE.pose,
+      left_hand: f.left_hand ?? null,
+      right_hand: f.right_hand ?? null,
+    };
     return {
       frame: frameCopy,
       status: this._status,

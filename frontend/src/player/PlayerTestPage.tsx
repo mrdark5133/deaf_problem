@@ -18,7 +18,7 @@ import {
   Sparkles,
   FlaskConical,
 } from 'lucide-react';
-import { SkeletonAvatar } from './SkeletonAvatar';
+import { AvatarContainer } from '../avatar/AvatarContainer';
 import { useSignPlayer } from './useSignPlayer';
 import { signLibraryLoader } from './libraryLoader';
 import type { ClipQueueItem } from './SignPlayer';
@@ -184,7 +184,7 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
           {/* Avatar viewport */}
           <div className="relative rounded-2xl overflow-hidden border border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 shadow-2xl"
             style={{ aspectRatio: '4/3' }}>
-            <SkeletonAvatar
+            <AvatarContainer
               frame={frame}
               isIdle={isIdle}
               badge={isSynthetic ? 'SYNTHETIC' : undefined}

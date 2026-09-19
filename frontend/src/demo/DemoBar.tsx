@@ -1,12 +1,10 @@
 import React from 'react';
 import {
-  Play,
   Square,
   Sparkles,
   Stethoscope,
   GraduationCap,
   HelpCircle,
-  ChevronRight,
 } from 'lucide-react';
 import { DEMO_SCENARIOS, type DemoScenario } from './demoScenarios';
 

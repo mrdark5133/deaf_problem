@@ -27,12 +27,19 @@ export class Chunker {
   private lastSentText = '';
   private lastInterimText = '';
   private stableTimer: ReturnType<typeof setTimeout> | null = null;
+  private readonly onChunk: ChunkCallback;
+  private readonly stableMs: number;
+  private readonly earlyWordCount: number;
 
   constructor(
-    private readonly onChunk: ChunkCallback,
-    private readonly stableMs: number = 800,
-    private readonly earlyWordCount: number = 6
-  ) {}
+    onChunk: ChunkCallback,
+    stableMs: number = 800,
+    earlyWordCount: number = 6
+  ) {
+    this.onChunk = onChunk;
+    this.stableMs = stableMs;
+    this.earlyWordCount = earlyWordCount;
+  }
 
   /** Feed a TextEvent into the chunker. */
   feed(event: TextEvent): void {

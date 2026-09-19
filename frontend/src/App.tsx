@@ -48,7 +48,7 @@ import { DebugOverlay } from './ui/DebugOverlay';
 import { SettingsModal } from './ui/SettingsModal';
 import { ShortcutsModal } from './ui/ShortcutsModal';
 import { OnboardingCard } from './ui/OnboardingCard';
-import { SkeletonAvatar } from './player/SkeletonAvatar';
+import { AvatarContainer } from './avatar/AvatarContainer';
 import { RecorderPage } from './recorder/RecorderPage';
 import { PlayerTestPage } from './player/PlayerTestPage';
 import { DemoBar } from './demo/DemoBar';
@@ -128,10 +128,10 @@ export const App: React.FC = () => {
   // Remaining queue items ref (for lag estimation)
   const queueItemsRef = useRef<ClipQueueItem[]>([]);
 
-  // Update pipeline with current player state every render
-  const updateRef = useRef(false);
+  // Sync player state into the pipeline for lag estimation and debug metrics.
+  // setDebugMetrics inside pipeline is ref-guarded, so this won't cause
+  // infinite re-renders even though it calls into the pipeline on every change.
   useEffect(() => {
-    if (!updateRef.current) return;
     pipeline.updatePlayerState({
       status: playerStatus,
       fps,
@@ -141,8 +141,7 @@ export const App: React.FC = () => {
       setSpeed,
       enqueue,
     });
-  });
-  updateRef.current = true;
+  }, [pipeline, playerStatus, fps, speed, currentGloss, setSpeed, enqueue]);
 
   // Sync settings playback speed with player
   useEffect(() => {
@@ -246,7 +245,7 @@ export const App: React.FC = () => {
       const clipMap = new Map();
       for (const t of sentence.tokens) {
         if (t.clip_id) {
-          const c = await signLibraryLoader.loadSign(t.clip_id);
+          const c = await signLibraryLoader.getClip(t.clip_id);
           if (c) clipMap.set(t.clip_id, c);
         }
       }
@@ -542,11 +541,12 @@ export const App: React.FC = () => {
           {/* Avatar viewport */}
           <div className="flex-1 relative" style={{ minHeight: '340px' }}>
             <div className="absolute inset-0 bg-gradient-to-b from-slate-900/30 to-slate-950/60" />
-            <SkeletonAvatar
+            <AvatarContainer
               frame={frame}
               isIdle={isIdle}
               mirrored={settings.avatarMirrored}
               highContrast={isHighContrast}
+              isQuestion={pipeline.isQuestion}
               className="w-full h-full"
             />
 

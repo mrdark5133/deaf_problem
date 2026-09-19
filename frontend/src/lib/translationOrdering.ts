@@ -12,7 +12,7 @@
  *  - Caller is responsible for actually calling setSpeed().
  */
 
-import type { GlossToken, TranslateResponse } from './types';
+import type { GlossToken } from './types';
 import type { ClipQueueItem } from '../player/SignPlayer';
 import type { SignClip } from './clipTypes';
 
