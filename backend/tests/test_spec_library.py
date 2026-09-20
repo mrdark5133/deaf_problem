@@ -4,7 +4,6 @@ test_spec_library.py — Tests for Phase S3 Sign Spec Library and Source Priorit
 
 import json
 from pathlib import Path
-import pytest
 
 DATA_DIR = Path("data")
 SIGNSPEC_DIR = DATA_DIR / "signspecs"

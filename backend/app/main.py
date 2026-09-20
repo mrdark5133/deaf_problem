@@ -1,8 +1,11 @@
 """FastAPI main application for SignBridge."""
 
+import json
 from pathlib import Path
-from fastapi import FastAPI
+
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from .config import settings
@@ -48,14 +51,13 @@ def self_check() -> dict:
     if index_path.exists():
         try:
             with open(index_path, "r", encoding="utf-8") as f:
-                import json
                 idx = json.load(f)
                 total_signs = idx.get("total_signs", 0)
                 real_signs = idx.get("real_signs", 0)
                 spec_signs = idx.get("spec_compiled_signs", 0)
                 synth_signs = idx.get("synthetic_signs", 0)
-        except Exception:
-            pass
+        except (OSError, json.JSONDecodeError):
+            total_signs, real_signs, spec_signs, synth_signs = 0, 0, 0, 0
 
     return {
         "status": "ok",
@@ -87,3 +89,34 @@ def self_check() -> dict:
 def translate(request: TranslateRequest) -> TranslateResponse:
     """Translate English text into structured ASL gloss tokens with grammar rules."""
     return gloss_pipeline.translate(request)
+
+
+# Static frontend serving & SPA catch-all fallback
+# Registered AFTER all API routes to ensure API endpoints take precedence.
+frontend_dist_dir = root_dir / "frontend" / "dist"
+if frontend_dist_dir.exists():
+    assets_dir = frontend_dist_dir / "assets"
+    if assets_dir.exists():
+        app.mount("/assets", StaticFiles(directory=str(assets_dir)), name="assets")
+
+    @app.api_route("/{full_path:path}", methods=["GET", "HEAD", "POST", "PUT", "DELETE", "PATCH"])
+    async def serve_spa_or_static(request: Request, full_path: str):
+        """Serve static files or fall back to index.html for client-side routing."""
+        # Unmatched API routes must return JSON 404, not HTML
+        if full_path == "api" or full_path.startswith("api/"):
+            raise HTTPException(status_code=404, detail="Not Found")
+
+        if request.method not in ("GET", "HEAD"):
+            raise HTTPException(status_code=405, detail="Method Not Allowed")
+
+        file_path = frontend_dist_dir / full_path
+        if full_path and file_path.is_file():
+            return FileResponse(file_path)
+
+        index_file = frontend_dist_dir / "index.html"
+        if index_file.exists():
+            return FileResponse(index_file)
+
+        raise HTTPException(status_code=404, detail="Not Found")
+
+

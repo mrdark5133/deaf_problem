@@ -12,7 +12,7 @@ export interface MicButtonProps {
 
 export const MicButton: React.FC<MicButtonProps> = ({
   status,
-  isListening,
+  isListening: _isListening,
   onToggle,
   disabled = false,
   className = '',

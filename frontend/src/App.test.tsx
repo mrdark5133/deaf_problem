@@ -30,16 +30,17 @@ describe('App component', () => {
     expect(screen.getByText(/Speech → ASL/)).toBeInTheDocument();
   });
 
-  it('displays offline badge on failed health check', async () => {
+  it('displays waking up badge and banner on initial health check failure', async () => {
     vi.mocked(api.checkHealth).mockRejectedValueOnce(new Error('Network error'));
 
     render(<App />);
 
     await waitFor(() => {
-      expect(screen.getByText('Offline')).toBeInTheDocument();
+      expect(screen.getByText('Waking Up…')).toBeInTheDocument();
     });
 
-    expect(screen.getByTestId('backend-status-badge')).toHaveClass('bg-rose-950/80');
+    expect(screen.getByTestId('backend-status-badge')).toHaveClass('bg-amber-950/80');
+    expect(screen.getByTestId('wakeup-banner')).toBeInTheDocument();
   });
 
   it('renders navigation buttons for CV Studio and Player test view', async () => {

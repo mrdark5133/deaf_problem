@@ -181,7 +181,6 @@ function drawHighPrecisionHand(
     : (isRightHand ? '#d97706' : '#0284c7'); // Rich Amber vs Cyan
 
   const darkOutline = hc ? '#000000' : '#0f172a';
-  const glowColor = isRightHand ? 'rgba(217, 119, 6, 0.4)' : 'rgba(2, 132, 199, 0.4)';
 
   const palmFill = hc
     ? (isPalmFacing ? 'rgba(250, 204, 21, 0.35)' : 'rgba(250, 204, 21, 0.18)')

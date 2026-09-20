@@ -1,4 +1,4 @@
-import type { Landmark3D, SignFrame } from '../lib/clipTypes';
+import type { SignFrame } from '../lib/clipTypes';
 import { distance3D } from './cvUtils';
 
 export type QualityVerdict = 'GREEN' | 'AMBER' | 'RED';

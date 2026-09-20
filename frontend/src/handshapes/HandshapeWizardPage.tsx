@@ -14,15 +14,9 @@ import {
   ArrowLeft,
   Camera,
   Download,
-  Eye,
   Grid,
   Play,
-  RotateCcw,
-  CheckCircle2,
-  AlertTriangle,
-  XCircle,
   Video,
-  Layers,
 } from 'lucide-react';
 import type { Landmark3D } from '../lib/clipTypes';
 import {
@@ -85,7 +79,6 @@ export const HandshapeWizardPage: React.FC<HandshapeWizardPageProps> = ({ onBack
   const [webcamActive, setWebcamActive] = useState<boolean>(false);
   const [countdown, setCountdown] = useState<number | null>(null);
   const [isRecording, setIsRecording] = useState<boolean>(false);
-  const [recordingFrames, setRecordingFrames] = useState<Landmark3D[][]>([]);
   const [stabilityResult, setStabilityResult] = useState<HandshapeStabilityResult | null>(null);
   const [activeCanonical, setActiveCanonical] = useState<Landmark3D[] | null>(null);
 
@@ -100,14 +93,15 @@ export const HandshapeWizardPage: React.FC<HandshapeWizardPageProps> = ({ onBack
 
   // Load existing baseline handshapes
   useEffect(() => {
-    fetch('http://localhost:8000/data/handshapes/index.json')
+    const apiBase = import.meta.env.VITE_API_BASE_URL || '';
+    fetch(`${apiBase}/data/handshapes/index.json`)
       .then((res) => res.json())
       .then(async (indexData) => {
         const loaded: Record<string, CanonicalHandshape> = {};
         if (indexData?.handshapes) {
           for (const key of Object.keys(indexData.handshapes)) {
             try {
-              const hsRes = await fetch(`http://localhost:8000/data/handshapes/${key}.json`);
+              const hsRes = await fetch(`${apiBase}/data/handshapes/${key}.json`);
               if (hsRes.ok) {
                 const hs = await hsRes.json();
                 loaded[key] = hs;
@@ -364,7 +358,6 @@ export const HandshapeWizardPage: React.FC<HandshapeWizardPageProps> = ({ onBack
 
   const executeCapture = async () => {
     setIsRecording(true);
-    setRecordingFrames([]);
 
     // Sample 30 frames from baseline reference or mock stream
     const frames: Landmark3D[][] = [];

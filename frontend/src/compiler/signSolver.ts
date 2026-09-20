@@ -11,8 +11,6 @@
 import type { Landmark3D } from '../lib/clipTypes';
 import type {
   DirectionName,
-  HandKeyframeSpec,
-  KeyframeSpec,
   NamedLocation,
   SignSpec,
   SolvedFrameArm,

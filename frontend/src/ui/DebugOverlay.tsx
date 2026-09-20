@@ -95,7 +95,7 @@ export const DebugOverlay: React.FC<DebugOverlayProps> = ({ metrics, onClose }) 
         <MetricRow
           label="source"
           value={getSourceDisplay(metrics.currentSource)}
-          highlight={metrics.currentSource === 'handshape-spec' || (metrics.currentSource && metrics.currentSource !== 'synthetic')}
+          highlight={Boolean(metrics.currentSource === 'handshape-spec' || (metrics.currentSource && metrics.currentSource !== 'synthetic'))}
           warn={metrics.currentSource === 'synthetic'}
         />
         <MetricRow

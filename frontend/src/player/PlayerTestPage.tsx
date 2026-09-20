@@ -16,22 +16,17 @@ import {
   Play,
   Pause,
   StopCircle,
-  Gauge,
   ChevronRight,
-  Sparkles,
-  FlaskConical,
   Bug,
-  Layers,
   ZoomIn,
   ChevronLeft,
-  Activity,
 } from 'lucide-react';
 import { AvatarContainer } from '../avatar/AvatarContainer';
 import { useSignPlayer } from './useSignPlayer';
 import { signLibraryLoader } from './libraryLoader';
 import type { ClipQueueItem } from './SignPlayer';
-import type { Landmark3D, SignClip, SignFrame } from '../lib/clipTypes';
-import { normalizeFrame, smoothSignFrames } from '../recorder/cvUtils';
+import type { Landmark3D, SignClip } from '../lib/clipTypes';
+import { smoothSignFrames } from '../recorder/cvUtils';
 import { lerpFrames } from './lerpFrames';
 
 // ─── Demo Sequence Definition ─────────────────────────────────────────────────
@@ -78,10 +73,8 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
 
   // Clip loading
   const [clipMap, setClipMap] = useState<Record<string, SignClip>>({});
-  const [loadError, setLoadError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTokenIdx, setActiveTokenIdx] = useState<number>(-1);
-  const [log, setLog] = useState<string[]>([]);
   const [isSynthetic, setIsSynthetic] = useState(true);
 
   // Debug Inspector State
@@ -95,21 +88,13 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
 
   const zoomCanvasRef = useRef<HTMLCanvasElement>(null);
 
-  const addLog = useCallback((msg: string) => {
-    setLog((prev) => [`[${new Date().toLocaleTimeString()}] ${msg}`, ...prev].slice(0, 20));
-  }, []);
-
-  const { frame, status, fps, speed, enqueue, play, pause, clear, setSpeed } = useSignPlayer({
-    onTokenStart: (gloss, idx) => {
+  const { frame, status, speed, enqueue, play, pause, clear, setSpeed } = useSignPlayer({
+    onTokenStart: (_gloss, idx) => {
       setActiveTokenIdx(idx);
-      addLog(`[START] Token: ${gloss} (idx ${idx})`);
     },
-    onTokenEnd: (gloss, idx) => {
-      addLog(`[END] Token: ${gloss} (idx ${idx})`);
-    },
+    onTokenEnd: () => {},
     onIdle: () => {
       setActiveTokenIdx(-1);
-      addLog('[IDLE] Player rest pose');
     },
   });
 
@@ -126,19 +111,13 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
       })
     ).then((results) => {
       const map: Record<string, SignClip> = {};
-      let missingCount = 0;
       for (const { id, clip } of results) {
         if (clip) {
           map[id] = clip;
           if (!clip.synthetic) setIsSynthetic(false);
-        } else {
-          missingCount++;
         }
       }
       setClipMap(map);
-      if (missingCount > 0) {
-        setLoadError(`${missingCount} clip(s) could not be loaded. Is the backend running?`);
-      }
       setLoading(false);
     });
   }, []);
@@ -152,11 +131,9 @@ export const PlayerTestPage: React.FC<PlayerTestPageProps> = ({ onBack }) => {
       clear();
       if (queueItems.length > 0) {
         enqueue(queueItems);
-      } else {
-        addLog('[WARN] No clips loaded — cannot play');
       }
     }
-  }, [status, play, clear, enqueue, queueItems, addLog]);
+  }, [status, play, clear, enqueue, queueItems]);
 
   const isPlaying = status === 'playing' || status === 'blending';
   const isIdle = status === 'idle';

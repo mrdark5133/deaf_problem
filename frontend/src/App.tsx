@@ -59,6 +59,9 @@ export const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<'main' | 'recorder' | 'player' | 'handshapes' | 'specs'>('main');
   const [health, setHealth] = useState<HealthResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isWakingUp, setIsWakingUp] = useState<boolean>(false);
+  const [_wakeUpElapsed, setWakeUpElapsed] = useState<number>(0);
+  const [wakeUpDismissed, setWakeUpDismissed] = useState<boolean>(false);
   const [_error, setError] = useState<string | null>(null);
 
   // Demo playback state
@@ -150,6 +153,7 @@ export const App: React.FC = () => {
     try {
       const data = await checkHealth();
       setHealth(data);
+      setIsWakingUp(false);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Backend connection failed');
       setHealth(null);
@@ -172,24 +176,43 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     let mounted = true;
-    checkHealth()
-      .then((d) => {
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    let elapsedSeconds = 0;
+    const WAKEUP_TIMEOUT_SECONDS = 90;
+    const POLL_INTERVAL_MS = 4000;
+
+    const poll = async () => {
+      try {
+        const d = await checkHealth();
         if (mounted) {
           setHealth(d);
           setError(null);
+          setIsWakingUp(false);
+          setLoading(false);
         }
-      })
-      .catch((e: unknown) => {
-        if (mounted) {
-          setError(e instanceof Error ? e.message : 'Backend error');
+      } catch (err: unknown) {
+        if (!mounted) return;
+        elapsedSeconds += POLL_INTERVAL_MS / 1000;
+        setWakeUpElapsed(Math.min(elapsedSeconds, WAKEUP_TIMEOUT_SECONDS));
+
+        if (elapsedSeconds < WAKEUP_TIMEOUT_SECONDS) {
+          setIsWakingUp(true);
+          setLoading(false);
+          timer = setTimeout(poll, POLL_INTERVAL_MS);
+        } else {
+          setIsWakingUp(false);
+          setLoading(false);
           setHealth(null);
+          setError(err instanceof Error ? err.message : 'Backend connection timed out after 90s');
         }
-      })
-      .finally(() => {
-        if (mounted) setLoading(false);
-      });
+      }
+    };
+
+    void poll();
+
     return () => {
       mounted = false;
+      if (timer) clearTimeout(timer);
     };
   }, []);
 
@@ -485,6 +508,8 @@ export const App: React.FC = () => {
           className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-[11px] font-bold uppercase tracking-wider border ${
             loading
               ? 'bg-neutral-100 text-neutral-600 border-neutral-300'
+              : isWakingUp
+              ? 'bg-amber-950/80 text-amber-300 border-amber-800/60'
               : backendOk
               ? 'bg-emerald-950/80 text-emerald-300 border-emerald-800/60'
               : 'bg-rose-950/80 text-rose-300 border-rose-800/60'
@@ -494,6 +519,11 @@ export const App: React.FC = () => {
             <>
               <Activity className="w-3 h-3 animate-pulse text-neutral-500" />
               <span className="hidden sm:inline">Checking…</span>
+            </>
+          ) : isWakingUp ? (
+            <>
+              <RefreshCw className="w-3 h-3 animate-spin text-amber-400" />
+              <span className="hidden sm:inline">Waking Up…</span>
             </>
           ) : backendOk ? (
             <>
@@ -549,6 +579,27 @@ export const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-white text-neutral-900 font-mono flex flex-col selection:bg-neutral-200">
       {header}
+
+      {/* Render Server Wake-Up Notification Banner */}
+      {isWakingUp && !wakeUpDismissed && (
+        <div
+          data-testid="wakeup-banner"
+          className="bg-amber-50 border-b border-amber-200 text-amber-900 px-4 py-2.5 text-xs flex items-center justify-between gap-3 font-mono"
+        >
+          <div className="flex items-center gap-2">
+            <RefreshCw className="w-4 h-4 text-amber-600 animate-spin shrink-0" />
+            <span>
+              <strong>Server is waking up (up to ~1 minute)…</strong> Free-tier instances spin down on idle. Typed input and demo mode keep working while waiting.
+            </span>
+          </div>
+          <button
+            onClick={() => setWakeUpDismissed(true)}
+            className="text-amber-700 hover:text-amber-900 text-xs underline cursor-pointer shrink-0 font-medium"
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
 
       {/* Scripted Offline Demo Scenarios Bar */}
       <DemoBar

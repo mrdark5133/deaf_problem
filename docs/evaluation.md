@@ -88,3 +88,21 @@ Measured on local CPU for the FastAPI rule-based ASL gloss generation step (`glo
 - **Spoken Final $\rightarrow$ First Frame Rendered:** $\approx 600 - 900\text{ ms}$ (Target: $< 1000\text{ ms}$)
 - **Playback Backpressure Ceiling:** Dynamically clamped to $1.5\times$ speed when queue latency exceeds $4.0\text{s}$.
 - **Cloud Connectivity Boundary:** Typed input and demo scenarios run 100% offline locally. Live microphone capture relies on the browser's Web Speech API (cloud-backed in Chrome).
+
+---
+
+## 6. Deployment & Smoke Benchmark (Single Docker Container)
+
+Measured across environments with automated smoke test (`scripts/smoke_test.py`):
+
+| Endpoint / Operation | Local Baseline (Uvicorn) | Local Docker | Render Free Web Service | Target Budget |
+|---|---|---|---|---|
+| **Health Check (`/health`)** | `116.6 ms` (warmup) | *Docker not installed* | *Pending live deploy* | $< 500\text{ ms}$ |
+| **ASL Translation (`/api/translate`)** | `33.5 ms` | *Docker not installed* | *Pending live deploy* | $< 200\text{ ms}$ |
+| **Root SPA (`/`)** | `36.8 ms` | *Docker not installed* | *Pending live deploy* | $< 300\text{ ms}$ |
+| **SPA Route Fallback (`/recorder`)** | `2.0 ms` | *Docker not installed* | *Pending live deploy* | $< 200\text{ ms}$ |
+| **Unmatched API Route (`/api/nonexistent`)** | `18.2 ms` (JSON 404) | *Docker not installed* | *Pending live deploy* | $< 100\text{ ms}$ |
+| **JS Asset Bundle (`/assets/*.js`)** | `18.1 ms` | *Docker not installed* | *Pending live deploy* | $< 200\text{ ms}$ |
+| **Sign Library Index (`/data/signs/index.json`)** | `12.9 ms` | *Docker not installed* | *Pending live deploy* | $< 100\text{ ms}$ |
+| **Sign Clip Data (`/data/signs/again.json`)** | `16.2 ms` | *Docker not installed* | *Pending live deploy* | $< 100\text{ ms}$ |
+

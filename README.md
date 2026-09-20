@@ -1,12 +1,17 @@
 # SignBridge 🌉
 ### Real-Time Speech-to-American-Sign-Language (ASL) Translation Engine
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Render-46E3B7.svg?logo=render&logoColor=white)](https://signbridge.onrender.com)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![React 19](https://img.shields.io/badge/Frontend-React%2019-61DAFB.svg?logo=react&logoColor=black)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/Language-TypeScript%20Strict-3178C6.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![spaCy](https://img.shields.io/badge/NLP-spaCy-09A3D5.svg?logo=spacy&logoColor=white)](https://spacy.io/)
 [![MediaPipe](https://img.shields.io/badge/CV-MediaPipe-00A98F.svg?logo=google&logoColor=white)](https://developers.google.com/mediapipe)
 [![WCAG 2.2 AA](https://img.shields.io/badge/Accessibility-WCAG%202.2%20AA-success.svg)](https://www.w3.org/WAI/standards-guidelines/wcag/)
+
+> **Live Deployment:** `https://signbridge.onrender.com` (replace with your deployed URL).  
+> *Note on Free-Tier Cold Starts:* Render free tier instances spin down after 15 minutes of inactivity and take ~50–60 seconds to wake up. The web app displays a friendly waking up banner while retaining local typed and demo functionality.  
+> *Browser Speech Requirement:* Real-time speech input utilizes the browser's native **Web Speech API** (**Google Chrome** or **Microsoft Edge** required; speech recognition is processed via browser services and the server receives plain text for deterministic ASL gloss grammar conversion).
 
 > **SignBridge** is a real-time assistive web application that translates spoken English into natural American Sign Language (ASL) gloss grammar and animates a 60 FPS skeleton avatar with synchronized live captions, high-contrast themes, and full keyboard navigation. Built specifically for high-stakes communication in **doctor visits, emergency help desks, and classrooms**.
 

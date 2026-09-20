@@ -152,9 +152,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
-                onClick={() => onSetAvatarSize('default')}
+                onClick={() => onSetAvatarSize('normal')}
                 className={`p-2 rounded border text-center font-semibold transition-colors cursor-pointer ${
-                  settings.avatarSize === 'default'
+                  settings.avatarSize === 'normal'
                     ? 'bg-black border-black text-white'
                     : 'bg-neutral-50 border-neutral-200 text-neutral-700 hover:border-neutral-400'
                 }`}

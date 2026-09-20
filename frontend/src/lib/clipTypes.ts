@@ -28,6 +28,9 @@ export interface SignClip {
   source?: string;
   license?: string;
   original_id?: string;
+  verified?: boolean;
+  verified_by?: string | null;
+  verified_at?: string | null;
   frames: SignFrame[];
   meta: SignClipMeta;
 }

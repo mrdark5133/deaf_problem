@@ -17,7 +17,6 @@ import {
 import { compileSignSpecToClip } from './signCompiler';
 import { SAMPLE_SPECS } from './sampleSpecs';
 import type { Landmark3D } from '../lib/clipTypes';
-import type { SignSpec } from './specTypes';
 
 describe('Analytical Two-Bone Arm IK Solver (Phase S2)', () => {
   const shoulderR: [number, number, number] = [ARM_BONE_LENGTHS.shoulderHalfWidth, 0.0, 0.0];

@@ -8,10 +8,6 @@ import {
   CheckCircle2,
   AlertTriangle,
   XCircle,
-  Activity,
-  Layers,
-  Hand,
-  Volume2,
   ShieldCheck,
   RotateCcw,
 } from 'lucide-react';
@@ -51,7 +47,8 @@ export const SelfCheckModal: React.FC<SelfCheckModalProps> = ({ onClose }) => {
   const runCheck = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/api/selfcheck');
+      const apiBase = import.meta.env.VITE_API_BASE_URL || '';
+      const res = await fetch(`${apiBase}/api/selfcheck`);
       if (res.ok) {
         const json = await res.json();
         setData((prev) => ({

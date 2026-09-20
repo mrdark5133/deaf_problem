@@ -23,11 +23,10 @@ import {
   Code,
   Activity,
   Sliders,
-  Sparkles,
 } from 'lucide-react';
 import type { Landmark3D, SignClip, SignFrame } from '../lib/clipTypes';
 import { AvatarContainer } from '../avatar/AvatarContainer';
-import { evaluateSignSpecAtTime, ARM_BONE_LENGTHS, vecNorm, vecSub } from './signSolver';
+import { evaluateSignSpecAtTime, vecNorm, vecSub } from './signSolver';
 import { compileSignSpecToClip } from './signCompiler';
 import { SAMPLE_SPECS } from './sampleSpecs';
 import type { SignSpec } from './specTypes';
@@ -45,7 +44,6 @@ export const SpecPreviewPage: React.FC<SpecPreviewPageProps> = ({ onBack }) => {
 
   // Loaded canonical handshapes dictionary
   const [handshapeMap, setHandshapeMap] = useState<Record<string, Landmark3D[]>>({});
-  const [handshapesLoaded, setHandshapesLoaded] = useState<boolean>(false);
 
   // Playback state
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -59,7 +57,8 @@ export const SpecPreviewPage: React.FC<SpecPreviewPageProps> = ({ onBack }) => {
 
   // Load handshapes from backend API
   useEffect(() => {
-    fetch('http://localhost:8000/data/handshapes/index.json')
+    const apiBase = import.meta.env.VITE_API_BASE_URL || '';
+    fetch(`${apiBase}/data/handshapes/index.json`)
       .then((res) => res.json())
       .then(async (indexData) => {
         const map: Record<string, Landmark3D[]> = {};
@@ -67,7 +66,7 @@ export const SpecPreviewPage: React.FC<SpecPreviewPageProps> = ({ onBack }) => {
           const keys = Object.keys(indexData.handshapes);
           for (const k of keys) {
             try {
-              const res = await fetch(`http://localhost:8000/data/handshapes/${k}.json`);
+              const res = await fetch(`${apiBase}/data/handshapes/${k}.json`);
               if (res.ok) {
                 const data = await res.json();
                 if (data?.canonicalLandmarks) {
@@ -80,11 +79,9 @@ export const SpecPreviewPage: React.FC<SpecPreviewPageProps> = ({ onBack }) => {
           }
         }
         setHandshapeMap(map);
-        setHandshapesLoaded(true);
       })
       .catch((err) => {
         console.warn('Failed to load handshape index:', err);
-        setHandshapesLoaded(true);
       });
   }, []);
 

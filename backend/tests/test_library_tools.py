@@ -1,7 +1,8 @@
 """Tests for Sign Library generation and validation tools."""
 
 from pathlib import Path
-from scripts.validate_library import validate_library, validate_clip_file
+
+from scripts.validate_library import validate_clip_file, validate_library
 
 
 def test_validate_all_clips_in_library():

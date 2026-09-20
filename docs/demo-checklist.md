@@ -6,12 +6,14 @@
 
 Before presenting SignBridge to judges or an audience, verify these 5 items:
 
-1. **Browser & Environment:**
-   - [ ] Open in **Google Chrome** or **Microsoft Edge** (for native Web Speech API support).
-   - [ ] Confirm backend is running at `http://localhost:8000` (green **Connected** badge in header).
-   - [ ] Open frontend at `http://localhost:5173`.
+1. **Service Wake-Up & Environment:**
+   - [ ] **Wake the Live Service 5 Minutes Early:** Open your live URL (`https://<your-subdomain>.onrender.com`) in **Google Chrome** or **Microsoft Edge** to warm up the Render free instance.
+   - [ ] Confirm the header badge displays green **Connected**.
+   - [ ] If presenting locally, run `python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 10000`.
+   - [ ] Run `python scripts/smoke_test.py <base_url>` to ensure 8/8 smoke tests pass.
+   - [ ] **Freeze Deployments:** Do not push commits or trigger redeployments during the last 60 minutes before the demo.
 2. **Microphone Setup:**
-   - [ ] Ensure browser microphone permission is set to **Allow**.
+   - [ ] Ensure browser microphone permission is set to **Allow** on HTTPS.
    - [ ] Speak a test sentence: *"Hello doctor"* $\rightarrow$ Verify caption appears and avatar signs.
 3. **Display & Scaling:**
    - [ ] Zoom browser to 100% (or adjust `Settings` $\rightarrow$ `Caption Font Size: Large` for projector visibility).

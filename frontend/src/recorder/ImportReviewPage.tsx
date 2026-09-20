@@ -19,7 +19,6 @@ import {
   Pause,
   RotateCcw,
   Search,
-  ShieldCheck,
 } from 'lucide-react';
 import type { SignClip, SignLibraryIndex } from '../lib/clipTypes';
 import { AvatarContainer } from '../avatar/AvatarContainer';
